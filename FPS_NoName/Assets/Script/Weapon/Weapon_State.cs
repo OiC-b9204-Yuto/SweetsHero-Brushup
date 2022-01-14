@@ -102,6 +102,8 @@ public class Weapon_State : MonoBehaviour
             isNoAmmo = false;
         }
 
+        if(weapon_CurrentAmmo == Weapon_DefaultAmmo) { return; }
+
         if (ReloadTime <= 0)
         {
             if (weapon_CurrentMagazine >= Weapon_DefaultAmmo)
@@ -113,12 +115,11 @@ public class Weapon_State : MonoBehaviour
             else if (weapon_CurrentMagazine > 0)
             {
                 weapon_CurrentAmmo += weapon_CurrentMagazine;
-                weapon_CurrentMagazine = weapon_CurrentMagazine - weapon_CurrentAmmo;
-                if (weapon_CurrentMagazine <= 0)
+                if(weapon_CurrentAmmo > Weapon_DefaultAmmo)
                 {
-                    weapon_CurrentMagazine = 0;
-                }
-                
+                    weapon_CurrentMagazine = weapon_CurrentAmmo - Weapon_DefaultAmmo;
+                    weapon_CurrentAmmo = Weapon_DefaultAmmo;
+                }                
             }
 
             ReloadTime = Weapon_DefaultReloadTime;
