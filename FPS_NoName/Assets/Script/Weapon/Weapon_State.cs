@@ -4,31 +4,41 @@ using UnityEngine;
 
 public class Weapon_State : MonoBehaviour
 {
+    EnemyInfo Enemy;
+
     [SerializeField] private int weapon_id;
     [SerializeField] private int weapon_CurrentAmmo;
-    private int Weapon_DefaultAmmo;
+    [SerializeField] private int Weapon_UsePerShot_Ammo;
     [SerializeField] private int weapon_CurrentMagazine;
+    [SerializeField] private int weapon_Damage;
 
+    [SerializeField] private float ShotRange;
     [SerializeField] private float FireRate;
     [SerializeField] private float ReloadTime;
-    private float Weapon_DefaultReloadTime;
     [SerializeField] private float NextFireTime;
+
+
+    private int Weapon_DefaultAmmo;
+    private float Weapon_DefaultReloadTime;
 
     private bool isReload;
     private bool isNoAmmo;
 
-    public int Weapon_ID { get { return weapon_id; } }
+    [SerializeField]private Transform ShootPoint;
 
+    [SerializeField] private GameObject BulletObject;
+
+    public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set { value = weapon_CurrentMagazine; } }
+    public int Weapon_Damage { get { return weapon_Damage; } }
     public bool IsReload { get { return isReload; } }
     public bool IsNoAmmo { get { return isNoAmmo; } }
 
     private void Awake()
     {
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
-        Weapon_DefaultReloadTime = ReloadTime;
-        
+        Weapon_DefaultReloadTime = ReloadTime; 
     }
     void Update()
     {
@@ -63,9 +73,16 @@ public class Weapon_State : MonoBehaviour
     {
         if(weapon_CurrentAmmo > 0)
         {
+            weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
+            RaycastHit Hit;   
             NextFireTime = FireRate;
-            weapon_CurrentAmmo--;
-            Debug.Log("‚¤‚¿‚Ü‚µ‚½");
+            if (Physics.Raycast(ShootPoint.position,ShootPoint.transform.forward,out Hit,ShotRange))
+            {
+                if (Hit.collider.gameObject.tag == "Enemy")
+                {
+                    Debug.Log(Hit.transform.name + "‚É“–‚½‚è‚Ü‚µ‚½");
+                }
+            }
         }
         else
         {
@@ -95,8 +112,13 @@ public class Weapon_State : MonoBehaviour
             }
             else if (weapon_CurrentMagazine > 0)
             {
-                weapon_CurrentAmmo = weapon_CurrentMagazine;
-                weapon_CurrentMagazine = 0;
+                weapon_CurrentAmmo += weapon_CurrentMagazine;
+                weapon_CurrentMagazine = weapon_CurrentMagazine - weapon_CurrentAmmo;
+                if (weapon_CurrentMagazine <= 0)
+                {
+                    weapon_CurrentMagazine = 0;
+                }
+                
             }
 
             ReloadTime = Weapon_DefaultReloadTime;
