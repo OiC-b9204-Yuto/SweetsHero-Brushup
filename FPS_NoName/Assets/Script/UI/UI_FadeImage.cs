@@ -48,7 +48,6 @@ public class UI_FadeImage : MonoBehaviour
             FadeImage.fillAmount += FadeTime;
             if(FadeImage.fillAmount >= 0.98)
             {
-                FadeImage.enabled = false;
             }
         }
     }
