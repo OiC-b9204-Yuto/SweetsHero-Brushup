@@ -127,7 +127,11 @@ public class Weapon_State : MonoBehaviour
                 {
                     weapon_CurrentMagazine = weapon_CurrentAmmo - Weapon_DefaultAmmo;
                     weapon_CurrentAmmo = Weapon_DefaultAmmo;
-                }                
+                }
+                else
+                {
+                    weapon_CurrentMagazine = 0;
+                }
             }
 
             ReloadTime = Weapon_DefaultReloadTime;
