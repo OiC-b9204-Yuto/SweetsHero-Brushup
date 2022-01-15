@@ -28,6 +28,8 @@ public class Weapon_State : MonoBehaviour
 
     [SerializeField] private GameObject BulletObject;
 
+    [SerializeField] private float BulletSpead;
+
     public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set { value = weapon_CurrentMagazine; } }
@@ -76,6 +78,11 @@ public class Weapon_State : MonoBehaviour
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
             RaycastHit Hit;   
             NextFireTime = FireRate;
+            //íeä€ê∂ê¨èàóù
+            GameObject obj =  (GameObject)Instantiate(BulletObject, ShootPoint.transform.position, transform.parent.parent.rotation);
+            Rigidbody rig = obj.GetComponent<Rigidbody>();
+            rig.AddForce(transform.forward * BulletSpead);
+
             if (Physics.Raycast(ShootPoint.position,ShootPoint.transform.forward,out Hit,ShotRange))
             {
                 if (Hit.collider.gameObject.tag == "Enemy")
