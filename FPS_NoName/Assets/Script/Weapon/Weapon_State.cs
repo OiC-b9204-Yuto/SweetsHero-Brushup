@@ -32,7 +32,7 @@ public class Weapon_State : MonoBehaviour
 
     public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
-    public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set { value = weapon_CurrentMagazine; } }
+    public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
     public int Weapon_Damage { get { return weapon_Damage; } }
     public bool IsReload { get { return isReload; } }
     public bool IsNoAmmo { get { return isNoAmmo; } }
@@ -80,6 +80,7 @@ public class Weapon_State : MonoBehaviour
             NextFireTime = FireRate;
             //íeä€ê∂ê¨èàóù
             GameObject obj =  (GameObject)Instantiate(BulletObject, ShootPoint.transform.position, transform.parent.parent.rotation);
+            obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
             rig.AddForce(transform.forward * BulletSpead);
 
