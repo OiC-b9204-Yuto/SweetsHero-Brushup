@@ -31,6 +31,8 @@ public class Weapon_State : MonoBehaviour
 
     [SerializeField] private float BulletSpead;
 
+    [SerializeField] private GameObject GrenadeObject;
+
     public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
@@ -70,6 +72,12 @@ public class Weapon_State : MonoBehaviour
         {
             Shot();
         }
+
+        //グレネードテスト用
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            Instantiate(GrenadeObject, ShootPoint.transform.position, Quaternion.identity);
+        }
     }
 
     void Shot()
@@ -80,7 +88,7 @@ public class Weapon_State : MonoBehaviour
             RaycastHit Hit;   
             NextFireTime = FireRate;
             //弾丸生成処理
-            GameObject obj =  (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity /*transform.parent.parent.rotation*/);
+            GameObject obj = (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity);
             obj.transform.LookAt(FocusPoint);
             obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
