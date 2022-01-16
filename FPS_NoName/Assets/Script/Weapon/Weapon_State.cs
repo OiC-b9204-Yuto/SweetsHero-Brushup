@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Weapon_State : MonoBehaviour
 {
-    EnemyInfo Enemy;
-
+    Character_Info _CharacterInfo;
     [SerializeField] private int weapon_id;
     [SerializeField] private int weapon_CurrentAmmo;
     [SerializeField] private int Weapon_UsePerShot_Ammo;
@@ -42,6 +41,7 @@ public class Weapon_State : MonoBehaviour
 
     private void Awake()
     {
+        _CharacterInfo = GameObject.Find("Player").GetComponent<Character_Info>();
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
         Weapon_DefaultReloadTime = ReloadTime; 
     }
@@ -74,8 +74,9 @@ public class Weapon_State : MonoBehaviour
         }
 
         //グレネードテスト用
-        if(Input.GetKeyDown(KeyCode.G))
+        if(Input.GetKeyDown(KeyCode.G) && (_CharacterInfo.Character_CurrentGrenades > 0))
         {
+            _CharacterInfo.Character_CurrentGrenades --;
             Instantiate(GrenadeObject, ShootPoint.transform.position, Quaternion.identity);
         }
     }
