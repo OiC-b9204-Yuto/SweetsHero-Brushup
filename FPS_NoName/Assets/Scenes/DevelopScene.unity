@@ -782,7 +782,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16686
+  m_Name: pb_Mesh16764
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -946,7 +946,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16666
+  m_Name: pb_Mesh16744
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5299,7 +5299,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16732
+  m_Name: pb_Mesh16864
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5656,7 +5656,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16668
+  m_Name: pb_Mesh16696
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5992,6 +5992,7 @@ MonoBehaviour:
   ReloadTime: 3
   NextFireTime: 0
   ShootPoint: {fileID: 795754646}
+  FocusPoint: {fileID: 1820384117}
   BulletObject: {fileID: 4879904251873580000, guid: 924575b4446c75c41b8b59ae6ab60f73, type: 3}
   BulletSpead: 200
 --- !u!114 &1265458975
@@ -6359,7 +6360,7 @@ GameObject:
   - component: {fileID: 1820384120}
   - component: {fileID: 1820384119}
   m_Layer: 0
-  m_Name: ShootPoint?
+  m_Name: FocusPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6372,12 +6373,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820384116}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.075, y: 0.454, z: 1.65}
+  m_LocalRotation: {x: 5.8699926e-17, y: 0.04053556, z: 6.3664095e-17, w: -0.9991781}
+  m_LocalPosition: {x: -0.6, y: -0.05, z: 5}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
-  m_Father: {fileID: 543450653228348465}
-  m_RootOrder: 3
+  m_Father: {fileID: 8232518144760276343}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1820384118
 SphereCollider:
@@ -7551,7 +7552,6 @@ Transform:
   - {fileID: 2781897187514056368}
   - {fileID: 8232518144760276343}
   - {fileID: 5321370991435239146}
-  - {fileID: 1820384117}
   m_Father: {fileID: 963194228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9425,6 +9425,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 795754646}
+  - {fileID: 1820384117}
   m_Father: {fileID: 543450653228348465}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 364.646, z: 0}

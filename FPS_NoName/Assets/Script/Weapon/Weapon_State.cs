@@ -24,7 +24,8 @@ public class Weapon_State : MonoBehaviour
     private bool isReload;
     private bool isNoAmmo;
 
-    [SerializeField]private Transform ShootPoint;
+    [SerializeField] private Transform ShootPoint;
+    [SerializeField] private Transform FocusPoint;
 
     [SerializeField] private GameObject BulletObject;
 
@@ -79,7 +80,8 @@ public class Weapon_State : MonoBehaviour
             RaycastHit Hit;   
             NextFireTime = FireRate;
             //íeä€ê∂ê¨èàóù
-            GameObject obj =  (GameObject)Instantiate(BulletObject, ShootPoint.transform.position, transform.parent.parent.rotation);
+            GameObject obj =  (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity /*transform.parent.parent.rotation*/);
+            obj.transform.LookAt(FocusPoint);
             obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
             rig.AddForce(transform.forward * BulletSpead);
