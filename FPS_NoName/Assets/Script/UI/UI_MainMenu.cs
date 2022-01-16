@@ -5,23 +5,32 @@ using UnityEngine.UI;
 
 public class UI_MainMenu : MonoBehaviour
 {
+    UI_FadeImage FadeSystemToOption;
+    UI_FadeImage FadeSystemOptionScreen;
+
     [SerializeField] private int CurrentSelect;
 
     [SerializeField] private bool PushEsc;
     [SerializeField] private bool FadeAnimtionEnd;
+    [SerializeField] private bool CantSelectMenu;
 
     [SerializeField] private Image FadeImage;
     [SerializeField] private Image GameStartSelect_Button;
     [SerializeField] private Image OptionSelect_Button;
     [SerializeField] private Image GameStart_Button;
     [SerializeField] private Image Option_Button;
+    [SerializeField] private Image TimingFadeOutToOption;
+    [SerializeField] private Image TimingFadeInOption;
 
     [SerializeField] private GameObject MainMenuHUD;
     [SerializeField] private GameObject ExitHUD;
     [SerializeField] private GameObject OptionHUD;
+
     private void Awake()
     {
         CursorSystem();
+        FadeSystemToOption = TimingFadeOutToOption.GetComponent<UI_FadeImage>();
+        FadeSystemOptionScreen = TimingFadeInOption.GetComponent<UI_FadeImage>();
         GameStartSelect_Button.enabled = true;
         OptionSelect_Button.enabled = false;
         GameStart_Button.enabled = false;
@@ -38,9 +47,27 @@ public class UI_MainMenu : MonoBehaviour
 
     void CheckStateAnimation()
     {
+        if (FadeSystemToOption.FinishFadeOUT)
+        {
+            CantSelectMenu = false;
+            OptionHUD.SetActive(true);
+            MainMenuHUD.SetActive(false);
+            FadeSystemToOption.FinishFadeOUT = false;
+        }
+
         if (FadeImage.fillAmount <= 0.0f)
         {
             FadeAnimtionEnd = true;
+        }
+
+        if (OptionHUD.activeSelf == true && !FadeSystemOptionScreen.FinishFadeIN)
+        {
+            FadeSystemOptionScreen.StartFadeImage = true;
+        }
+        else if (FadeSystemOptionScreen.FinishFadeIN || MainMenuHUD.activeSelf == true)
+        {
+            FadeSystemOptionScreen.StartFadeImage = false;
+            FadeSystemOptionScreen.FinishFadeIN = false;
         }
     }
     void CursorSystem()
@@ -56,10 +83,8 @@ public class UI_MainMenu : MonoBehaviour
             PushEsc = !PushEsc;
         }
 
-        if (FadeAnimtionEnd && MainMenuHUD.activeSelf == true)
+        if (FadeAnimtionEnd && MainMenuHUD.activeSelf == true && (!CantSelectMenu))
         {
-            
-
             switch (CurrentSelect)
             {
                 case 0:
@@ -83,8 +108,8 @@ public class UI_MainMenu : MonoBehaviour
                     Option_Button.enabled = false;
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        OptionHUD.SetActive(true);
-                        MainMenuHUD.SetActive(false);
+                        CantSelectMenu = true;
+                        FadeSystemToOption.StartFadeImage = true;
                     }
                     if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
@@ -97,11 +122,6 @@ public class UI_MainMenu : MonoBehaviour
                     break;
 
             }
-        }
-
-        if (OptionHUD.activeSelf == true)
-        {
-
         }
     }
 
