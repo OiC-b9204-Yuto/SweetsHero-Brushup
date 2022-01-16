@@ -3,40 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_MainGame : MonoBehaviour
-{
-    [SerializeField] private Text Weapon_Name;
-    [SerializeField] private Text Weapon_AmmoText;
-    [SerializeField] private Text Weapon_StateMessage;
-
-    Weapon_State Weapon_Stats;
-    void Start()
+namespace MainGameManage {
+    public class UI_MainGame : MonoBehaviour
     {
-        Weapon_Stats = GameObject.Find("Weapon").GetComponent<Weapon_State>();
-    }
+        [SerializeField] private Image Health_Bar;
+        [SerializeField] private Image Armor_Bar;
+        [SerializeField] private Text Weapon_CurrentAmmoText;
+        [SerializeField] private Text Weapon_CurrentMagazineText;
+        Character_Info CharacterInfo;
+        MainGameManager MainGame_Manager;
+        Weapon_State Weapon_Stats;
+        void Start()
+        {
+            //MainGame_Manager = GameObject.Find("ManagerObject").GetComponent<MainGameManager>();
+            CharacterInfo = GameObject.Find("TestCharacter").GetComponent<Character_Info>();
+            Weapon_Stats = GameObject.Find("Weapon").GetComponent<Weapon_State>();
+        }
 
-    void Update()
-    {
-        RefreshUIText();
-    }
+        void Update()
+        {
+            RefreshUIText();
+            InputDir();
+        }
 
-    void RefreshUIText()
-    {
-        if (Weapon_Stats.IsReload)
+        void RefreshUIText()
         {
-            Weapon_StateMessage.text = "ÉäÉçÅ[ÉhíÜÇ≈Ç∑";
-            Weapon_StateMessage.color = Color.green;
+            Health_Bar.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
+            Armor_Bar.fillAmount = CharacterInfo.Character_CurrentArmor / CharacterInfo.Character_MaxArmor;
+            Weapon_CurrentAmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString("00");
+            Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
         }
-        else if (Weapon_Stats.IsNoAmmo)
+
+        void InputDir()
         {
-            Weapon_StateMessage.text = "íeêÿÇÍ";
-            Weapon_StateMessage.color = Color.red;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                //MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
+            }
         }
-        else
-        {
-            Weapon_StateMessage.text = "";
-        }
-        Weapon_AmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString() +" / " + Weapon_Stats.Weapon_CurrentMagazine.ToString();
-        
     }
 }

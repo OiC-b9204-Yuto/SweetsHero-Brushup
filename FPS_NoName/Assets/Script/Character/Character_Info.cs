@@ -17,5 +17,5 @@ public class Character_Info : MonoBehaviour
     public float Character_MaxHP { get { return character_MaxHP; } }
 
     public float Character_CurrentArmor { get { return character_CurrentArmor; } set { value = character_CurrentArmor; } }
-    public float Character_MaxArmor { get { return Character_MaxArmor; } }
+    public float Character_MaxArmor { get { return character_MaxArmor; } }
 }
