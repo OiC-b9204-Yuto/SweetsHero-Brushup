@@ -7,6 +7,8 @@ public class UI_MainMenu : MonoBehaviour
 {
     UI_FadeImage FadeSystemToOption;
     UI_FadeImage FadeSystemOptionScreen;
+    UI_FadeImage FadeSystemFadeInOption;
+    UI_FadeImage FadeSystemFadeOutMainMenu;
 
     [SerializeField] private int CurrentSelect;
 
@@ -19,8 +21,11 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private Image OptionSelect_Button;
     [SerializeField] private Image GameStart_Button;
     [SerializeField] private Image Option_Button;
+
     [SerializeField] private Image TimingFadeOutToOption;
+    [SerializeField] private Image TimingFadeOutOption;
     [SerializeField] private Image TimingFadeInOption;
+    [SerializeField] private Image TimingFadeInMainMenu;
 
     [SerializeField] private GameObject MainMenuHUD;
     [SerializeField] private GameObject ExitHUD;
@@ -30,7 +35,9 @@ public class UI_MainMenu : MonoBehaviour
     {
         CursorSystem();
         FadeSystemToOption = TimingFadeOutToOption.GetComponent<UI_FadeImage>();
-        FadeSystemOptionScreen = TimingFadeInOption.GetComponent<UI_FadeImage>();
+        FadeSystemOptionScreen = TimingFadeOutOption.GetComponent<UI_FadeImage>();
+        FadeSystemFadeInOption = TimingFadeInOption.GetComponent<UI_FadeImage>();
+        FadeSystemFadeOutMainMenu = TimingFadeInMainMenu.GetComponent<UI_FadeImage>();
         GameStartSelect_Button.enabled = true;
         OptionSelect_Button.enabled = false;
         GameStart_Button.enabled = false;
@@ -60,14 +67,32 @@ public class UI_MainMenu : MonoBehaviour
             FadeAnimtionEnd = true;
         }
 
+
         if (OptionHUD.activeSelf == true && !FadeSystemOptionScreen.FinishFadeIN)
         {
             FadeSystemOptionScreen.StartFadeImage = true;
+            FadeSystemFadeOutMainMenu.FinishFadeIN = false;
         }
-        else if (FadeSystemOptionScreen.FinishFadeIN || MainMenuHUD.activeSelf == true)
+        else if (MainMenuHUD.activeSelf == true)
         {
+            if (TimingFadeInMainMenu.enabled == true) 
+            {
+                    CantSelectMenu = true;
+                    
+            }
+            else if (TimingFadeInMainMenu.enabled == false)
+            {
+                CantSelectMenu = false;
+            }
+            if (FadeSystemFadeInOption.FinishFadeOUT)
+            {
+                FadeSystemFadeOutMainMenu.StartFadeImage = true;
+                FadeSystemFadeInOption.FinishFadeOUT = false;
+            }
             FadeSystemOptionScreen.StartFadeImage = false;
             FadeSystemOptionScreen.FinishFadeIN = false;
+            FadeSystemFadeInOption.FinishFadeOUT = false;
+            FadeSystemFadeInOption.StartFadeImage = false;
         }
     }
     void CursorSystem()
@@ -136,9 +161,13 @@ public class UI_MainMenu : MonoBehaviour
             }
             if (OptionHUD.activeSelf == true)
             {
-                MainMenuHUD.SetActive(true);
-                OptionHUD.SetActive(false);
-                PushEsc = false;
+                FadeSystemFadeInOption.StartFadeImage = true;
+                if (TimingFadeInOption.fillAmount >= 1.0f) 
+                {
+                    MainMenuHUD.SetActive(true);
+                    OptionHUD.SetActive(false);
+                    PushEsc = false;
+                }
             }
         }
         else

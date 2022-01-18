@@ -105,6 +105,7 @@ public class UI_FadeImage : MonoBehaviour
             }
             else if (!FinishFadeOUT && !StartFadeImage)
             {
+                FadeImage.enabled = false;
                 FadeImage.fillAmount = 0.0f;
             }
         }

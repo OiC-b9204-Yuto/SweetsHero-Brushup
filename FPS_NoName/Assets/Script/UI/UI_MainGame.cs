@@ -10,6 +10,8 @@ namespace MainGameManage {
         [SerializeField] private GameObject PlayerIcon2;
         [SerializeField] private GameObject PlayerIcon3;
         [SerializeField] private Image Health_Bar;
+        [SerializeField] private Image Health_Bar_Low1;
+        [SerializeField] private Image Health_Bar_Low2;
         [SerializeField] private Image Armor_Bar;
         [SerializeField] private Text Weapon_CurrentAmmoText;
         [SerializeField] private Text Weapon_CurrentMagazineText;
@@ -35,6 +37,9 @@ namespace MainGameManage {
         void Awake()
         {
             //MainGame_Manager = GameObject.Find("ManagerObject").GetComponent<MainGameManager>();
+
+            Health_Bar_Low1.enabled = false;
+            Health_Bar_Low2.enabled = false;
 
             GameOverUI.SetActive(false);
 
@@ -70,8 +75,10 @@ namespace MainGameManage {
         }
 
         void RefreshUIText()
-        {    
+        {
             Health_Bar.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
+            Health_Bar_Low1.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
+            Health_Bar_Low2.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
             Armor_Bar.fillAmount = CharacterInfo.Character_CurrentArmor / CharacterInfo.Character_MaxArmor;
             Weapon_CurrentAmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString("00");
             Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
@@ -81,18 +88,27 @@ namespace MainGameManage {
         {
             if (Health_Bar.fillAmount >= 0.5f)
             {
+                Health_Bar.enabled = true;
+                Health_Bar_Low1.enabled = false;
+                Health_Bar_Low2.enabled = false;
                 PlayerIcon1.SetActive(true);
                 PlayerIcon2.SetActive(false);
                 PlayerIcon3.SetActive(false);
             }
             else if (Health_Bar.fillAmount >= 0.25f)
             {
+                Health_Bar.enabled = false;
+                Health_Bar_Low1.enabled = true;
+                Health_Bar_Low2.enabled = false;
                 PlayerIcon1.SetActive(false);
                 PlayerIcon2.SetActive(true);
                 PlayerIcon3.SetActive(false);
             }
             else if (Health_Bar.fillAmount >= 0.0f)
             {
+                Health_Bar.enabled = false;
+                Health_Bar_Low1.enabled = false;
+                Health_Bar_Low2.enabled = true;
                 PlayerIcon1.SetActive(false);
                 PlayerIcon2.SetActive(false);
                 PlayerIcon3.SetActive(true);
