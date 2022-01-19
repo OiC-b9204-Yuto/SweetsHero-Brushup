@@ -6,9 +6,9 @@ public class Bullet : MonoBehaviour
 {
     private int BulletDamage;
     public int Bullet_Damage { set{ BulletDamage = value; } }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Enemy")//敵判別
+        if (other.gameObject.tag == "Enemy")//敵判別
         {
             //2022/01/15 弾丸から敵へのダメージ判定処理
             //BaseEnemyの部分は該当するスクリプト名(クラス名だったかも)に変更するべし
@@ -17,5 +17,4 @@ public class Bullet : MonoBehaviour
 
         Destroy(this.gameObject);
     }
-
 }
