@@ -37,7 +37,7 @@ public class Weapon_State : MonoBehaviour
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
     public int Weapon_Damage { get { return weapon_Damage; } }
     public bool IsReload { get { return isReload; } }
-    public bool IsNoAmmo { get { return isNoAmmo; } }
+    public bool IsNoAmmo { get { return weapon_CurrentMagazine == 0; } }
 
     private void Awake()
     {
@@ -52,37 +52,26 @@ public class Weapon_State : MonoBehaviour
 
     void CheckState()
     {
-
-        if (isReload)
-        {
-            Reload();
-        }
-
+        ReloadUpdate();
+        //実質的なShotUpdate **内容が増えたら関数化します**
         if (NextFireTime >= 0)
         {
             NextFireTime -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && !isReload)
-        {
-            Reload();
-        }
-
-        if (Input.GetButton("Fire1") && NextFireTime <= 0 && !isReload)
-        {
-            Shot();
-        }
-
         //グレネードテスト用
-        if(Input.GetKeyDown(KeyCode.G) && (_CharacterInfo.Character_CurrentGrenades > 0))
+        if (Input.GetKeyDown(KeyCode.G) && (_CharacterInfo.Character_CurrentGrenades > 0))
         {
             _CharacterInfo.Character_CurrentGrenades --;
             Instantiate(GrenadeObject, ShootPoint.transform.position, Quaternion.identity);
         }
     }
 
-    void Shot()
+    public void Shot()
     {
+        if (isReload) return;
+        if (NextFireTime > 0) return;
+
         if(weapon_CurrentAmmo > 0)
         {
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
@@ -109,19 +98,16 @@ public class Weapon_State : MonoBehaviour
         }
     }
 
-    void Reload()
+    public void Reload()
     {
-        if(weapon_CurrentMagazine == 0)
-        {
-            isNoAmmo = true;
-            return;
-        }
-        else
-        {
-            isNoAmmo = false;
-        }
+        if (weapon_CurrentAmmo == Weapon_DefaultAmmo) return;
+        isReload = true;
+    }
 
-        if(weapon_CurrentAmmo == Weapon_DefaultAmmo) { return; }
+    void ReloadUpdate()
+    {
+        if (!isReload) return;
+        if (IsNoAmmo) return;
 
         if (ReloadTime <= 0)
         {
@@ -151,7 +137,6 @@ public class Weapon_State : MonoBehaviour
         }
         else
         {
-            isReload = true;
             Debug.Log("リロード中");
             ReloadTime -= Time.deltaTime;
         }

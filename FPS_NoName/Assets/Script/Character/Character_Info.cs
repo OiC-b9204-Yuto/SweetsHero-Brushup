@@ -10,12 +10,12 @@ public class Character_Info : MonoBehaviour
     [SerializeField] private float character_MaxHP;
     [SerializeField] private float character_CurrentArmor;
     [SerializeField] private float character_MaxArmor;
-    public int Character_CurrentWeapon { get { return character_CurrentWeapon; } set { value = character_CurrentWeapon; } }
-    public int Character_CurrentGrenades { get { return character_CurrentGrenades; } set { value = character_CurrentGrenades; } }
+    public int Character_CurrentWeapon { get { return character_CurrentWeapon; } set { character_CurrentWeapon = value; } }
+    public int Character_CurrentGrenades { get { return character_CurrentGrenades; } set { character_CurrentGrenades = value; } }
 
-    public float Character_CurrentHP { get { return character_CurrentHP; } set { value = character_CurrentHP; } }
+    public float Character_CurrentHP { get { return character_CurrentHP; } set { character_CurrentHP = value; } }
     public float Character_MaxHP { get { return character_MaxHP; } }
 
-    public float Character_CurrentArmor { get { return character_CurrentArmor; } set { value = character_CurrentArmor; } }
+    public float Character_CurrentArmor { get { return character_CurrentArmor; } set { character_CurrentArmor = value; } }
     public float Character_MaxArmor { get { return character_MaxArmor; } }
 }
