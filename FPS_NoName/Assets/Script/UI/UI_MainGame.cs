@@ -6,37 +6,44 @@ using UnityEngine.UI;
 namespace MainGameManage {
     public class UI_MainGame : MonoBehaviour
     {
-        [SerializeField] private GameObject PlayerIcon1;
-        [SerializeField] private GameObject PlayerIcon2;
-        [SerializeField] private GameObject PlayerIcon3;
-        [SerializeField] private Image Health_Bar;
-        [SerializeField] private Image Health_Bar_Low1;
-        [SerializeField] private Image Health_Bar_Low2;
-        [SerializeField] private Image Armor_Bar;
-        [SerializeField] private Text Health_Text;
-        [SerializeField] private Text Armor_Text;
-        [SerializeField] private Text Weapon_CurrentAmmoText;
-        [SerializeField] private Text Weapon_CurrentMagazineText;
+        [SerializeField] private GameObject PlayerIcon1;                //体力が50%以上の時のプレイヤーアイコン
+        [SerializeField] private GameObject PlayerIcon2;                //体力が25%以上の時のプレイヤーアイコン
+        [SerializeField] private GameObject PlayerIcon3;                //体力が24%以下の時のプレイヤーアイコン
+        [SerializeField] private Image Health_Bar;                      //体力が50%以上の時の体力バー
+        [SerializeField] private Image Health_Bar_Low1;                 //体力が25%以上の時の体力バー
+        [SerializeField] private Image Health_Bar_Low2;                 //体力が24%以下の時の体力バー
+        [SerializeField] private Image Armor_Bar;                       //アーマーバー
+        [SerializeField] private Text Health_Text;                      //体力値を表示するText
+        [SerializeField] private Text Armor_Text;                       //アーマー値を表示するText
+        [SerializeField] private Text Weapon_CurrentAmmoText;           //武器の現在のアモを表示するText
+        [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
 
         Character_Info CharacterInfo;
         MainGameManager MainGame_Manager;
         Weapon_State Weapon_Stats;
 
-        //ゲームオーバー用
-        [SerializeField] private GameObject GameOverUI;
+        // ----------------------------------------------------------------------------------------------------
+        //
+        //  ゲームオーバー用
+        //
+        //
+        [SerializeField] private GameObject GameOverUI;                 
         [SerializeField] private Image BG;
         [SerializeField] private Image GameOverBG;
         [SerializeField] private Image GameOverLOGO;
         [SerializeField] private Image GameOver_RetrySelect;
         [SerializeField] private Image GameOver_Retry;
         [SerializeField] private Image GameOver_ExitSelect;
-        [SerializeField] private Image GameOver_Exit;
-        [SerializeField] private float FadeSpeed;
-        [SerializeField] private float MoveSpeed;
-        [SerializeField] private RectTransform GameOverLogo_POS;
-        Vector2 GameOverLogo_Vec;
-        [SerializeField] private bool GameOver_FinishAnim;
-        [SerializeField] private int CurrentSelect;
+        [SerializeField] private Image GameOver_Exit;                   
+        [SerializeField] private float FadeSpeed;                       //ゲームオーバー時の表示速度
+        [SerializeField] private float MoveSpeed;                       //ゲームオーバーロゴが動く速度
+        [SerializeField] private RectTransform GameOverLogo_POS;        //ゲームオーバーロゴのレクトトランスフォーム
+        Vector2 GameOverLogo_Vec;                                       //ゲームオーバーロゴのベクトル
+        [SerializeField] private bool GameOver_FinishAnim;              //ゲームオーバーUIのアニメーションが終わった時の判定bool
+        [SerializeField] private int CurrentSelect;                     //ゲームオーバー時の選んでいる項目 (0:再挑戦 1:諦める)
+        //
+        //
+        // ----------------------------------------------------------------------------------------------------
         void Awake()
         {
             //MainGame_Manager = GameObject.Find("ManagerObject").GetComponent<MainGameManager>();
@@ -155,7 +162,7 @@ namespace MainGameManage {
                 }
             }
 
-            if (GameOver_FinishAnim)
+            if (GameOver_FinishAnim)            //ゲームオーバーのアニメーションが終わったら
             {
                 switch (CurrentSelect)
                 {

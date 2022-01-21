@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class UI_FadeImage : MonoBehaviour
 {
-    [SerializeField] private float FadeTime;
-    [SerializeField] private bool FadeOut;
-    [SerializeField] private bool FadeIn;
-    [SerializeField] private bool IsTimingFadeImage;
-    [SerializeField] private bool SpeedUpFadeSpeedx2;
-    public bool StartFadeImage;
-    public bool FinishFadeOUT;
-    public bool FinishFadeIN;
+    [SerializeField] private float FadeTime;                //フェード時間
+    [SerializeField] private bool FadeOut;                  //フェードアウトを実行する
+    [SerializeField] private bool FadeIn;                   //フェードインを実行する
+    [SerializeField] private bool IsTimingFadeImage;        //タイミングフェードシステムを実行する
+    [SerializeField] private bool SpeedUpFadeSpeedx2;       //フェードスピードを二倍にする
+    public bool StartFadeImage;                             //タイミングフェードを実行する用のbool
+    public bool FinishFadeOUT;                              //フェードアウトが終わった確認用のbool
+    public bool FinishFadeIN;                               //フェードインが終わった確認用のbool
     Image FadeImage;
 
 
@@ -36,7 +36,7 @@ public class UI_FadeImage : MonoBehaviour
             FadeTime = FadeTime * 2.0f;
         }
     }
-    void FixedUpdate()
+    void FixedUpdate()                                      //どんなPCでも速度が均一になるようにFixedUpdateを使用
     {
         FadeIN();
         FadeOUT();
