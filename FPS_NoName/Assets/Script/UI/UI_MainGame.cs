@@ -13,8 +13,11 @@ namespace MainGameManage {
         [SerializeField] private Image Health_Bar_Low1;
         [SerializeField] private Image Health_Bar_Low2;
         [SerializeField] private Image Armor_Bar;
+        [SerializeField] private Text Health_Text;
+        [SerializeField] private Text Armor_Text;
         [SerializeField] private Text Weapon_CurrentAmmoText;
         [SerializeField] private Text Weapon_CurrentMagazineText;
+
         Character_Info CharacterInfo;
         MainGameManager MainGame_Manager;
         Weapon_State Weapon_Stats;
@@ -82,6 +85,8 @@ namespace MainGameManage {
             Armor_Bar.fillAmount = CharacterInfo.Character_CurrentArmor / CharacterInfo.Character_MaxArmor;
             Weapon_CurrentAmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString("00");
             Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
+            Health_Text.text = CharacterInfo.Character_CurrentHP.ToString();
+            Armor_Text.text = CharacterInfo.Character_CurrentArmor.ToString();
         }
 
         void HealthValueChangeIcon()
