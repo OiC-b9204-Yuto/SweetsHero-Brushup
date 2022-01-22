@@ -16,9 +16,9 @@ namespace MainGameManage
         [SerializeField] private bool maingame_IsImmortal;       //ÉQÅ[ÉÄíÜÇ…ñ≥ìGèÛë‘Ç…Ç∑ÇÈóp
 
         public bool MainGame_IsPause { get { return maingame_IsPause; } set { value = maingame_IsPause; } }
+
         private void Awake()
         {
-            DontDestroyOnLoad(this.gameObject);
             maingame_IsStartAnimation = true;
         }
 
@@ -35,11 +35,12 @@ namespace MainGameManage
                 maingame_GameProgress = true;
             }
 
-            if (maingame_IsGameOver && maingame_IsGameClear && maingame_IsPause)
+            if (maingame_IsGameOver || maingame_IsGameClear || maingame_IsPause)
             {
                 Time.timeScale = 0.0f;
             }
-            else if (!maingame_IsGameOver && !maingame_IsGameClear && !maingame_IsPause)
+
+            if (!maingame_IsGameOver || !maingame_IsGameClear || !maingame_IsPause)
             {
                 Time.timeScale = 1.0f;
             }

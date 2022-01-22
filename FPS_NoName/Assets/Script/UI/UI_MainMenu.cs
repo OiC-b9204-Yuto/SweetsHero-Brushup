@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_MainMenu : MonoBehaviour
 {
+    UI_Option OptionSystem;                                 //オプションのシステムを参照
     UI_FadeImage FadeSystemToOption;                        //オプション画面へ画面遷移用の画像
     UI_FadeImage FadeSystemOptionScreen;                    //オプション画面のフェード用の画像
     UI_FadeImage FadeSystemFadeInOption;                    //メインメニューへ画面遷移用の画像
@@ -34,6 +35,7 @@ public class UI_MainMenu : MonoBehaviour
     private void Awake()
     {
         CursorSystem();
+        OptionSystem = OptionHUD.GetComponent<UI_Option>();
         FadeSystemToOption = TimingFadeOutToOption.GetComponent<UI_FadeImage>();
         FadeSystemOptionScreen = TimingFadeOutOption.GetComponent<UI_FadeImage>();
         FadeSystemFadeInOption = TimingFadeInOption.GetComponent<UI_FadeImage>();
@@ -183,7 +185,7 @@ public class UI_MainMenu : MonoBehaviour
                 ExitHUD.SetActive(true);
                 MainMenuHUD.SetActive(false);
             }
-            if (OptionHUD.activeSelf == true) //オプション画面でESCを押した場合
+            if (OptionHUD.activeSelf == true && !OptionSystem.isEnterMode) //オプション画面でESCを押した場合
             {
                 FadeSystemFadeInOption.StartFadeImage = true;
             }

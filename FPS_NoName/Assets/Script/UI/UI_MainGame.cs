@@ -17,7 +17,7 @@ namespace MainGameManage {
         [SerializeField] private Text Armor_Text;                       //アーマー値を表示するText
         [SerializeField] private Text Weapon_CurrentAmmoText;           //武器の現在のアモを表示するText
         [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
-
+        [SerializeField] private bool IsPushEsc;
         Character_Info CharacterInfo;
         MainGameManager MainGame_Manager;
         Weapon_State Weapon_Stats;
@@ -46,7 +46,7 @@ namespace MainGameManage {
         // ----------------------------------------------------------------------------------------------------
         void Awake()
         {
-            //MainGame_Manager = GameObject.Find("ManagerObject").GetComponent<MainGameManager>();
+            MainGame_Manager = GameObject.Find("MainGameManager").GetComponent<MainGameManager>();
 
             Health_Bar_Low1.enabled = false;
             Health_Bar_Low2.enabled = false;
@@ -195,7 +195,7 @@ namespace MainGameManage {
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
+                MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
             }
         }
     }
