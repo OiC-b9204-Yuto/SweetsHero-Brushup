@@ -10,28 +10,33 @@ public class UI_Option : MonoBehaviour
     [SerializeField] private GameObject MainMenuObject; //メインメニュのスクリプト参照用のオブジェクト
     [SerializeField] private Image CurrentSelect;       //現在選んでる項目を表示する矢印
     [SerializeField] private int CurrentColumn;         //現在選んでる項目
-    private int OptionColumns = 4;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2:パフォーマンス表示設定 / 3: 解像度設定 / 4: OKボタン)
+    private int OptionColumns = 5;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2: マウス感度 / 3:パフォーマンス表示設定 / 4: 解像度設定 / 5: OKボタン)
     public bool isEnterMode;                            //オンの時は、選んでいる項目の設定を変更できる
     private RectTransform CurrentSelectPos;             //CurrentSelectのポジション用
-    private RectTransform CurrentEnterPos;              //現在の編集中の項目の背景のポジション用
     private Vector2 SelectPos;                          //RectTransformに反映させる用
     [SerializeField] private int performance_Enable;    //パフォーマンス表示のON/OFF (0:Disable / 1:Enable)
     public int Performance_Enable { get { return performance_Enable; } }//パフォーマンス表示のON/OFF Getter/Setter
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SESlider;
+    [SerializeField] private Slider Mouse_Sensi;
     [SerializeField] private Text BGMValue;
     [SerializeField] private Text SEValue;
+    [SerializeField] private Text MouseSensiValue;
 
     [SerializeField] private Image StartNoSelect_Button;
     [SerializeField] private Image StartSelect_Button;
-    [SerializeField] private Image CurrentEnter_IMG;
+
+    [SerializeField] private Image MasterVolume_SelectImage;
+    [SerializeField] private Image SEVolume_SelectImage;
+    [SerializeField] private Image MouseSensi_SelectImage;
+    [SerializeField] private Image FPS_SelectImage;
+    [SerializeField] private Image Resolution_SelectImage;
 
     [SerializeField] private GameObject Performance_ON_Object;
     [SerializeField] private GameObject Performance_OFF_Object;
     private void Awake()
     {
         CurrentSelectPos = CurrentSelect.GetComponent<RectTransform>();
-        CurrentEnterPos = CurrentEnter_IMG.GetComponent<RectTransform>();
         MainMenuSystem = MainMenuObject.GetComponent<UI_MainMenu>();
     }
     private void Start()
@@ -79,17 +84,21 @@ public class UI_Option : MonoBehaviour
             isEnterMode = !isEnterMode;
         }
 
+
         switch (CurrentColumn)
         {
             case 0:         //BGM設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
-                SelectPos = new Vector2(-200, 190);
+                SelectPos = new Vector2(-243, 238);
                 if (isEnterMode)
                 {
-                    CurrentEnter_IMG.enabled = true;
-                    CurrentEnterPos.anchoredPosition = new Vector2(240,194);
+                    MasterVolume_SelectImage.enabled = true;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && BGMSlider.value > 0.0f)
                     {
                         BGMSlider.value -= 0.1f;
@@ -101,18 +110,25 @@ public class UI_Option : MonoBehaviour
                 }
                 else
                 {
-                    CurrentEnter_IMG.enabled = false;
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                 }
                 break;
             case 1:         //SE設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
-                SelectPos = new Vector2(-200, 105);
+                SelectPos = new Vector2(-243, 158);
                 if (isEnterMode)
                 {
-                    CurrentEnter_IMG.enabled = true;
-                    CurrentEnterPos.anchoredPosition = new Vector2(240, 104);
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = true;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && SESlider.value > 0.0f)
                     {
                         SESlider.value -= 0.1f;
@@ -124,18 +140,47 @@ public class UI_Option : MonoBehaviour
                 }
                 else
                 {
-                    CurrentEnter_IMG.enabled = false;
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                 }
                 break;
-            case 2:         //パフォーマンス表示設定
+            case 2:         //マウス感度
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
-                SelectPos = new Vector2(-200, -40);
+                SelectPos = new Vector2(-243, 28);
                 if (isEnterMode)
                 {
-                    CurrentEnter_IMG.enabled = true;
-                    CurrentEnterPos.anchoredPosition = new Vector2(240, -39);
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = true;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
+                }
+                else
+                {
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
+                }
+                break;
+            case 3:         //パフォーマンス表示設定
+                CurrentSelect.enabled = true;
+                StartSelect_Button.enabled = false;
+                StartNoSelect_Button.enabled = true;
+                SelectPos = new Vector2(-243, -52);
+                if (isEnterMode)
+                {
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = true;
+                    Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && (!Performance_OFF_Object.activeSelf) && Performance_ON_Object.activeSelf)
                     {
                         performance_Enable = 0;
@@ -151,25 +196,36 @@ public class UI_Option : MonoBehaviour
                 }
                 else
                 {
-                    CurrentEnter_IMG.enabled = false;
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                 }
                 break;
-            case 3:         //解像度設定
+            case 4:         //解像度設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
-                SelectPos = new Vector2(-200, -115);
+                SelectPos = new Vector2(-243, -138);
                 if (isEnterMode)
                 {
-                    CurrentEnter_IMG.enabled = true;
-                    CurrentEnterPos.anchoredPosition = new Vector2(240, -116);
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = true;
                 }
                 else
                 {
-                    CurrentEnter_IMG.enabled = false;
+                    MasterVolume_SelectImage.enabled = false;
+                    SEVolume_SelectImage.enabled = false;
+                    MouseSensi_SelectImage.enabled = false;
+                    FPS_SelectImage.enabled = false;
+                    Resolution_SelectImage.enabled = false;
                 }
                 break;
-            case 4:         //OKボタン
+            case 5:         //OKボタン
                 CurrentSelect.enabled = false;
                 StartNoSelect_Button.enabled = false;
                 StartSelect_Button.enabled = true;
@@ -179,7 +235,7 @@ public class UI_Option : MonoBehaviour
                 }
                 else
                 {
-                    CurrentEnter_IMG.enabled = false;
+
                 }
                 break;
         }
