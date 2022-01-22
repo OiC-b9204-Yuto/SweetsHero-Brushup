@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Weapon_State : MonoBehaviour
 {
-    Character_Info _CharacterInfo;
     [SerializeField] private int weapon_id;
     [SerializeField] private int weapon_CurrentAmmo;
     [SerializeField] private int Weapon_UsePerShot_Ammo;
@@ -30,8 +29,6 @@ public class Weapon_State : MonoBehaviour
 
     [SerializeField] private float BulletSpead;
 
-    [SerializeField] private GameObject GrenadeObject;
-
     public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
@@ -41,7 +38,6 @@ public class Weapon_State : MonoBehaviour
 
     private void Awake()
     {
-        _CharacterInfo = GameObject.Find("Player").GetComponent<Character_Info>();
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
         Weapon_DefaultReloadTime = ReloadTime; 
     }
@@ -57,13 +53,6 @@ public class Weapon_State : MonoBehaviour
         if (NextFireTime >= 0)
         {
             NextFireTime -= Time.deltaTime;
-        }
-
-        //グレネードテスト用
-        if (Input.GetKeyDown(KeyCode.G) && (_CharacterInfo.Character_CurrentGrenades > 0))
-        {
-            _CharacterInfo.Character_CurrentGrenades --;
-            Instantiate(GrenadeObject, ShootPoint.transform.position, Quaternion.identity);
         }
     }
 

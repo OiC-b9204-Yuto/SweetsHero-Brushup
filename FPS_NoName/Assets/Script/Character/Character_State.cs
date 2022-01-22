@@ -8,6 +8,10 @@ public class Character_State : MonoBehaviour
     [SerializeField] Weapon_State weapon_state;
     [SerializeField] Character_Info character_Info;
 
+    [SerializeField] private GameObject GrenadeObject;
+    [SerializeField] private float ThrowPower;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +21,15 @@ public class Character_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //アニメーションどうこうで同時に起こらないように
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            //前まっすぐ+重力なので要調整
+            GameObject obj =　Instantiate(GrenadeObject, transform.position + transform.forward * 2 + transform.up * 1, transform.rotation);
+            Rigidbody rig = obj.GetComponent<Rigidbody>();
+            rig.AddForce(transform.forward * ThrowPower);
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             weapon_state.Reload();
@@ -26,6 +39,7 @@ public class Character_State : MonoBehaviour
         {
             weapon_state.Shot();
         }
+
         float wheelroll = Input.GetAxis("Mouse ScrollWheel");
         if(wheelroll > 0)
         {

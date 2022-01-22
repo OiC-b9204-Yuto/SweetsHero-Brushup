@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -708,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player_Camera: {fileID: 963194228}
-  Player_MoveSpeed: 10
+  character_Info: {fileID: 244008491}
   Player_MoveSmoothTime: 0.1
   Player_JumpSpeed: 7.5
   ADS_Speed: 0
@@ -729,12 +729,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character_CurrentWeapon: 0
-  character_MaxWeapons: 0
+  character_MaxWeapons: 3
   character_CurrentGrenades: 3
   character_CurrentHP: 100
   character_MaxHP: 100
   character_CurrentArmor: 200
   character_MaxArmor: 200
+  character_MovementSpeed:
+  - 10
+  - 20
+  - 30
 --- !u!143 &244008492
 CharacterController:
   m_ObjectHideFlags: 0
@@ -765,8 +769,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bace9877abd8d1d469176de2cc38448f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon_state: {fileID: 0}
-  character_Info: {fileID: 0}
+  weapon_state: {fileID: 1265458974}
+  character_Info: {fileID: 244008491}
+  GrenadeObject: {fileID: 5009692752747546818, guid: c39820310285f50419ae6b76b1ef3ea5, type: 3}
+  ThrowPower: 500
 --- !u!1 &246197301
 GameObject:
   m_ObjectHideFlags: 0
@@ -7435,7 +7441,6 @@ MonoBehaviour:
   FocusPoint: {fileID: 963194228}
   BulletObject: {fileID: 4879904251873580000, guid: 924575b4446c75c41b8b59ae6ab60f73, type: 3}
   BulletSpead: 1200
-  GrenadeObject: {fileID: 5009692752747546818, guid: c39820310285f50419ae6b76b1ef3ea5, type: 3}
 --- !u!114 &1265458975
 MonoBehaviour:
   m_ObjectHideFlags: 0

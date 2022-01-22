@@ -11,6 +11,7 @@ public class Character_Info : MonoBehaviour
     [SerializeField] private float character_MaxHP;
     [SerializeField] private float character_CurrentArmor;
     [SerializeField] private float character_MaxArmor;
+    [SerializeField] private float[] character_MovementSpeed;
     public int Character_CurrentWeapon
     {
         get { return character_CurrentWeapon; } 
@@ -21,7 +22,7 @@ public class Character_Info : MonoBehaviour
             {
                 character_CurrentWeapon = character_MaxWeapons;
             }
-            else if(character_CurrentWeapon > character_MaxWeapons)
+            else if(character_CurrentWeapon >= character_MaxWeapons)
             {
                 character_CurrentWeapon = 0;
             }
@@ -34,4 +35,5 @@ public class Character_Info : MonoBehaviour
 
     public float Character_CurrentArmor { get { return character_CurrentArmor; } set { character_CurrentArmor = value; } }
     public float Character_MaxArmor { get { return character_MaxArmor; } }
+    public float Character_MovementSpeed { get { return character_MovementSpeed[character_CurrentWeapon]; }}
 }

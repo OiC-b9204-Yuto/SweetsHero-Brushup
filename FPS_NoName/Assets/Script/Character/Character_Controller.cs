@@ -7,7 +7,8 @@ public class Character_Controller : MonoBehaviour
 {
     [SerializeField] private Transform Player_Camera = null;
 
-    [SerializeField] private float Player_MoveSpeed;
+    [SerializeField] Character_Info character_Info;
+
     [SerializeField] [Range(0.0f, 5.0f)] private float Player_MoveSmoothTime = 0.3f;
     [SerializeField] private float Player_JumpSpeed;
     [SerializeField] private float ADS_Speed;
@@ -88,7 +89,7 @@ public class Character_Controller : MonoBehaviour
             VelocityY += Gravity * Time.deltaTime;
         }
 
-        Vector3 velocity = (transform.forward * CurrentDirection.y + transform.right * CurrentDirection.x) * Player_MoveSpeed + Vector3.up * VelocityY;
+        Vector3 velocity = (transform.forward * CurrentDirection.y + transform.right * CurrentDirection.x) * character_Info.Character_MovementSpeed + Vector3.up * VelocityY;
 
         controller.Move(velocity * Time.deltaTime);
     }
