@@ -93,6 +93,12 @@ public class Weapon_State : MonoBehaviour
         isReload = true;
     }
 
+    public void ReloadCancel()
+    {
+        isReload = false;
+        ReloadTime = Weapon_DefaultReloadTime;
+    }
+
     void ReloadUpdate()
     {
         if (!isReload) return;

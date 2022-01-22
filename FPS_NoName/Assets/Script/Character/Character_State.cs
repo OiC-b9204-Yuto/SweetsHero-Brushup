@@ -43,10 +43,12 @@ public class Character_State : MonoBehaviour
         float wheelroll = Input.GetAxis("Mouse ScrollWheel");
         if(wheelroll > 0)
         {
+            weapon_state.ReloadCancel();
             character_Info.Character_CurrentWeapon--;
         }
         else if(wheelroll < 0)
         {
+            weapon_state.ReloadCancel();
             character_Info.Character_CurrentWeapon++;
         }
     }
