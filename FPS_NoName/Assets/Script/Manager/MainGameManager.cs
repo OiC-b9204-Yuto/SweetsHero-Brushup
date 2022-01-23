@@ -15,7 +15,7 @@ namespace MainGameManage
         [SerializeField] private bool maingame_IsGameClear;      //ゲームクリア用
         [SerializeField] private bool maingame_IsImmortal;       //ゲーム中に無敵状態にする用
 
-        public bool MainGame_IsPause { get { return maingame_IsPause; } set { value = maingame_IsPause; } }
+        public bool MainGame_IsPause { get { return maingame_IsPause; } set { maingame_IsPause = value; } }
 
         private void Awake()
         {
@@ -39,8 +39,7 @@ namespace MainGameManage
             {
                 Time.timeScale = 0.0f;
             }
-
-            if (!maingame_IsGameOver || !maingame_IsGameClear || !maingame_IsPause)
+            else if (!maingame_IsGameOver || !maingame_IsGameClear || !maingame_IsPause)
             {
                 Time.timeScale = 1.0f;
             }
