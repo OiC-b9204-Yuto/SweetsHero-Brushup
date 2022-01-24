@@ -34,6 +34,7 @@ public class Character_Controller : MonoBehaviour
     }
     void Update()
     {
+        if (Time.timeScale == 0) return;
         CursorSystem();
         MouseSystem();
         PlayerMovement();

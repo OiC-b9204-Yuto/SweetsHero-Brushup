@@ -7485,12 +7485,11 @@ MonoBehaviour:
   Weapon_UsePerShot_Ammo: 1
   weapon_CurrentMagazine: 999
   weapon_Damage: 0
-  ShotRange: 10
+  ShotRange: 500
   FireRate: 0.1
   ReloadTime: 3
   NextFireTime: 0
   ShootPoint: {fileID: 1753164749}
-  FocusPoint: {fileID: 963194228}
   BulletObject: {fileID: 4879904251873580000, guid: 924575b4446c75c41b8b59ae6ab60f73, type: 3}
   BulletSpead: 1200
 --- !u!114 &1265458975
