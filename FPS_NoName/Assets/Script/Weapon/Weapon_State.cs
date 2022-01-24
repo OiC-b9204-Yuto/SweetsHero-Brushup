@@ -23,7 +23,7 @@ public class Weapon_State : MonoBehaviour
     private bool isNoAmmo;
 
     [SerializeField] private Transform ShootPoint;
-    [SerializeField] private Transform FocusPoint;
+    //[SerializeField] private Transform FocusPoint;
 
     [SerializeField] private GameObject BulletObject;
 
@@ -64,22 +64,16 @@ public class Weapon_State : MonoBehaviour
         if(weapon_CurrentAmmo > 0)
         {
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
-            RaycastHit Hit;   
-            NextFireTime = FireRate;
+            RaycastHit Hit;
+            Physics.Raycast(transform.parent.position, transform.parent.forward, out Hit, ShotRange);
             //íeä€ê∂ê¨èàóù
             GameObject obj = (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity);
-            obj.transform.LookAt(FocusPoint);
+            obj.transform.LookAt(Hit.point);
             obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
-            rig.AddForce(transform.forward * BulletSpead);
+            rig.AddForce(obj.transform.forward * BulletSpead);
 
-            if (Physics.Raycast(ShootPoint.position,ShootPoint.transform.forward,out Hit,ShotRange))
-            {
-                if (Hit.collider.gameObject.tag == "Enemy")
-                {
-                    Debug.Log(Hit.transform.name + "Ç…ìñÇΩÇËÇ‹ÇµÇΩ");
-                }
-            }
+            NextFireTime = FireRate;
         }
         else
         {

@@ -21,7 +21,10 @@ public class Character_State : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //アニメーションどうこうで同時に起こらないように
+        if (Time.timeScale == 0) return;
+
+        //Inputでまとめるのも大事かもな
+        //アニメーションどうこうで同時に起こらないようにしろ
         if (Input.GetKeyDown(KeyCode.G))
         {
             //前まっすぐ+重力なので要調整
