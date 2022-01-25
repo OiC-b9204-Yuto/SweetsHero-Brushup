@@ -29,6 +29,8 @@ public class Weapon_State : MonoBehaviour
 
     [SerializeField] private float BulletSpead;
 
+    [SerializeField] private ParticleSystem MuzzleFlash;
+
     public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
@@ -39,7 +41,8 @@ public class Weapon_State : MonoBehaviour
     private void Awake()
     {
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
-        Weapon_DefaultReloadTime = ReloadTime; 
+        Weapon_DefaultReloadTime = ReloadTime;
+        MuzzleFlash.Stop();
     }
     void Update()
     {
@@ -64,6 +67,7 @@ public class Weapon_State : MonoBehaviour
         if(weapon_CurrentAmmo > 0)
         {
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
+            MuzzleFlash.Play();
             RaycastHit Hit;
             bool rayCheck = Physics.Raycast(transform.parent.position, transform.parent.forward, out Hit, ShotRange);
             //íeä€ê∂ê¨èàóù

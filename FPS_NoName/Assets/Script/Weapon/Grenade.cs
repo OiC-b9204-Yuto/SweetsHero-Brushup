@@ -7,6 +7,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] private float  ExplosivTime;
     [SerializeField] private float  ExplosivRadius;
     [SerializeField] private int    ExplosivDamage;
+    [SerializeField] private GameObject ExplossionParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,10 +30,11 @@ public class Grenade : MonoBehaviour
             }
             if (hit.collider == collider)
             {
-                //collision.gameObject.GetCompornent<BaseEnemy>().TakeDamage(ExplosivDamage); 
+                hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(ExplosivDamage);
                 Debug.Log("Grenade Hit!");
             }
         }
+        Instantiate(ExplossionParticle, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

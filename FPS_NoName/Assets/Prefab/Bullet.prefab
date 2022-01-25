@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc30610cfcb5477489f5c0aff77c7d27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 9094863513254375048}
+  HitParticle: {fileID: 9170039075758082862, guid: 1a0fe8d4e59cb254eb73ae84f6a88059, type: 3}

@@ -67,7 +67,7 @@ MeshRenderer:
     firstSubMesh: 0
     subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
+  m_ProbeAnchor: {fileID: 4073693224873157735, guid: b8d342dc7b0f42141838998f824d361b, type: 3}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_ReceiveGI: 1
@@ -112,6 +112,7 @@ MonoBehaviour:
   ExplosivTime: 3
   ExplosivRadius: 5
   ExplosivDamage: 10
+  ExplossionParticle: {fileID: 4073693224873157658, guid: b8d342dc7b0f42141838998f824d361b, type: 3}
 --- !u!54 &2419002951920962558
 Rigidbody:
   m_ObjectHideFlags: 0
