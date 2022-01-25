@@ -65,10 +65,17 @@ public class Weapon_State : MonoBehaviour
         {
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
             RaycastHit Hit;
-            Physics.Raycast(transform.parent.position, transform.parent.forward, out Hit, ShotRange);
+            bool rayCheck = Physics.Raycast(transform.parent.position, transform.parent.forward, out Hit, ShotRange);
             //íeä€ê∂ê¨èàóù
             GameObject obj = (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity);
-            obj.transform.LookAt(Hit.point);
+            if (rayCheck)
+            {
+                obj.transform.LookAt(Hit.point);
+            }
+            else
+            {
+                obj.transform.LookAt(transform.position + transform.parent.forward * 1000);
+            }
             obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
             rig.AddForce(obj.transform.forward * BulletSpead);
