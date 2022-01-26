@@ -8,6 +8,7 @@ public class NaviMeshEnemy : BaseEnemy
     [SerializeField] private float searchRadius = 10.0f;
     [SerializeField] private Transform target;
     NavMeshAgent navMeshAgent;
+    Animator animator;
 
 
     public override void TakeDamage(int damage)
@@ -20,16 +21,24 @@ public class NaviMeshEnemy : BaseEnemy
         }
     }
 
+    void Awake()
+    {
+        currentHealth = MaxHealth;
+    }
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
+        Debug.Log(navMeshAgent  .pathStatus);
         if (target)
         {
             navMeshAgent.SetDestination(target.position);
+            animator.SetBool("isMove", navMeshAgent.velocity.sqrMagnitude > 0.1f);
         }
         else
         {

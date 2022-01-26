@@ -9,7 +9,7 @@ public abstract class BaseEnemy : MonoBehaviour , IDamageable
 
     public string EnemyName { get { return parameter.EnemyName; }}
     public int MaxHealth { get { return parameter.MaxHealth; } }
-    public int CurrentHealth { get { return CurrentHealth; } }
+    public int CurrentHealth { get { return currentHealth; } }
 
     public abstract void TakeDamage(int damage);
 }
