@@ -735,6 +735,7 @@ MonoBehaviour:
   character_MaxHP: 100
   character_CurrentArmor: 200
   character_MaxArmor: 200
+  character_IsMove: 0
   character_MovementSpeed:
   - 10
   - 20
@@ -770,10 +771,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon_state: {fileID: 5946239279078159420}
-  weapon_animator: {fileID: 5946239279078159421}
   character_Info: {fileID: 244008491}
   GrenadeObject: {fileID: 5009692752747546818, guid: c39820310285f50419ae6b76b1ef3ea5, type: 3}
   ThrowPower: 50
+  weapon_animator: {fileID: 5946239279078159421}
 --- !u!1 &246197301
 GameObject:
   m_ObjectHideFlags: 0
@@ -12107,11 +12108,11 @@ MonoBehaviour:
   weapon_Damage: 5
   ShotRange: 500
   FireRate: 0.1
-  ReloadTime: 0.875
+  ReloadTime: 2.2
   NextFireTime: 0
   ShootPoint: {fileID: 3489078639368559764}
   BulletObject: {fileID: 6425123706045572488, guid: 36255598a243bc04da5cb5fc48870c1c, type: 3}
-  BulletSpead: 1200
+  BulletSpead: 600
   MuzzleFlash: {fileID: 724834239}
 --- !u!95 &5946239279078159421
 Animator:
