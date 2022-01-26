@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Weapon_State : MonoBehaviour
 {
-    [SerializeField] private int weapon_id;
     [SerializeField] private int weapon_CurrentAmmo;
     [SerializeField] private int Weapon_UsePerShot_Ammo;
     [SerializeField] private int weapon_CurrentMagazine;
@@ -23,15 +22,15 @@ public class Weapon_State : MonoBehaviour
     private bool isNoAmmo;
 
     [SerializeField] private Transform ShootPoint;
-    //[SerializeField] private Transform FocusPoint;
 
     [SerializeField] private GameObject BulletObject;
 
     [SerializeField] private float BulletSpead;
 
     [SerializeField] private ParticleSystem MuzzleFlash;
+    
+    
 
-    public int Weapon_ID { get { return weapon_id; } }
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
     public int Weapon_Damage { get { return weapon_Damage; } }
@@ -85,17 +84,17 @@ public class Weapon_State : MonoBehaviour
             rig.AddForce(obj.transform.forward * BulletSpead);
 
             NextFireTime = FireRate;
-        }
-        else
-        {
-            Reload();
+            return;
         }
     }
 
-    public void Reload()
+    public bool Reload()
     {
-        if (weapon_CurrentAmmo == Weapon_DefaultAmmo) return;
+        if (weapon_CurrentAmmo == Weapon_DefaultAmmo) return false;
+        if (IsNoAmmo) return false;
+        if (isReload) return false;
         isReload = true;
+        return true;
     }
 
     public void ReloadCancel()
@@ -107,7 +106,6 @@ public class Weapon_State : MonoBehaviour
     void ReloadUpdate()
     {
         if (!isReload) return;
-        if (IsNoAmmo) return;
 
         if (ReloadTime <= 0)
         {

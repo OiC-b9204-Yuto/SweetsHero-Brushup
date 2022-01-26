@@ -7,12 +7,20 @@ public class Bullet : MonoBehaviour
     private int BulletDamage;
     public int Bullet_Damage { set{ BulletDamage = value; } }
 
+    private Vector3 BeforePosition;
+
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private GameObject HitParticle;
+
+    private void Start()
+    {
+        BeforePosition = transform.position;
+    }
 
     private void Update()
     {
         HitCheck();
+        BeforePosition = transform.position;
     }
 
     //‰½‚©‚É“–‚½‚Á‚½Žž‚Ì”»’è
@@ -21,18 +29,18 @@ public class Bullet : MonoBehaviour
     {
         RaycastHit Hit;
 
-        bool rayCheck = Physics.Raycast(this.transform.position, transform.forward, out Hit, rigidbody.velocity.magnitude * Time.deltaTime * 2);
+        bool rayCheck = Physics.Raycast(BeforePosition, transform.forward, out Hit ,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime);
+        Debug.DrawRay(BeforePosition, transform.forward * (Vector3.Distance(BeforePosition, transform.position) + rigidbody.velocity.magnitude * Time.deltaTime), Color.green,1);
 
         if (!rayCheck) return;
         if (Hit.collider.gameObject.tag != "Enemy")
         {
             Debug.Log(Hit.collider.gameObject.name);
-            return;
         }
         else
         {
             Debug.Log("“G‚É–½’†");
-            //Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage);
+            Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage);
             GameObject obj = Instantiate(HitParticle, Hit.point, Quaternion.identity);
             obj.transform.LookAt(Camera.main.transform.position);
         }

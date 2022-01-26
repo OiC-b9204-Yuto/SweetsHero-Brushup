@@ -71,6 +71,7 @@ public class Character_Controller : MonoBehaviour
     {
         Vector2 TargetDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         TargetDirection.Normalize();
+        character_Info.Character_IsMove = (TargetDirection != new Vector2(0, 0));
 
         CurrentDirection = Vector2.SmoothDamp(CurrentDirection, TargetDirection, ref CurrentDirectionVelocity, Player_MoveSmoothTime);
 

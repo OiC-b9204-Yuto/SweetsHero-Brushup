@@ -73,7 +73,7 @@ namespace MainGameManage {
             GameOver_Exit.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
             CharacterInfo = GameObject.Find("Player").GetComponent<Character_Info>();
-            Weapon_Stats = GameObject.Find("Weapon").GetComponent<Weapon_State>();
+            Weapon_Stats = GameObject.Find("MainWeapon").GetComponent<Weapon_State>();
         }
 
         void Update()
