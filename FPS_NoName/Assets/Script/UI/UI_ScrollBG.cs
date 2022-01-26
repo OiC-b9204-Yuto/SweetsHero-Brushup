@@ -16,6 +16,6 @@ public class UI_ScrollBG : MonoBehaviour
 
     void Update()
     {
-        ScrollImage.material.mainTextureOffset += new Vector2(ScrollSpeedX * Time.deltaTime , ScrollSpeedY * Time.deltaTime);
+        ScrollImage.material.mainTextureOffset += new Vector2(ScrollSpeedX * Time.deltaTime, ScrollSpeedY * Time.deltaTime);
     }
 }
