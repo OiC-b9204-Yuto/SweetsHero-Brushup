@@ -68,7 +68,7 @@ public class Weapon_State : MonoBehaviour
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
             MuzzleFlash.Play();
             RaycastHit Hit;
-            bool rayCheck = Physics.Raycast(transform.parent.position, transform.parent.forward, out Hit, ShotRange);
+            bool rayCheck = Physics.Raycast(Camera.main.transform.position , Camera.main.transform.forward, out Hit, ShotRange);
             //íeä€ê∂ê¨èàóù
             GameObject obj = (GameObject)Instantiate(BulletObject, ShootPoint.transform.position,Quaternion.identity);
             if (rayCheck)
