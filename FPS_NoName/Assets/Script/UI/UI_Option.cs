@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.UI.Dropdown;
 
 public class UI_Option : MonoBehaviour
 {
@@ -47,6 +48,31 @@ public class UI_Option : MonoBehaviour
     private void Start()
     {
         CurrentColumn = 0;
+
+        //‰ð‘œ“x‚ÌŽ©“®Žæ“¾
+        ResolutionList.ClearOptions();
+        var resolutions = Screen.resolutions;
+        List<Resolution> checkList = new List<Resolution>();
+        foreach (var res in resolutions)
+        {
+            bool check = true;
+            foreach (var listItem in checkList)
+            {
+                if(res.width == listItem.width)
+                {
+                    if (res.height == listItem.height)
+                    {
+                        check = false;
+                        break;
+                    }
+                }
+            }
+            if (check)
+            {
+                ResolutionList.options.Add(new OptionData(res.width.ToString() + "*" + res.height.ToString()));
+            }
+            checkList.Add(res);
+        }
     }
     void Update()
     {
