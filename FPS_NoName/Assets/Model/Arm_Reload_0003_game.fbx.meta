@@ -1,0 +1,330 @@
+fileFormatVersion: 2
+guid: bc2d6b514c002ba4882d74a032b8833c
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_1
+    second: {fileID: 2100000, guid: aae0fcd939b78f544aef9a261b4975b8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_10
+    second: {fileID: 2100000, guid: 036c42c47dccacc448ea4d4a8073837c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_11
+    second: {fileID: 2100000, guid: 1784f9560b50a434480a9c1f7513bee1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_12
+    second: {fileID: 2100000, guid: b6ee5fc1dba9ec94284898d097a23b43, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_13
+    second: {fileID: 2100000, guid: 797f396a5680c9c42b21cc93b03a2d30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_14
+    second: {fileID: 2100000, guid: fbfbc5ce9f93a4b49b5c264804313846, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_15
+    second: {fileID: 2100000, guid: 27a0fa941b0ce774b8e198c8317e882f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_2
+    second: {fileID: 2100000, guid: 3bfc1216cbe23b74ca7425cd7ff26561, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_3
+    second: {fileID: 2100000, guid: db9ba979b125847498117239978fe512, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_4
+    second: {fileID: 2100000, guid: f964dfb57fa76bb49b4a1fb25f94bb16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_5
+    second: {fileID: 2100000, guid: 704f3bc417b593f449170554121d6733, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_6
+    second: {fileID: 2100000, guid: 318642b8763220f4ab8810f681493e41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_7
+    second: {fileID: 2100000, guid: 27e37ea0b6396c14c86361f4af9812f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_8
+    second: {fileID: 2100000, guid: 122201a54b9757d4caf08125eb3e3fee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AK_9
+    second: {fileID: 2100000, guid: e0d9789c8f70a4d43b1543e1be354842, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Arm
+    second: {fileID: 2100000, guid: cdae38d0f676fb74084a92c2646a6363, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface10SG_BaseColor
+    second: {fileID: 2800000, guid: 3a6acc21fa359e54d94eea183b8a05ce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface10SG_Roughness
+    second: {fileID: 2800000, guid: 5797eca750f0e9d4289ed7cd7b93d664, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface11SG_BaseColor
+    second: {fileID: 2800000, guid: 1b035ba5cacb15d40a563a434866cec2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface11SG_Roughness
+    second: {fileID: 2800000, guid: 93648186796f8314cb981eac0759ebda, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface12SG_BaseColor
+    second: {fileID: 2800000, guid: efaa035f325cae647bc78ba389091fce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface12SG_Roughness
+    second: {fileID: 2800000, guid: e363ef243a77ca64d8cb5ee0e8bc3d02, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface13SG_BaseColor
+    second: {fileID: 2800000, guid: d8422561333eddb49aea6a1f00ba19f9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface13SG_Roughness
+    second: {fileID: 2800000, guid: 67ca67a7fe544cb41af031a1309d746b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface1SG_BaseColor
+    second: {fileID: 2800000, guid: f2464ba0f084d1c4da62aeb40762be4e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface1SG_Roughness
+    second: {fileID: 2800000, guid: 82def725a063f514ba06a5f9b6d429b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface2SG_BaseColor
+    second: {fileID: 2800000, guid: b816a81a71ab59149ae5a845e2a417b3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface2SG_Roughness
+    second: {fileID: 2800000, guid: b312a615c4f81ec4d9a90c2811e8dff4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface3SG_BaseColor
+    second: {fileID: 2800000, guid: f49c72d91a7bc7a4c9e4b10031957d60, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface3SG_Roughness
+    second: {fileID: 2800000, guid: 5e6fef4b893397d489e80980d38d8965, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface4SG_BaseColor
+    second: {fileID: 2800000, guid: 4e58fbdbb84ccdc4494f76e1e02ee4d9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface4SG_Roughness
+    second: {fileID: 2800000, guid: 38023e8e305f3d24ba65571aa1e69322, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface5SG_BaseColor
+    second: {fileID: 2800000, guid: 2004a14d0327b604c8d30524645cbaa5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface6SG_BaseColor
+    second: {fileID: 2800000, guid: d0e0bf28ae2a8314ab9813e677be6515, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface7SG_BaseColor
+    second: {fileID: 2800000, guid: 3282355e20d818448beb6755a24f6933, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface7SG_Roughness
+    second: {fileID: 2800000, guid: 6619cb8b0b7dfb446aef5ca053bd8b0c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface8SG_BaseColor
+    second: {fileID: 2800000, guid: bacd215922fe1f1419aa8b4315c96149, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface8SG_Roughness
+    second: {fileID: 2800000, guid: efe361d318058134fb393def37cb9d7b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface9SG_BaseColor
+    second: {fileID: 2800000, guid: 2aac5b8c7ac814242b965e440fe4dde2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: AK_aiStandardSurface9SG_Roughness
+    second: {fileID: 2800000, guid: a521f0fb58a9fae4c9bc32d7f7e89de2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bareet_aiStandardSurface14SG_BaseColor
+    second: {fileID: 2800000, guid: 1948a12ee47532645a0847afbc326b7b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bareet_aiStandardSurface14SG_Roughness
+    second: {fileID: 2800000, guid: 9197075c4c3e0974fb57c576fa7acbb0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bareet_aiStandardSurface15SG_BaseColor
+    second: {fileID: 2800000, guid: 8ccadcbddb3689b41a362c4fd1bb72f2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Bareet_aiStandardSurface15SG_Roughness
+    second: {fileID: 2800000, guid: 9181050b62a4df74dae2a42d12b10a22, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: arm_BaseColor
+    second: {fileID: 2800000, guid: 98c17c00c15a20946b3ec2bc845d077d, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
