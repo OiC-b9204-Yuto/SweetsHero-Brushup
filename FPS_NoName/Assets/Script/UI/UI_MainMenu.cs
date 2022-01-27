@@ -32,9 +32,14 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private GameObject ExitHUD;            //終了画面HUD 用のゲームオブジェクト
     [SerializeField] private GameObject OptionHUD;          //オプション画面HUD　用のゲームオブジェクト
 
+    [SerializeField] private AudioClip MainMenuMusic;
+
     private void Awake()
     {
         CursorSystem();
+        AudioManager.Instance.Load();
+        AudioManager.Instance.BGM.clip = MainMenuMusic;
+        AudioManager.Instance.BGM.Play();
         OptionSystem = OptionHUD.GetComponent<UI_Option>();
         FadeSystemToOption = TimingFadeOutToOption.GetComponent<UI_FadeImage>();
         FadeSystemOptionScreen = TimingFadeOutOption.GetComponent<UI_FadeImage>();
@@ -124,7 +129,8 @@ public class UI_MainMenu : MonoBehaviour
     void InputDir()
     {
         //フェードアニメーション実行中は、ESCキーを実行させない
-        if (FadeImage.fillAmount <= 0.1f && !FadeSystemFadeInOption.StartFadeImage && !FadeSystemFadeOutMainMenu.StartFadeImage && !FadeSystemOptionScreen.StartFadeImage && !FadeSystemToOption.StartFadeImage) 
+        if (FadeImage.fillAmount <= 0.1f && !FadeSystemFadeInOption.StartFadeImage && !FadeSystemFadeOutMainMenu.StartFadeImage 
+            && !FadeSystemOptionScreen.StartFadeImage && !FadeSystemToOption.StartFadeImage && !OptionSystem.isApplyShown) 
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

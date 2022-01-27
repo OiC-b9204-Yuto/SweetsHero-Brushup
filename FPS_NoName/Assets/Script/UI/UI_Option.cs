@@ -8,10 +8,12 @@ public class UI_Option : MonoBehaviour
 
     UI_MainMenu MainMenuSystem;
     [SerializeField] private GameObject MainMenuObject; //メインメニュのスクリプト参照用のオブジェクト
+    [SerializeField] private GameObject ApplyMessageObject;
     [SerializeField] private Image CurrentSelect;       //現在選んでる項目を表示する矢印
     [SerializeField] private int CurrentColumn;         //現在選んでる項目
     private int OptionColumns = 5;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2: マウス感度 / 3:パフォーマンス表示設定 / 4: 解像度設定 / 5: OKボタン)
     public bool isEnterMode;                            //オンの時は、選んでいる項目の設定を変更できる
+    public bool isApplyShown;
     private RectTransform CurrentSelectPos;             //CurrentSelectのポジション用
     private Vector2 SelectPos;                          //RectTransformに反映させる用
     [SerializeField] private int performance_Enable;    //パフォーマンス表示のON/OFF (0:Disable / 1:Enable)
@@ -32,10 +34,13 @@ public class UI_Option : MonoBehaviour
     [SerializeField] private Image FPS_SelectImage;
     [SerializeField] private Image Resolution_SelectImage;
 
+
+    [SerializeField] private Dropdown ResolutionList;
     [SerializeField] private GameObject Performance_ON_Object;
     [SerializeField] private GameObject Performance_OFF_Object;
     private void Awake()
     {
+        AudioManager.Instance.Load();
         CurrentSelectPos = CurrentSelect.GetComponent<RectTransform>();
         MainMenuSystem = MainMenuObject.GetComponent<UI_MainMenu>();
     }
@@ -78,12 +83,18 @@ public class UI_Option : MonoBehaviour
 
     void EnterChangeOptionMode()
     {
-
-        if (Input.GetKeyDown(KeyCode.Space) && !MainMenuSystem.CantSelectMenu)
+        if (isApplyShown)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ApplyMessageObject.SetActive(false);
+                isApplyShown = false;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !MainMenuSystem.CantSelectMenu && !isApplyShown)
         {
             isEnterMode = !isEnterMode;
         }
-
 
         switch (CurrentColumn)
         {
@@ -101,7 +112,7 @@ public class UI_Option : MonoBehaviour
                     Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && BGMSlider.value > 0.0f)
                     {
-                        BGMSlider.value -= 0.1f;
+                        BGMSlider.value -= 0.1f;            
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && BGMSlider.value < 1.0f)
                     {
@@ -215,6 +226,7 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = true;
+                    ResolutionList.Show();
                 }
                 else
                 {
@@ -231,11 +243,10 @@ public class UI_Option : MonoBehaviour
                 StartSelect_Button.enabled = true;
                 if (isEnterMode)
                 {
-
-                }
-                else
-                {
-
+                    ApplyMessageObject.SetActive(true);
+                    isApplyShown = true;
+                    AudioManager.Instance.Save();
+                    isEnterMode = false;
                 }
                 break;
         }

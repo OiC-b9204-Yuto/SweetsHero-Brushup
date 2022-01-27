@@ -104,6 +104,12 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     }
 
     [Serializable]
+    public class SliderValueData
+    {
+        
+    }
+
+    [Serializable]
     public class VolumeDataListWrapper
     {
         public List<VolumeData> volumeDataList;
