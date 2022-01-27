@@ -12,6 +12,7 @@ public class Character_Info : MonoBehaviour , IDamageable
     [SerializeField] private float character_CurrentArmor;
     [SerializeField] private float character_MaxArmor;
     [SerializeField] private bool character_IsMove;
+    [SerializeField] private bool character_IsReload;
     [SerializeField] private float[] character_MovementSpeed;
     public int Character_CurrentWeapon
     {get { return character_CurrentWeapon; } 
@@ -56,6 +57,7 @@ public class Character_Info : MonoBehaviour , IDamageable
     public float Character_MaxArmor { get { return character_MaxArmor; } }
 
     public bool Character_IsMove { get { return character_IsMove; } set { character_IsMove = value; } }
+    public bool Character_IsReload { get { return character_IsReload; } set { character_IsReload = value; } }
     public void TakeDamage(int damage)
     {
         if(Character_CurrentArmor >= damage)
@@ -68,5 +70,5 @@ public class Character_Info : MonoBehaviour , IDamageable
             Character_CurrentArmor = 0;
         }
     }
-    public float Character_MovementSpeed { get { return character_MovementSpeed[character_CurrentWeapon]; }}
+    public float Character_MovementSpeed { get { return character_MovementSpeed[character_CurrentWeapon] * (character_IsReload ? 0.5f : 1.0f); }}
 }

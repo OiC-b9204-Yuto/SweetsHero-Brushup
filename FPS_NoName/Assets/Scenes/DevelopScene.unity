@@ -353,7 +353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &96043117
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   character_CurrentArmor: 200
   character_MaxArmor: 200
   character_IsMove: 0
+  character_IsReload: 0
   character_MovementSpeed:
   - 10
   - 20
