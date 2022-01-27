@@ -25,11 +25,13 @@ public class Weapon_State : MonoBehaviour
 
     [SerializeField] private GameObject BulletObject;
 
-    [SerializeField] private float BulletSpead;
+    [SerializeField] private float BulletSpeed;
 
     [SerializeField] private ParticleSystem MuzzleFlash;
-    
-    
+
+    [SerializeField] private AudioClip Sound_Shot;
+    [SerializeField] private AudioClip Sound_Reload;
+    [SerializeField] private AudioClip Sound_Walk;
 
     public int Weapon_CurrentAmmo { get { return weapon_CurrentAmmo; } }
     public int Weapon_CurrentMagazine { get { return weapon_CurrentMagazine; } set {  weapon_CurrentMagazine = value; } }
@@ -80,10 +82,12 @@ public class Weapon_State : MonoBehaviour
                 obj.transform.LookAt(transform.position + transform.parent.forward * 1000);
             }
             obj.GetComponent<Bullet>().Bullet_Damage = Weapon_Damage;
+            obj.GetComponent<Bullet>().Owner = transform.parent.parent.parent.gameObject;
             Rigidbody rig = obj.GetComponent<Rigidbody>();
-            rig.AddForce(obj.transform.forward * BulletSpead);
+            rig.AddForce(obj.transform.forward * BulletSpeed);
 
             NextFireTime = FireRate;
+            AudioManager.Instance.SE.PlayOneShot(Sound_Shot);
             return;
         }
     }
@@ -138,5 +142,14 @@ public class Weapon_State : MonoBehaviour
             Debug.Log("ÉäÉçÅ[ÉhíÜ");
             ReloadTime -= Time.deltaTime;
         }
+    }
+
+    public void PlayReloadSound()
+    {
+        AudioManager.Instance.SE.PlayOneShot(Sound_Reload);
+    }
+    public void PlaySoundWalk()
+    {
+        AudioManager.Instance.SE.PlayOneShot(Sound_Walk,0.5f);
     }
 }

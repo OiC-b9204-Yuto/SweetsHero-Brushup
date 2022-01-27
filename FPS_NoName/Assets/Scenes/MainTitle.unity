@@ -3483,7 +3483,7 @@ GameObject:
   - component: {fileID: 995437542}
   - component: {fileID: 995437541}
   m_Layer: 5
-  m_Name: ----Fade Images----
+  m_Name: '----Fade Images----'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6008,7 +6008,8 @@ AudioSource:
   m_GameObject: {fileID: 1858261966}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -535668695920835910, guid: be8e3c99fb3d2c543b4e4a6174669fba, type: 2}
+  OutputAudioMixerGroup: {fileID: -535668695920835910, guid: be8e3c99fb3d2c543b4e4a6174669fba,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -6104,7 +6105,8 @@ AudioSource:
   m_GameObject: {fileID: 1858261966}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1463319056993867166, guid: be8e3c99fb3d2c543b4e4a6174669fba, type: 2}
+  OutputAudioMixerGroup: {fileID: 1463319056993867166, guid: be8e3c99fb3d2c543b4e4a6174669fba,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

@@ -7,6 +7,10 @@ public class Bullet : MonoBehaviour
     private int BulletDamage;
     public int Bullet_Damage { set{ BulletDamage = value; } }
 
+    private GameObject owner;
+
+    public GameObject Owner { get { return owner; } set { owner = value; } }
+
     private Vector3 BeforePosition;
 
     [SerializeField] private Rigidbody rigidbody;
