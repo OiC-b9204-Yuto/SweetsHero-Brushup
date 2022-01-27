@@ -113,6 +113,7 @@ MonoBehaviour:
   ExplosivRadius: 5
   ExplosivDamage: 10
   ExplossionParticle: {fileID: 4073693224873157658, guid: b8d342dc7b0f42141838998f824d361b, type: 3}
+  SoundExplosiv: {fileID: 8300000, guid: 4189ae4c8ae2d7348a4beb0a4d759498, type: 3}
 --- !u!54 &2419002951920962558
 Rigidbody:
   m_ObjectHideFlags: 0
