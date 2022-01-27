@@ -8,6 +8,7 @@ public class Grenade : MonoBehaviour
     [SerializeField] private float  ExplosivRadius;
     [SerializeField] private int    ExplosivDamage;
     [SerializeField] private GameObject ExplossionParticle;
+    [SerializeField] private AudioClip SoundExplosiv;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,7 @@ public class Grenade : MonoBehaviour
             }
         }
         Instantiate(ExplossionParticle, transform.position, Quaternion.identity);
+        AudioManager.Instance.SE.PlayOneShot(SoundExplosiv);
         Destroy(this.gameObject);
     }
 }
