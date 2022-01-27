@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 5953592488326358689}
   - component: {fileID: 5557227664042332505}
   m_Layer: 0
-  m_Name: Image
+  m_Name: Health_Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,14 +314,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.025951147, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ae83a1934c110848ad2b73dcfc62728, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef1dd160893e65f4e994e4c8211bf9b2, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

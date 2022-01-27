@@ -39,11 +39,11 @@ namespace MainGameManage
                 maingame_GameProgress = true;
             }
 
-            if (maingame_IsGameOver || maingame_IsGameClear || maingame_IsPause)
+            if (maingame_IsPause)
             {
                 Time.timeScale = 0.0f;
             }
-            else if (!maingame_IsGameOver || !maingame_IsGameClear || !maingame_IsPause)
+            else
             {
                 Time.timeScale = 1.0f;
             }
