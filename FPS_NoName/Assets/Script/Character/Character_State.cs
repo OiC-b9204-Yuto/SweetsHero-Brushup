@@ -76,6 +76,7 @@ public class Character_State : MonoBehaviour
             }
 
             weapon_animator.SetBool("IsWalk", character_Info.Character_IsMove);
+
             //Inputでまとめるのも大事かもな
             //アニメーションどうこうで同時に起こらないようにしろ
             if (Input.GetKeyDown(KeyCode.G))
@@ -95,6 +96,8 @@ public class Character_State : MonoBehaviour
                     weapon_animator.SetTrigger("TriggerReload");
                 }
             }
+
+            character_Info.Character_IsReload = weapon_state.IsReload;
 
             if (Input.GetButton("Fire1") && !weapon_state.IsReload)
             {

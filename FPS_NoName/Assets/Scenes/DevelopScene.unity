@@ -1002,6 +1002,7 @@ MonoBehaviour:
   character_CurrentArmor: 200
   character_MaxArmor: 200
   character_IsMove: 0
+  character_IsReload: 0
   character_MovementSpeed:
   - 10
   - 20
