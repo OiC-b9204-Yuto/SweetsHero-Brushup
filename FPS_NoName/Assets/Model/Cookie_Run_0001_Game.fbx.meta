@@ -6,7 +6,35 @@ ModelImporter:
   - first:
       74: 5522812681064789136
     second: Run
-  externalObjects: {}
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kukki-_aiStandardSurface1SG_BaseColor
+    second: {fileID: 2800000, guid: 66e98146f0329764fb1682900ee312ff, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kukki-_aiStandardSurface2SG_BaseColor
+    second: {fileID: 2800000, guid: c1714783e2a7d5f4fae5f63cf251b87a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kukki-_aiStandardSurface3SG_BaseColor
+    second: {fileID: 2800000, guid: 7c5029c76d5bcf842b0110e34604efd1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kukki-_aiStandardSurface4SG_BaseColor
+    second: {fileID: 2800000, guid: e012e24d750c87c4bb16f30c6eb8b7f0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Kukki-_aiStandardSurface5SG_BaseColor
+    second: {fileID: 2800000, guid: cc72061105f5aed4aad6ff8293121fb0, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
