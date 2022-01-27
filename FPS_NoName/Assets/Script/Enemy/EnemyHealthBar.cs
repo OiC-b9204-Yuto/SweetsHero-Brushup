@@ -6,22 +6,25 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] private BaseEnemy baseEnemy;
-    [SerializeField] private Canvas HelthBar;
-    private Image image;
+    [SerializeField] private Canvas HealthBar;
+    [SerializeField] private Image Health_Bar_Image;
+    [SerializeField] private Image Health_Bar_BG_Image;
 
     void Awake()
     {
-        image = HelthBar.transform.GetChild(0).GetComponent<Image>();
-        HelthBar.gameObject.SetActive(false);
+        //Health_Bar_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
+        //Health_Bar_BG_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
+        HealthBar.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        image.fillAmount = (float)baseEnemy.CurrentHealth / baseEnemy.MaxHealth;
-        image.rectTransform.LookAt(Camera.main.transform);
-        if (image.fillAmount < 1)
+        Health_Bar_Image.fillAmount = (float)baseEnemy.CurrentHealth / baseEnemy.MaxHealth;
+        Health_Bar_Image.rectTransform.LookAt(Camera.main.transform);
+        Health_Bar_BG_Image.rectTransform.LookAt(Camera.main.transform);
+        if (Health_Bar_Image.fillAmount < 1)
         {
-            HelthBar.gameObject.SetActive(true);
+            HealthBar.gameObject.SetActive(true);
         }
     }
 }

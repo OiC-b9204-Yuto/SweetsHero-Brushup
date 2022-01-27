@@ -59,7 +59,7 @@ public class Character_State : MonoBehaviour
         }
         else
         {
-            float wheelroll = Input.GetAxis("Mouse ScrollWheel");
+            /*float wheelroll = Input.GetAxis("Mouse ScrollWheel");
             if (wheelroll > 0)
             {
                 weapon_state.ReloadCancel();
@@ -73,7 +73,7 @@ public class Character_State : MonoBehaviour
                 IsChangeWeapon = true;
                 BeforeWeaponNumber = character_Info.Character_CurrentWeapon;
                 character_Info.Character_CurrentWeapon++;
-            }
+            }*/
 
             weapon_animator.SetBool("IsWalk", character_Info.Character_IsMove);
 
