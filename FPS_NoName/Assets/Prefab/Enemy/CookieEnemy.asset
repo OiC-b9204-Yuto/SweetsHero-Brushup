@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CookieEnemy
   m_EditorClassIdentifier: 
   enemyName: "\u30AF\u30C3\u30AD\u30FC"
-  maxHealth: 100
+  maxHealth: 60

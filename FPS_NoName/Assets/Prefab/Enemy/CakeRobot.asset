@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CakeRobot
   m_EditorClassIdentifier: 
   enemyName: "\u30B1\u30FC\u30AD\u30ED\u30DC\u30C3\u30C8"
-  maxHealth: 300
+  maxHealth: 550
