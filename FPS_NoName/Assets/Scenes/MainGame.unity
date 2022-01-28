@@ -15355,6 +15355,7 @@ MonoBehaviour:
   info: {fileID: 1000397703}
   FlontGate: {fileID: 1583023915}
   BackGate: {fileID: 1199719468}
+  SoundGate: {fileID: 8300000, guid: 6358ec4db54344148be543359c1c4217, type: 3}
 --- !u!4 &456723131
 Transform:
   m_ObjectHideFlags: 0
@@ -50901,6 +50902,7 @@ MonoBehaviour:
   Gate:
   - {fileID: 1199719468}
   - {fileID: 1583023915}
+  SoundGate: {fileID: 8300000, guid: 6358ec4db54344148be543359c1c4217, type: 3}
 --- !u!65 &1527579699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69374,6 +69376,7 @@ MonoBehaviour:
   Gate:
   - {fileID: 1583023915}
   - {fileID: 1199719468}
+  SoundGate: {fileID: 8300000, guid: 6358ec4db54344148be543359c1c4217, type: 3}
 --- !u!1001 &2061399473
 PrefabInstance:
   m_ObjectHideFlags: 0

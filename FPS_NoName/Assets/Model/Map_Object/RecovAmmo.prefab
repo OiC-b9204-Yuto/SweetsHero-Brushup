@@ -588,7 +588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a7ca8e7c36d27d4288edf4e761b4ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecoveryValue: 90
+  RecoveryValue: 120
+  SoundRecovAmmo: {fileID: 8300000, guid: 4f1688cfbedc74041829d9921bc6efdc, type: 3}
 --- !u!1 &2589084436517793511
 GameObject:
   m_ObjectHideFlags: 0
