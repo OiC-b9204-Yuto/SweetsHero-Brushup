@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Weapon_State : MonoBehaviour
 {
+    UI_MainGame MainGameUI_System;
+    [SerializeField] private GameObject MainGameUI;
     [SerializeField] private int weapon_CurrentAmmo;
     [SerializeField] private int Weapon_UsePerShot_Ammo;
     [SerializeField] private int weapon_CurrentMagazine;
@@ -41,6 +43,7 @@ public class Weapon_State : MonoBehaviour
 
     private void Awake()
     {
+        MainGameUI_System = MainGameUI.GetComponent<UI_MainGame>(); 
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
         Weapon_DefaultReloadTime = ReloadTime;
         MuzzleFlash.Stop();
@@ -62,6 +65,7 @@ public class Weapon_State : MonoBehaviour
 
     public void Shot()
     {
+        if (MainGameUI_System.isStartAnimation) return;
         if (isReload) return;
         if (NextFireTime > 0) return;
 

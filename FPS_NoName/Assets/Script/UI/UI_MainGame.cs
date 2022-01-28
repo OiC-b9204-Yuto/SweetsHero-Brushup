@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-namespace MainGameManage {
     public class UI_MainGame : MonoBehaviour
     {
+    OR_SceneManager or_scenemanager;
         [SerializeField] private GameObject Player;                     //プレイヤーオブジェクト
         [SerializeField] private GameObject Weapon;                     //武器スクリプト設定オブジェクト
         [SerializeField] private GameObject PlayerIcon1;                //体力が50%以上の時のプレイヤーアイコン
@@ -20,7 +21,10 @@ namespace MainGameManage {
         [SerializeField] private Text Weapon_CurrentAmmoText;           //武器の現在のアモを表示するText
         [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
         [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
-        [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
+    [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
+    [SerializeField] private AudioClip ChangeColumnSE;
+    [SerializeField] private AudioClip EnterSE;
+    [SerializeField] private bool BackToMainMenu;
         Character_Info CharacterInfo;
         MainGameManager MainGame_Manager;
         Weapon_State Weapon_Stats;
@@ -35,6 +39,30 @@ namespace MainGameManage {
         //
         // ----------------------------------------------------------------------------------------------------
 
+        // ----------------------------------------------------------------------------------------------------
+        //
+        //  ゲームスタート用
+        //
+        //
+        public bool isStartAnimation;
+        UI_FadeImage StartFade;
+        [SerializeField] private Image FadeStartImage;
+        [SerializeField] private GameObject StartUI;
+        [SerializeField] private float StartTimer;
+        //
+        //
+        // ----------------------------------------------------------------------------------------------------
+
+
+        // ----------------------------------------------------------------------------------------------------
+        //
+        //  ゲームクリア用
+        //
+        //
+        [SerializeField] private Image FadeClearImage;
+        //
+        //
+        // ----------------------------------------------------------------------------------------------------
 
         // ----------------------------------------------------------------------------------------------------
         //
@@ -75,7 +103,12 @@ namespace MainGameManage {
         // ----------------------------------------------------------------------------------------------------
         void Awake()
         {
+        BackToMainMenu = false;
+            isStartAnimation = true;
+        StartTimer = 5.0f;
+        or_scenemanager = this.GetComponent<OR_SceneManager>();
             MainGame_Manager = GameObject.Find("MainGameManager").GetComponent<MainGameManager>();
+            StartFade = FadeStartImage.GetComponent<UI_FadeImage>();
 
             Health_Bar_Low1.enabled = false;
             Health_Bar_Low2.enabled = false;
@@ -100,19 +133,57 @@ namespace MainGameManage {
             GameOver_Retry.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             GameOver_ExitSelect.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             GameOver_Exit.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-
             CharacterInfo = Player.GetComponent<Character_Info>();
             Weapon_Stats = Weapon.GetComponent<Weapon_State>();
         }
 
+        private void Start()
+        {
+            StartFade.StartFadeImage = true;
+            StartUI.SetActive(true);
+        }
+
         void Update()
         {
+        if (BackToMainMenu)
+        {
+            or_scenemanager.SceneName = "MainTitle";
+            or_scenemanager.NextSceneLoad();
+        }
+            GameStartHUD();
             RefreshUIText();
             LowHealthUI();
             HealthValueChangeIcon();
             GameOver_System();
             ChangeMusicSystem();
             PauseMenuSystem();
+        }
+
+        void GameStartHUD()
+        {
+            if (StartFade.FinishFadeIN && MainGame_Manager.MainGame_IsStartAnimation)
+            {
+                MainGame_Manager.MainGame_IsStartGame = true;
+                MainGame_Manager.MainGame_IsStartAnimation = false;
+                StartFade.FinishFadeIN = false;
+            }
+
+            if (MainGame_Manager.MainGame_IsStartGame)
+            {
+                if (StartTimer >= 0.0f)
+                {
+                    StartTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    StartUI.SetActive(false);
+                    isStartAnimation = false;
+                    MainGame_Manager.MainGame_GameProgress = true;
+                    MainGame_Manager.MainGame_IsStartGame = false;
+                }
+
+
+            }
         }
 
         void RefreshUIText()
@@ -240,18 +311,31 @@ namespace MainGameManage {
                         GameOver_Retry.enabled = false;
                         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
                         {
+                            AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
                             GameOver_CurrentSelect++;
                         }
-                        break;
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                        AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        }
+                    break;
                     case 1:
                         GameOver_ExitSelect.enabled = true;
                         GameOver_Retry.enabled = true;
                         GameOver_RetrySelect.enabled = false;
                         GameOver_Exit.enabled = false;
-                        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-                        {
-                            GameOver_CurrentSelect--;
-                        }
+                    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                        GameOver_CurrentSelect--;
+                    }
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        or_scenemanager.SceneName = "MainTitle";
+                        or_scenemanager.NextSceneLoad();
+                        AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                    }
                         break;
                 }
 
@@ -260,23 +344,15 @@ namespace MainGameManage {
 
         void ChangeMusicSystem()
         {
-            if (MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsBossBattle)
-            {
                 if (!AudioManager.Instance.BGM.isPlaying) 
                 {
                     AudioManager.Instance.BGM.clip = FieldBGM;
                     AudioManager.Instance.BGM.Play();
                 }
-            }
-            else if (MainGame_Manager.MainGame_GameProgress && MainGame_Manager.MainGame_IsBossBattle)
-            {
-                AudioManager.Instance.BGM.clip = BossBGM;
-                AudioManager.Instance.BGM.Play();
-            }
         }
         void PauseMenuSystem()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsGameClear && !MainGame_Manager.MainGame_IsGameOver)
+            if (Input.GetKeyDown(KeyCode.Escape) && MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsGameClear && !MainGame_Manager.MainGame_IsGameOver && !isStartAnimation)
             {
                 MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
             }
@@ -293,7 +369,13 @@ namespace MainGameManage {
                         Pause_ExitSelect.enabled = false;
                         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                            Pause_CurrentSelect++;
+                        AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                        Pause_CurrentSelect++;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                            AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                         }
                         break;
                     case 1:
@@ -303,7 +385,14 @@ namespace MainGameManage {
                         Pause_ExitSelect.enabled = true;
                         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
                         {
-                            Pause_CurrentSelect--;
+                        AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                        Pause_CurrentSelect--;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                        AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                        BackToMainMenu = true;
+                        MainGame_Manager.MainGame_IsPause = false;
                         }
                         break;
                 }
@@ -314,4 +403,3 @@ namespace MainGameManage {
             }
         }
     }
-}

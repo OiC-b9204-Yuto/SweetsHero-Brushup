@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MainGameManage
-{
     public class MainGameManager : MonoBehaviour
     {
         [SerializeField] private bool maingame_IsStartAnimation; //ゲーム開始時のアニメーション用
@@ -15,6 +13,7 @@ namespace MainGameManage
         [SerializeField] private bool maingame_IsGameClear;      //ゲームクリア用
         [SerializeField] private bool maingame_IsImmortal;       //ゲーム中に無敵状態にする用
 
+        public bool MainGame_IsStartAnimation { get { return maingame_IsStartAnimation; } set { maingame_IsStartAnimation = value; } }
         public bool MainGame_IsStartGame { get { return maingame_IsStartGame; } set { maingame_IsStartGame = value; } }
         public bool MainGame_GameProgress { get { return maingame_GameProgress; } set { maingame_GameProgress = value; } }
         public bool MainGame_IsBossBattle { get { return maingame_IsBossBattle; } set { maingame_IsBossBattle = value; } }
@@ -51,4 +50,4 @@ namespace MainGameManage
 
         }
     }
-}
+
