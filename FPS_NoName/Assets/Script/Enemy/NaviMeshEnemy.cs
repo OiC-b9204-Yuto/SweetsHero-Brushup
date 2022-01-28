@@ -7,9 +7,10 @@ public class NaviMeshEnemy : BaseEnemy
 {
     [SerializeField] private float searchRadius = 10.0f;
     [SerializeField] private Transform target;
+    [SerializeField] private GameObject AttackCol;
     NavMeshAgent navMeshAgent;
     Animator animator;
-
+    
 
     public override void TakeDamage(int damage)
     {
@@ -34,7 +35,7 @@ public class NaviMeshEnemy : BaseEnemy
 
     void Update()
     {
-        Debug.Log(navMeshAgent  .pathStatus);
+        Debug.Log(navMeshAgent.pathStatus);
         if (target)
         {
             navMeshAgent.SetDestination(target.position);
@@ -51,13 +52,31 @@ public class NaviMeshEnemy : BaseEnemy
                 }
             }
         }
+    }
+    private void OnTriggerEnter(Collider player)
+    {
+        animator.SetBool("isAttack", true);
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        animator.SetBool("isAttack", false);
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, searchRadius);
+    }
+
+    public void OnAttack() //çUåÇíÜ
+    {
+        AttackCol.SetActive(true);
+    }
+
+    public void AttackFinish() //çUåÇèI
+    {
+        AttackCol.SetActive(false);
     }
 
 }
