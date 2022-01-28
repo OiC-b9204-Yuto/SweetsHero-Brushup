@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private GameObject HitParticle;
+    [SerializeField] private LayerMask Layer;
 
     private void Start()
     {
@@ -33,7 +34,7 @@ public class Bullet : MonoBehaviour
     {
         RaycastHit Hit;
 
-        bool rayCheck = Physics.Raycast(BeforePosition, transform.forward, out Hit ,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime);
+        bool rayCheck = Physics.Raycast(BeforePosition, transform.forward, out Hit ,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime, Layer);
         Debug.DrawRay(BeforePosition, transform.forward * (Vector3.Distance(BeforePosition, transform.position) + rigidbody.velocity.magnitude * Time.deltaTime), Color.green,1);
 
         if (!rayCheck) return;

@@ -35,7 +35,6 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
 
     void Update()
     {
-        Debug.Log(navMeshAgent.pathStatus);
         if (target)
         {
             navMeshAgent.SetDestination(target.position);
