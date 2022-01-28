@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BaseEnemy : MonoBehaviour
 {
     [SerializeField] protected EnemyParameter parameter;
-    protected int currentHealth;
+    [SerializeField] protected int currentHealth;
 
     public string EnemyName { get { return parameter.EnemyName; }}
     public int MaxHealth { get { return parameter.MaxHealth; } }

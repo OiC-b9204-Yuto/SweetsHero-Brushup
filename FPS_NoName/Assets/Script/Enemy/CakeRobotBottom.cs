@@ -11,8 +11,6 @@ public class CakeRobotBottom : CakeRobot
 
     [SerializeField] GameObject creamBulletPrefab;
 
-    [SerializeField] ParticleSystem smoke;
-
     private Transform target;
 
     int count = 0;
@@ -25,16 +23,8 @@ public class CakeRobotBottom : CakeRobot
 
     private void Start()
     {
-
         currentHealth = MaxHealth;
         target = FindObjectOfType<Character_Info>().transform;
-        brokenEvent.AddListener(() => smoke.Play());
-        repairEvent.AddListener(() => smoke.Stop());
-    }
-
-    private void LateUpdate()
-    {
-        Debug.Log(currentHealth);
     }
 
     public override void SkillAttack()

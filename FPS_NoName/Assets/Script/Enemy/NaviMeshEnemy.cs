@@ -14,6 +14,18 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
 
     public void TakeDamage(int damage)
     {
+        if (!target)
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius*3);
+            foreach (var collider in colliders)
+            {
+                if (collider.tag == "Player")
+                {
+                    target = collider.transform;
+                }
+            }
+        }
+
         currentHealth -= damage;
         if (currentHealth <= 0)
         {

@@ -9,8 +9,6 @@ public class CakeRobotMiddle : CakeRobot
 
     float attackTimer;
 
-    [SerializeField] ParticleSystem smoke;
-
     [SerializeField] NaviMeshEnemy cookieEnemy;
     [SerializeField] List<Transform> spawnPointList;
 

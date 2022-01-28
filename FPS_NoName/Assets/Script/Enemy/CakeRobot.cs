@@ -12,6 +12,8 @@ public abstract class CakeRobot : BaseEnemy, IDamageable
     [SerializeField] protected float repairRequiredTime;
     protected float repairTimer;
 
+    [SerializeField] protected ParticleSystem smoke;
+
     public void TakeDamage(int damage)
     { 
         if (currentHealth > 0)
@@ -20,7 +22,9 @@ public abstract class CakeRobot : BaseEnemy, IDamageable
         }
         else
         {
-            brokenEvent?.Invoke();
+            smoke.Play();
+            IsBroken = true;
+            brokenEvent.Invoke();
         }
     }
 
@@ -28,7 +32,8 @@ public abstract class CakeRobot : BaseEnemy, IDamageable
     {
         IsBroken = false;
         currentHealth = MaxHealth;
-        repairEvent?.Invoke();
+        repairEvent.Invoke();
+        smoke.Stop();
     }
 
     protected virtual void Update()

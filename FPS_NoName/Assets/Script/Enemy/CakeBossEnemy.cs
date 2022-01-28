@@ -12,7 +12,7 @@ public class CakeBossEnemy : BaseEnemy
 
     public bool IsCakeRobotBroken { get; private set; }
 
-    bool[] brokenCheckArray;
+    [SerializeField] bool[] brokenCheckArray;
     //プイレイヤー
     private GameObject player;
     //旋回用変数
@@ -31,10 +31,10 @@ public class CakeBossEnemy : BaseEnemy
     {
         mainGameManager = FindObjectOfType<MainGameManager>();
         brokenCheckArray = new bool[3];
-        foreach (var item in cakeRobots)
+        for (int i = 0; i < cakeRobots.Count; i++)
         {
-            item.brokenEvent.AddListener(() => BrokenCheck());
-            item.repairEvent.AddListener(() => BrokenCheck());
+            cakeRobots[i].brokenEvent.AddListener(() => BrokenCheck());
+            cakeRobots[i].repairEvent.AddListener(() => BrokenCheck());
         }
         player = FindObjectOfType<Character_Info>().gameObject;
         //クッキーキングの討伐時のイベントに関数を登録
@@ -50,15 +50,15 @@ public class CakeBossEnemy : BaseEnemy
         {
             brokenCheckArray[i] = cakeRobots[i].IsBroken;
         }
-        barrier.SetActive(true);
 
         for (int i = 0; i < cakeRobots.Count; i++)
         {
-            if(brokenCheckArray[i])
+            if(!cakeRobots[i].IsBroken)
             {
                 return;
             }
         }
+
         IsCakeRobotBroken = true;
         barrier.SetActive(false);
     }
@@ -71,21 +71,18 @@ public class CakeBossEnemy : BaseEnemy
 
     void TakeDamage()
     {
-        currentHealth -= 40;
-        if (currentHealth <= MaxHealth * 0.5f)
-        {
-            attackCooldownTime = 2;
-        }
-
+        currentHealth -= currentHealth;
         if (currentHealth <= 0)
         {
             IsDead = true;
         }
     }
 
+    public bool activate = false;
+
     void Update()
     {
-        if (IsDead)
+        if (!activate || IsDead)
         {
             return;
         }
@@ -99,13 +96,12 @@ public class CakeBossEnemy : BaseEnemy
         if (attackTimer > attackCooldownTime)
         {
             attackTimer = 0;
-            Debug.Log("SkillAttack");
             int index = UnityEngine.Random.Range(0, cakeRobots.Count);
-            while (brokenCheckArray[index])
+            Debug.Log(brokenCheckArray[index]);
+            if (!brokenCheckArray[index])
             {
-                index = UnityEngine.Random.Range(0, cakeRobots.Count);
+                cakeRobots[index].SkillAttack();
             }
-            cakeRobots[index].SkillAttack();
         }
 
     }

@@ -6,7 +6,6 @@ public class CakeRobotTop : CakeRobot
 {
     private void Start()
     {
-
         currentHealth = MaxHealth;
     }
 
