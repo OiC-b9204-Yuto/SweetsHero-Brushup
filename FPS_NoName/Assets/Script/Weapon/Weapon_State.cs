@@ -66,6 +66,7 @@ public class Weapon_State : MonoBehaviour
     public void Shot()
     {
         if (MainGameUI_System.isStartAnimation) return;
+        if (MainGameUI_System.isGameClear || MainGameUI_System.isGameOver) return;
         if (isReload) return;
         if (NextFireTime > 0) return;
 

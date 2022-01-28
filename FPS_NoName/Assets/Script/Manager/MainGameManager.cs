@@ -33,11 +33,6 @@ using UnityEngine;
 
         void CheckGameState()
         {
-            if (!maingame_IsStartAnimation && !maingame_GameProgress)
-            {
-                maingame_IsStartGame = true;
-                maingame_GameProgress = true;
-            }
 
             if (maingame_IsPause)
             {

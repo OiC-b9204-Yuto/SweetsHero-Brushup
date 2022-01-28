@@ -39,6 +39,7 @@ public class Character_Controller : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
         if (MainGameUI_System.isStartAnimation) return;
+        if (MainGameUI_System.isGameClear || MainGameUI_System.isGameOver) return;
         CursorSystem();
         MouseSystem();
         PlayerMovement();
