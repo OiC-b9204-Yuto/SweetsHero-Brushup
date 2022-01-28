@@ -17,6 +17,7 @@ namespace MainGameManage
 
         public bool MainGame_IsStartGame { get { return maingame_IsStartGame; } set { maingame_IsStartGame = value; } }
         public bool MainGame_GameProgress { get { return maingame_GameProgress; } set { maingame_GameProgress = value; } }
+        public bool MainGame_IsBossBattle { get { return maingame_IsBossBattle; } set { maingame_IsBossBattle = value; } }
         public bool MainGame_IsPause { get { return maingame_IsPause; } set { maingame_IsPause = value; } }
         public bool MainGame_IsGameOver { get { return maingame_IsGameOver; } set { maingame_IsGameOver = value; } }
         public bool MainGame_IsGameClear {  get { return maingame_IsGameClear; } set { maingame_IsGameClear = value; } }

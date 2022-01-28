@@ -19,7 +19,8 @@ namespace MainGameManage {
         [SerializeField] private Text Armor_Text;                       //アーマー値を表示するText
         [SerializeField] private Text Weapon_CurrentAmmoText;           //武器の現在のアモを表示するText
         [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
-
+        [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
+        [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
         Character_Info CharacterInfo;
         MainGameManager MainGame_Manager;
         Weapon_State Weapon_Stats;
@@ -81,7 +82,7 @@ namespace MainGameManage {
 
             GameOverUI.SetActive(false);
 
-            GameOverLogo_Vec = new Vector2(0,-125);
+            GameOverLogo_Vec = new Vector2(0, -125);
             GameOverLogo_POS.anchoredPosition = GameOverLogo_Vec;
 
             BG.enabled = false;
@@ -110,6 +111,7 @@ namespace MainGameManage {
             LowHealthUI();
             HealthValueChangeIcon();
             GameOver_System();
+            ChangeMusicSystem();
             PauseMenuSystem();
         }
 
@@ -256,6 +258,22 @@ namespace MainGameManage {
             }
         }
 
+        void ChangeMusicSystem()
+        {
+            if (MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsBossBattle)
+            {
+                if (!AudioManager.Instance.BGM.isPlaying) 
+                {
+                    AudioManager.Instance.BGM.clip = FieldBGM;
+                    AudioManager.Instance.BGM.Play();
+                }
+            }
+            else if (MainGame_Manager.MainGame_GameProgress && MainGame_Manager.MainGame_IsBossBattle)
+            {
+                AudioManager.Instance.BGM.clip = BossBGM;
+                AudioManager.Instance.BGM.Play();
+            }
+        }
         void PauseMenuSystem()
         {
             if (Input.GetKeyDown(KeyCode.Escape) && MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsGameClear && !MainGame_Manager.MainGame_IsGameOver)
