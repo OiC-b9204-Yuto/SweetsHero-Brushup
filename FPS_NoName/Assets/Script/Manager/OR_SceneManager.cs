@@ -23,7 +23,6 @@ public class OR_SceneManager : MonoBehaviour
 
     //Text
     [SerializeField] private Text ProgressText;     //プログレステキスト
-    [SerializeField] private Text Tips;             //Tipsテキスト
 
     private void Awake()
     {

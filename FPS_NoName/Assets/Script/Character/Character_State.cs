@@ -81,7 +81,7 @@ public class Character_State : MonoBehaviour
             //アニメーションどうこうで同時に起こらないようにしろ
             if (Input.GetKeyDown(KeyCode.G))
             {
-                if (character_Info.Character_CurrentGrenades < 0) return;
+                if (character_Info.Character_CurrentGrenades <= 0) return;
                 character_Info.Character_CurrentGrenades -= 1;
                 //前まっすぐ+重力なので要調整
                 GameObject obj =　Instantiate(GrenadeObject, transform.position + transform.forward * 2 + transform.up * 1, transform.rotation);
@@ -120,4 +120,10 @@ public class Character_State : MonoBehaviour
             }
         }
     }
+
+    public void RecovAmmo(int value)
+    {
+        weapon_state.Weapon_CurrentMagazine = value;
+    }
+
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Character_Controller : MonoBehaviour
 {
+    UI_MainGame MainGameUI_System;
+    [SerializeField] private GameObject MainGameUI;
     [SerializeField] private Transform Player_Camera = null;
 
     [SerializeField] Character_Info character_Info;
@@ -30,11 +32,14 @@ public class Character_Controller : MonoBehaviour
     CharacterController controller = null;
     private void Awake()
     {
+        MainGameUI_System = MainGameUI.GetComponent<UI_MainGame>();
         controller = GetComponent<CharacterController>();
     }
     void Update()
     {
         if (Time.timeScale == 0) return;
+        if (MainGameUI_System.isStartAnimation) return;
+        if (MainGameUI_System.isGameClear || MainGameUI_System.isGameOver) return;
         CursorSystem();
         MouseSystem();
         PlayerMovement();

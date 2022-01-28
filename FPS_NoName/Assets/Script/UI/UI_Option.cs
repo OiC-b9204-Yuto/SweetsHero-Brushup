@@ -39,6 +39,9 @@ public class UI_Option : MonoBehaviour
     [SerializeField] private Dropdown ResolutionList;
     [SerializeField] private GameObject Performance_ON_Object;
     [SerializeField] private GameObject Performance_OFF_Object;
+
+    [SerializeField] private AudioClip MainMenuChangeColumnSE;
+    [SerializeField] private AudioClip MainMenuEnterSE;
     private void Awake()
     {
         AudioManager.Instance.Load();
@@ -85,6 +88,7 @@ public class UI_Option : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && (!MainMenuSystem.CantSelectMenu && !isEnterMode))
         {
+            AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
             if (CurrentColumn == 0)
             {
                 CurrentColumn = OptionColumns;
@@ -96,6 +100,7 @@ public class UI_Option : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) && (!MainMenuSystem.CantSelectMenu && !isEnterMode))
         {
+            AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
             if (CurrentColumn == OptionColumns)
             {
                 CurrentColumn = 0;
@@ -113,12 +118,14 @@ public class UI_Option : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
                 ApplyMessageObject.SetActive(false);
                 isApplyShown = false;
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !MainMenuSystem.CantSelectMenu && !isApplyShown)
         {
+            AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
             isEnterMode = !isEnterMode;
         }
 
@@ -138,10 +145,12 @@ public class UI_Option : MonoBehaviour
                     Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && BGMSlider.value > 0.0f)
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         BGMSlider.value -= 0.1f;            
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && BGMSlider.value < 1.0f)
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         BGMSlider.value += 0.1f;
                     }
                 }
@@ -168,10 +177,12 @@ public class UI_Option : MonoBehaviour
                     Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && SESlider.value > 0.0f)
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         SESlider.value -= 0.1f;
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && SESlider.value < 1.0f)
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         SESlider.value += 0.1f;
                     }
                 }
@@ -189,7 +200,7 @@ public class UI_Option : MonoBehaviour
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, 28);
-                if (isEnterMode)
+                /*if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
@@ -204,14 +215,14 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }
+                }*/
                 break;
             case 3:         //パフォーマンス表示設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, -52);
-                if (isEnterMode)
+                /*if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
@@ -220,12 +231,14 @@ public class UI_Option : MonoBehaviour
                     Resolution_SelectImage.enabled = false;
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && (!Performance_OFF_Object.activeSelf) && Performance_ON_Object.activeSelf)
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         performance_Enable = 0;
                         Performance_ON_Object.SetActive(false);
                         Performance_OFF_Object.SetActive(true);
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && Performance_OFF_Object.activeSelf && (!Performance_ON_Object.activeSelf))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         performance_Enable = 1;
                         Performance_OFF_Object.SetActive(false);
                         Performance_ON_Object.SetActive(true);
@@ -238,14 +251,14 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }
+                }*/
                 break;
             case 4:         //解像度設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, -138);
-                if (isEnterMode)
+                /*if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
@@ -261,7 +274,7 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }
+                }*/
                 break;
             case 5:         //OKボタン
                 CurrentSelect.enabled = false;
