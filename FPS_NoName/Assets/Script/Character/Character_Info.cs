@@ -7,6 +7,7 @@ public class Character_Info : MonoBehaviour , IDamageable
     [SerializeField] private int character_CurrentWeapon;
     [SerializeField] private int character_MaxWeapons;
     [SerializeField] private int character_CurrentGrenades;
+    [SerializeField] private int character_GetKeys;
     [SerializeField] private float character_CurrentHP;
     [SerializeField] private float character_MaxHP;
     [SerializeField] private float character_CurrentArmor;
@@ -14,6 +15,8 @@ public class Character_Info : MonoBehaviour , IDamageable
     [SerializeField] private bool character_IsMove;
     [SerializeField] private bool character_IsReload;
     [SerializeField] private float[] character_MovementSpeed;
+
+    [SerializeField] private AudioClip character_HitSE;
     public int Character_CurrentWeapon
     {get { return character_CurrentWeapon; } 
         set 
@@ -30,7 +33,7 @@ public class Character_Info : MonoBehaviour , IDamageable
         } 
     }
     public int Character_CurrentGrenades { get { return character_CurrentGrenades; } set { character_CurrentGrenades = value;} }
-
+    public int Character_GetKeys { get { return character_GetKeys; } set { character_GetKeys = value; } }
     public float Character_CurrentHP 
     { get { return character_CurrentHP; } 
         private set 
@@ -60,7 +63,8 @@ public class Character_Info : MonoBehaviour , IDamageable
     public bool Character_IsReload { get { return character_IsReload; } set { character_IsReload = value; } }
     public void TakeDamage(int damage)
     {
-        if(Character_CurrentArmor >= damage)
+        AudioManager.Instance.SE.PlayOneShot(character_HitSE);
+        if (Character_CurrentArmor >= damage)
         {
             Character_CurrentArmor -= damage;
         }
