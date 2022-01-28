@@ -17,6 +17,7 @@ public class Character_Info : MonoBehaviour , IDamageable
     [SerializeField] private float[] character_MovementSpeed;
 
     [SerializeField] private AudioClip character_HitSE;
+
     public int Character_CurrentWeapon
     {get { return character_CurrentWeapon; } 
         set 
