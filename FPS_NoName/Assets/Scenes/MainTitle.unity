@@ -3304,6 +3304,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSelect: 0
+  CurrentSelectExit: 0
+  Exit_SelectYes: {fileID: 1586245160}
+  Exit_SelectNo: {fileID: 347209443}
+  Exit_Yes: {fileID: 99106318}
+  Exit_No: {fileID: 56498518}
   PushEsc: 0
   FadeAnimtionEnd: 0
   CantSelectMenu: 0
