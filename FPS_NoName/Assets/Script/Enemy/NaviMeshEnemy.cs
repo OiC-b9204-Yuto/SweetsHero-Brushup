@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NaviMeshEnemy : BaseEnemy
+public class NaviMeshEnemy : BaseEnemy , IDamageable
 {
     [SerializeField] private float searchRadius = 10.0f;
     [SerializeField] private Transform target;
@@ -12,7 +12,7 @@ public class NaviMeshEnemy : BaseEnemy
     Animator animator;
     
 
-    public override void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
