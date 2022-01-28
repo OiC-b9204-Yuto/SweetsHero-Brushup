@@ -973,6 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a664d69f32b084eacdb4a9add8f8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainGameUI: {fileID: 0}
   Player_Camera: {fileID: 963194228}
   character_Info: {fileID: 244008491}
   Player_MoveSmoothTime: 0.1
@@ -1007,6 +1008,7 @@ MonoBehaviour:
   - 10
   - 20
   - 30
+  character_HitSE: {fileID: 8300000, guid: 496e875dd46a6284a9fdd8f598e042b6, type: 3}
 --- !u!143 &244008492
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1408,7 +1410,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17198
+  m_Name: pb_Mesh18360
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1668,7 +1670,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31208
+  m_Name: pb_Mesh18284
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2632,7 +2634,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31338
+  m_Name: pb_Mesh18414
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7892,7 +7894,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17502
+  m_Name: pb_Mesh18664
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8245,7 +8247,17 @@ MonoBehaviour:
   Armor_Text: {fileID: 1951250659}
   Weapon_CurrentAmmoText: {fileID: 416441125}
   Weapon_CurrentMagazineText: {fileID: 156499533}
+  FieldBGM: {fileID: 0}
+  BossBGM: {fileID: 0}
+  ChangeColumnSE: {fileID: 0}
+  EnterSE: {fileID: 0}
+  BackToMainMenu: 0
   LowHealthUIObject: {fileID: 1141932934}
+  isStartAnimation: 0
+  FadeStartImage: {fileID: 0}
+  StartUI: {fileID: 0}
+  StartTimer: 0
+  FadeClearImage: {fileID: 0}
   GameOverUI: {fileID: 589200923}
   BG: {fileID: 1929461763}
   GameOverBG: {fileID: 1991481730}
@@ -8970,6 +8982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad4e620025bea64c9e47eb5f9ced931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainGameUI: {fileID: 0}
   weapon_CurrentAmmo: 30
   Weapon_UsePerShot_Ammo: 1
   weapon_CurrentMagazine: 999
@@ -14372,6 +14385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad4e620025bea64c9e47eb5f9ced931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainGameUI: {fileID: 0}
   weapon_CurrentAmmo: 30
   Weapon_UsePerShot_Ammo: 1
   weapon_CurrentMagazine: 999
