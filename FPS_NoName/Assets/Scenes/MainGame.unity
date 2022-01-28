@@ -53400,9 +53400,20 @@ MonoBehaviour:
   FadeStartImage: {fileID: 1923352084}
   StartUI: {fileID: 385937952}
   StartTimer: 0
+  isGameClear: 0
   ClearUI: {fileID: 1129022897}
   ClearScoreShownTimer: 0
+  ResultScore: 0
+  FinalScore: 0
   ClearTime: {fileID: 1346287031}
+  ClearScore: {fileID: 987508682}
+  TotalResult: {fileID: 1113018064}
+  Clear_CurrentSelect: 0
+  Clear_RetrySelect: {fileID: 307180003}
+  Clear_Retry: {fileID: 1271035333}
+  Clear_ExitSelect: {fileID: 723644818}
+  Clear_Exit: {fileID: 1686279895}
+  isGameOver: 0
   GameOverUI: {fileID: 1741281084}
   BG: {fileID: 1795072865}
   GameOverBG: {fileID: 937061660}

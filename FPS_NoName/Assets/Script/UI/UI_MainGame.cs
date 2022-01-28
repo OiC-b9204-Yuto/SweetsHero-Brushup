@@ -65,7 +65,16 @@ using UnityEngine.SceneManagement;
     public bool isGameClear;
     [SerializeField] private GameObject ClearUI;
     [SerializeField] private float ClearScoreShownTimer;
+    [SerializeField] private float ResultScore;
+    [SerializeField] private float FinalScore;
     [SerializeField] private Text ClearTime;
+    [SerializeField] private Text ClearScore;
+    [SerializeField] private Text TotalResult;
+    [SerializeField] private int Clear_CurrentSelect;
+    [SerializeField] private Image Clear_RetrySelect;
+    [SerializeField] private Image Clear_Retry;
+    [SerializeField] private Image Clear_ExitSelect;
+    [SerializeField] private Image Clear_Exit;
 
     //
     //
@@ -111,8 +120,10 @@ using UnityEngine.SceneManagement;
      // ----------------------------------------------------------------------------------------------------
      void Awake()
      {
-     BackToMainMenu = false;
-         isStartAnimation = true;
+        isGameClear = false;
+        isGameOver = false; 
+        BackToMainMenu = false;
+        isStartAnimation = true;
         StartTimer = 5.0f;
         ClearScoreShownTimer = 3.0f;
      or_scenemanager = this.GetComponent<OR_SceneManager>();
@@ -288,14 +299,57 @@ using UnityEngine.SceneManagement;
         if (MainGame_Manager.MainGame_IsGameClear)
         {
             ClearUI.SetActive(true);
+            isGameClear = true;
+            ResultScore = CharacterInfo.Character_CurrentHP * 1000 + CharacterInfo.Character_CurrentArmor * 500;
+            FinalScore = ResultScore + 15000000 / StageProgressTime;
             if (ClearScoreShownTimer >= 0.0f)
             {
                 ClearScoreShownTimer -= Time.deltaTime;
                 ClearTime.text = Random.Range(00,99).ToString("00") + ":" + Random.Range(00, 99).ToString("00");
+                ClearScore.text = Random.Range(000000, 999999).ToString("000000");
+                TotalResult.text = Random.Range(000000, 999999).ToString("000,000");
             }
             else
             {
                 ClearTime.text = StageProgressTime_Minutes.ToString("00") + ":" + StageProgressTime_Secounds.ToString("00");
+                ClearScore.text = ResultScore.ToString("000000");
+                TotalResult.text = FinalScore.ToString("000,000");
+                switch (Clear_CurrentSelect)
+                {
+                    case 0:
+                        Clear_RetrySelect.enabled = true;
+                        Clear_Exit.enabled = true;
+                        Clear_Retry.enabled = false;
+                        Clear_ExitSelect.enabled = false;
+                        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                            Clear_CurrentSelect++;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                            AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        }
+                        break;
+                    case 1:
+                        Clear_RetrySelect.enabled = false;
+                        Clear_Exit.enabled = false;
+                        Clear_Retry.enabled = true;
+                        Clear_ExitSelect.enabled = true;
+                        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                        {
+                            AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                            Clear_CurrentSelect--;
+                        }
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                            or_scenemanager.SceneName = "MainTitle";
+                            or_scenemanager.NextSceneLoad();
+                            AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                        }
+                        break;
+                }
             }
             
         }
@@ -304,7 +358,8 @@ using UnityEngine.SceneManagement;
      {
          if (CharacterInfo.Character_CurrentHP <= 0)
          {
-             MainGame_Manager.MainGame_IsGameOver = true;
+            isGameOver = true;
+            MainGame_Manager.MainGame_IsGameOver = true;
              GameOverUI.SetActive(true);
              BG.enabled = true;
              GameOverBG.enabled = true;
