@@ -33,6 +33,8 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private GameObject OptionHUD;          //オプション画面HUD　用のゲームオブジェクト
 
     [SerializeField] private AudioClip MainMenuMusic;
+    [SerializeField] private AudioClip MainMenuChangeColumnSE;
+    [SerializeField] private AudioClip MainMenuEnterSE;
 
     private void Awake()
     {
@@ -134,6 +136,7 @@ public class UI_MainMenu : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
                 PushEsc = !PushEsc;
             }
         }
@@ -150,10 +153,12 @@ public class UI_MainMenu : MonoBehaviour
                     Option_Button.enabled = true;
                     if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         CurrentSelect = 1;
                     }
                     if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         CurrentSelect = 1;
                     }
                     break;
@@ -164,15 +169,18 @@ public class UI_MainMenu : MonoBehaviour
                     Option_Button.enabled = false;
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
                         CantSelectMenu = true;
                         FadeSystemToOption.StartFadeImage = true;
                     }
                     if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         CurrentSelect = 0;
                     }
                     if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
+                        AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         CurrentSelect = 0;
                     }
                     break;

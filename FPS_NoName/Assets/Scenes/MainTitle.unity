@@ -626,6 +626,8 @@ MonoBehaviour:
   ResolutionList: {fileID: 1715088420}
   Performance_ON_Object: {fileID: 230167534}
   Performance_OFF_Object: {fileID: 721694975}
+  MainMenuChangeColumnSE: {fileID: 8300000, guid: f177cb8219c02164eb3008a7a33484c6, type: 3}
+  MainMenuEnterSE: {fileID: 8300000, guid: 44951b7d8baadc24d90d3df1436043c2, type: 3}
 --- !u!1 &165484828
 GameObject:
   m_ObjectHideFlags: 0
@@ -3146,6 +3148,8 @@ MonoBehaviour:
   ExitHUD: {fileID: 799722869}
   OptionHUD: {fileID: 159936161}
   MainMenuMusic: {fileID: 8300000, guid: fe240019ba71ce049957186746c9b75c, type: 3}
+  MainMenuChangeColumnSE: {fileID: 8300000, guid: f177cb8219c02164eb3008a7a33484c6, type: 3}
+  MainMenuEnterSE: {fileID: 8300000, guid: 44951b7d8baadc24d90d3df1436043c2, type: 3}
 --- !u!1 &857656933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3483,7 +3487,7 @@ GameObject:
   - component: {fileID: 995437542}
   - component: {fileID: 995437541}
   m_Layer: 5
-  m_Name: '----Fade Images----'
+  m_Name: ----Fade Images----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6008,8 +6012,7 @@ AudioSource:
   m_GameObject: {fileID: 1858261966}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -535668695920835910, guid: be8e3c99fb3d2c543b4e4a6174669fba,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: -535668695920835910, guid: be8e3c99fb3d2c543b4e4a6174669fba, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -6105,8 +6108,7 @@ AudioSource:
   m_GameObject: {fileID: 1858261966}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1463319056993867166, guid: be8e3c99fb3d2c543b4e4a6174669fba,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 1463319056993867166, guid: be8e3c99fb3d2c543b4e4a6174669fba, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
