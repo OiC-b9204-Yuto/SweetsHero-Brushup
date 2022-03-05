@@ -6,6 +6,7 @@ using UnityEngine;
 public class Character_Controller : MonoBehaviour
 {
     UI_MainGame MainGameUI_System;
+    
     [SerializeField] private GameObject MainGameUI;
     [SerializeField] private Transform Player_Camera = null;
 
@@ -13,7 +14,6 @@ public class Character_Controller : MonoBehaviour
 
     [SerializeField] [Range(0.0f, 5.0f)] private float Player_MoveSmoothTime = 0.3f;
     [SerializeField] private float Player_JumpSpeed;
-    [SerializeField] private float ADS_Speed;
     [SerializeField] private float Gravity;
     [SerializeField] private float mouse_Sensitivity;
     [SerializeField] [Range(0.0f, 5.0f)] private float Mouse_MoveSmoothTime = 0.04f;
@@ -32,6 +32,8 @@ public class Character_Controller : MonoBehaviour
     CharacterController controller = null;
     private void Awake()
     {
+        GameData_Manager.Instance.Load();
+        mouse_Sensitivity = GameData_Manager.Instance.gameData.MouseSensitivity;
         MainGameUI_System = MainGameUI.GetComponent<UI_MainGame>();
         controller = GetComponent<CharacterController>();
     }

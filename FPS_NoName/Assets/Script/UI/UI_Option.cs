@@ -18,7 +18,7 @@ public class UI_Option : MonoBehaviour
     private RectTransform CurrentSelectPos;             //CurrentSelectのポジション用
     private Vector2 SelectPos;                          //RectTransformに反映させる用
     [SerializeField] private int performance_Enable;    //パフォーマンス表示のON/OFF (0:Disable / 1:Enable)
-    public int Performance_Enable { get { return performance_Enable; } }//パフォーマンス表示のON/OFF Getter/Setter
+    public int Performance_Enable { get { return performance_Enable; }}//パフォーマンス表示のON/OFF Getter/Setter
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SESlider;
     [SerializeField] private Slider Mouse_Sensi;
@@ -45,6 +45,9 @@ public class UI_Option : MonoBehaviour
     private void Awake()
     {
         AudioManager.Instance.Load();
+        GameData_Manager.Instance.Load();
+        performance_Enable = GameData_Manager.Instance.gameData.FpsShown;
+        Mouse_Sensi.value = GameData_Manager.Instance.gameData.MouseSensitivity;
         CurrentSelectPos = CurrentSelect.GetComponent<RectTransform>();
         MainMenuSystem = MainMenuObject.GetComponent<UI_MainMenu>();
     }
@@ -61,7 +64,7 @@ public class UI_Option : MonoBehaviour
             bool check = true;
             foreach (var listItem in checkList)
             {
-                if(res.width == listItem.width)
+                if (res.width == listItem.width)
                 {
                     if (res.height == listItem.height)
                     {
@@ -82,6 +85,7 @@ public class UI_Option : MonoBehaviour
         InputDir();
         EnterChangeOptionMode();
         RefreshUIValue();
+        CheckPerfomanceSettingEnable();
     }
 
     void InputDir()
@@ -146,7 +150,7 @@ public class UI_Option : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.LeftArrow) && BGMSlider.value > 0.0f)
                     {
                         AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
-                        BGMSlider.value -= 0.1f;            
+                        BGMSlider.value -= 0.1f;
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && BGMSlider.value < 1.0f)
                     {
@@ -200,13 +204,21 @@ public class UI_Option : MonoBehaviour
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, 28);
-                /*if (isEnterMode)
+                if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
                     MouseSensi_SelectImage.enabled = true;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        Mouse_Sensi.value -= 0.5f;
+                    }
+                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        Mouse_Sensi.value += 0.5f;
+                    }
                 }
                 else
                 {
@@ -215,14 +227,14 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }*/
+                }
                 break;
             case 3:         //パフォーマンス表示設定
                 CurrentSelect.enabled = true;
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, -52);
-                /*if (isEnterMode)
+                if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
@@ -233,15 +245,11 @@ public class UI_Option : MonoBehaviour
                     {
                         AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         performance_Enable = 0;
-                        Performance_ON_Object.SetActive(false);
-                        Performance_OFF_Object.SetActive(true);
                     }
                     else if (Input.GetKeyDown(KeyCode.RightArrow) && Performance_OFF_Object.activeSelf && (!Performance_ON_Object.activeSelf))
                     {
                         AudioManager.Instance.SE.PlayOneShot(MainMenuChangeColumnSE);
                         performance_Enable = 1;
-                        Performance_OFF_Object.SetActive(false);
-                        Performance_ON_Object.SetActive(true);
                     }
                 }
                 else
@@ -251,7 +259,7 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }*/
+                }
                 break;
             case 4:         //解像度設定
                 CurrentSelect.enabled = true;
@@ -284,7 +292,10 @@ public class UI_Option : MonoBehaviour
                 {
                     ApplyMessageObject.SetActive(true);
                     isApplyShown = true;
+                    GameData_Manager.Instance.gameData.MouseSensitivity = Mouse_Sensi.value;
+                    GameData_Manager.Instance.gameData.FpsShown = performance_Enable;
                     AudioManager.Instance.Save();
+                    GameData_Manager.Instance.Save();
                     isEnterMode = false;
                 }
                 break;
@@ -296,9 +307,26 @@ public class UI_Option : MonoBehaviour
     {
         float FinalBGMValue = 0.0f;
         float FinalSEValue = 0.0f;
+        float MouseValue = 0.0f;
         FinalBGMValue = BGMSlider.value * 100;
         FinalSEValue = SESlider.value * 100;
+        MouseValue = Mouse_Sensi.value;
         BGMValue.text = FinalBGMValue.ToString("0") + "%";
         SEValue.text = FinalSEValue.ToString("0") + "%";
+        MouseSensiValue.text = MouseValue.ToString("0.0");
+    }
+    void CheckPerfomanceSettingEnable()
+    {
+        switch (performance_Enable)
+        {
+            case 0:
+                Performance_ON_Object.SetActive(false);
+                Performance_OFF_Object.SetActive(true);
+                break;
+            case 1:
+                Performance_OFF_Object.SetActive(false);
+                Performance_ON_Object.SetActive(true);
+                break;
+        }
     }
 }

@@ -973,7 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a664d69f32b084eacdb4a9add8f8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGameUI: {fileID: 0}
+  MainGameUI: {fileID: 1990716590}
   Player_Camera: {fileID: 963194228}
   character_Info: {fileID: 244008491}
   Player_MoveSmoothTime: 0.1
@@ -998,6 +998,7 @@ MonoBehaviour:
   character_CurrentWeapon: 0
   character_MaxWeapons: 3
   character_CurrentGrenades: 3
+  character_GetKeys: 0
   character_CurrentHP: 100
   character_MaxHP: 100
   character_CurrentArmor: 200
@@ -1080,8 +1081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43173dca353bf9b40897c0610fe39dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parameter: {fileID: 11400000, guid: c556a3a560c93e74a806d3d4319e5e85, type: 2}
-  player: {fileID: 0}
 --- !u!136 &246197303
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8252,12 +8251,28 @@ MonoBehaviour:
   ChangeColumnSE: {fileID: 0}
   EnterSE: {fileID: 0}
   BackToMainMenu: 0
+  StageProgressTime: 0
+  StageProgressTime_Minutes: 0
+  StageProgressTime_Secounds: 0
   LowHealthUIObject: {fileID: 1141932934}
   isStartAnimation: 0
   FadeStartImage: {fileID: 0}
   StartUI: {fileID: 0}
   StartTimer: 0
-  FadeClearImage: {fileID: 0}
+  isGameClear: 0
+  ClearUI: {fileID: 0}
+  ClearScoreShownTimer: 0
+  ResultScore: 0
+  FinalScore: 0
+  ClearTime: {fileID: 0}
+  ClearScore: {fileID: 0}
+  TotalResult: {fileID: 0}
+  Clear_CurrentSelect: 0
+  Clear_RetrySelect: {fileID: 0}
+  Clear_Retry: {fileID: 0}
+  Clear_ExitSelect: {fileID: 0}
+  Clear_Exit: {fileID: 0}
+  isGameOver: 0
   GameOverUI: {fileID: 589200923}
   BG: {fileID: 1929461763}
   GameOverBG: {fileID: 1991481730}
@@ -14385,7 +14400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad4e620025bea64c9e47eb5f9ced931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGameUI: {fileID: 0}
+  MainGameUI: {fileID: 1990716590}
   weapon_CurrentAmmo: 30
   Weapon_UsePerShot_Ammo: 1
   weapon_CurrentMagazine: 999

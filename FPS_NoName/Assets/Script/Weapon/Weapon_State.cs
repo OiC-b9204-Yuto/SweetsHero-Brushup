@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Weapon_State : MonoBehaviour
 {
     UI_MainGame MainGameUI_System;
@@ -47,6 +46,7 @@ public class Weapon_State : MonoBehaviour
         Weapon_DefaultAmmo = weapon_CurrentAmmo;
         Weapon_DefaultReloadTime = ReloadTime;
         MuzzleFlash.Stop();
+        
     }
     void Update()
     {
@@ -69,7 +69,6 @@ public class Weapon_State : MonoBehaviour
         if (MainGameUI_System.isGameClear || MainGameUI_System.isGameOver) return;
         if (isReload) return;
         if (NextFireTime > 0) return;
-
         if(weapon_CurrentAmmo > 0)
         {
             weapon_CurrentAmmo -= Weapon_UsePerShot_Ammo;
@@ -93,6 +92,7 @@ public class Weapon_State : MonoBehaviour
 
             NextFireTime = FireRate;
             AudioManager.Instance.SE.PlayOneShot(Sound_Shot);
+            
             return;
         }
     }
@@ -104,6 +104,7 @@ public class Weapon_State : MonoBehaviour
         if (isReload) return false;
         isReload = true;
         return true;
+        
     }
 
     public void ReloadCancel()

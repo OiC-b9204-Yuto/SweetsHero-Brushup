@@ -31,7 +31,9 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     private void Start()
     {
         Load();
+        
     }
+
 
     /// <summary>
     /// 現在の音量のデータをファイルに保存する関数
