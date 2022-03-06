@@ -6,10 +6,16 @@ using UnityEngine.AI;
 public class NaviMeshEnemy : BaseEnemy , IDamageable
 {
     [SerializeField] private float searchRadius = 10.0f;
+    [SerializeField] private float searchAngle = 120.0f;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject AttackCol;
     NavMeshAgent navMeshAgent;
     Animator animator;
+
+    Vector3 startPos;
+
+    const float initTargetTimer = 10.0f;
+    float targetTimer = initTargetTimer;
     
 
     public void TakeDamage(int damage)
@@ -41,6 +47,8 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
 
     void Start()
     {
+        startPos = transform.position;
+        AttackCol.SetActive(false);
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -49,23 +57,50 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
     {
         if (target)
         {
+            targetTimer -= Time.deltaTime;
+            //ターゲットの設定
             navMeshAgent.SetDestination(target.position);
             animator.SetBool("isMove", navMeshAgent.velocity.sqrMagnitude > 0.1f);
+            //視線が届くか調べる
+            RaycastHit rayHit;
+            LayerMask layerMask = 1 << LayerMask.NameToLayer("Player");
+            if (Physics.Raycast(this.transform.position, target.position - this.transform.position, out rayHit, 100.0f, layerMask) &&
+                rayHit.collider.tag == "Player")
+            {
+                //ターゲット用のタイマーを初期値に戻す
+                targetTimer = initTargetTimer;
+            }
         }
         else
         {
+            //索敵範囲内の検知
             Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius);
             foreach (var collider in colliders)
             {
                 if (collider.tag == "Player")
                 {
-                    target = collider.transform;
+                    //視野内に入っているか
+                    if (Vector3.Angle(this.transform.forward, collider.transform.position - this.transform.position) < searchAngle * 0.5f) {
+                        target = collider.transform;
+                        targetTimer = initTargetTimer;
+                    }
                 }
             }
+        }
+
+        if (targetTimer <= 0)
+        {
+            //初期に戻る処理
+            target = null;
+            navMeshAgent.SetDestination(startPos);
         }
     }
     private void OnTriggerEnter(Collider player)
     {
+        if (!target || player.tag != "Player")
+        {
+            return;
+        }
         animator.SetBool("isAttack", true);
     }
 
@@ -82,11 +117,15 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
 
     public void OnAttack() //攻撃中
     {
+        navMeshAgent.isStopped = true;
+        navMeshAgent.velocity = navMeshAgent.velocity * 0.5f;
         AttackCol.SetActive(true);
+
     }
 
     public void AttackFinish() //攻撃終
     {
+        navMeshAgent.isStopped = false;
         AttackCol.SetActive(false);
     }
 
