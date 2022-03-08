@@ -37526,14 +37526,14 @@ MonoBehaviour:
   weapon_CurrentAmmo: 15
   Weapon_UsePerShot_Ammo: 1
   weapon_CurrentMagazine: 150
-  weapon_Damage: 25
+  weapon_Damage: 30
   ShotRange: 500
-  FireRate: 0.3
+  FireRate: 0.55
   ReloadTime: 2.2
   NextFireTime: 0
   ShootPoint: {fileID: 1529326710}
   BulletObject: {fileID: 3398653069952007332, guid: 3e2342d2442f9d741997d37c80bba23b, type: 3}
-  BulletSpeed: 2100
+  BulletSpeed: 2500
   MuzzleFlash: {fileID: 2062947787}
   Sound_Shot: {fileID: 8300000, guid: bc464cc2ec7d8bd4ca4382fbb880f8f6, type: 3}
   Sound_Reload: {fileID: 8300000, guid: 8893c4aef83540d478c3bbb31605c910, type: 3}
