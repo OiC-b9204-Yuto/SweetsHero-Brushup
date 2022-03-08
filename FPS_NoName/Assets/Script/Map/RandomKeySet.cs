@@ -17,7 +17,7 @@ public class RandomKeySet : MonoBehaviour
 
         for(int i = 0; i < RandomValue; i++)
         {
-            if(hitcount != HitValue)
+            if (hitcount != HitValue)
             {
                 if (RandomValue - i <= HitValue - hitcount)
                 {
@@ -26,16 +26,21 @@ public class RandomKeySet : MonoBehaviour
                     continue;
                 }
                 int j = Random.Range(0, 2);
-                if ( j == 0)
+                if (j == 0)
                 {
-                    
+
 
                     hitcount++;
                     Instantiate(SpawnObject[0], SpawnPoint[i]);
                     continue;
                 }
+
             }
-            Instantiate(SpawnObject[1], SpawnPoint[i]);
+            if (SpawnObject.Length >= 2)
+            {
+                Instantiate(SpawnObject[1], SpawnPoint[i]);
+            }
+            
         }
     }
 }

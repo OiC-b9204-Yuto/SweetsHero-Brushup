@@ -72,7 +72,8 @@ public class Character_PickItem : MonoBehaviour
                 ManualItem_Ray = PlayerCamera.ScreenPointToRay(CenterPos);
                 Debug.DrawRay(ManualItem_Ray.origin, ManualItem_Ray.direction * ManualPickDistance, Color.red, 0.5f, false);
                 AutoPickArea.enabled = false;
-                if (Physics.Raycast(ManualItem_Ray, out manualItem_Hit, ManualPickDistance) && ManualItem_Hit.collider.tag == "Item")
+                LayerMask layerMask = 1;
+                if (Physics.Raycast(ManualItem_Ray, out manualItem_Hit, ManualPickDistance, layerMask) && ManualItem_Hit.collider.tag == "Item")
                 {
                     IsHitItem = true;
                     if (Input.GetKeyDown(KeyCode.E))

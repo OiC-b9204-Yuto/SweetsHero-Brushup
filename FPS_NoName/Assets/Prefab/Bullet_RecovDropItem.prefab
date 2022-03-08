@@ -99,6 +99,7 @@ MonoBehaviour:
   itemType: 0
   itemDeleteTime: 60
   itemDropChance: 90
+  itemSoundEffect: {fileID: 8300000, guid: 4f1688cfbedc74041829d9921bc6efdc, type: 3}
 --- !u!65 &7408231079026569556
 BoxCollider:
   m_ObjectHideFlags: 0

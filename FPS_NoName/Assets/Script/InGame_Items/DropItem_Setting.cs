@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ItemType //アイテムのタイプ
 {
     Bullet,
-    Heal
+    Heal,
+    Key,
 }
 
 public class DropItem_Setting : MonoBehaviour
@@ -16,6 +17,7 @@ public class DropItem_Setting : MonoBehaviour
     public ItemType itemType; //アイテムのタイプ
     [SerializeField] private float itemDeleteTime; //アイテムの削除時間
     [SerializeField] private float itemDropChance; //アイテムのドロップ確率
+    [SerializeField] private AudioClip itemSoundEffect; //アイテムの獲得時の音源配列
 
     public float ItemDropChance { get { return itemDropChance; } } //アイテムのドロップ確率をGet出来るように
     public string ItemName { get { return itemName; } } //アイテムの名前を共有
@@ -31,6 +33,9 @@ public class DropItem_Setting : MonoBehaviour
             case ItemType.Heal:
                 itemName = "体力回復剤";
                 break;
+            case ItemType.Key:
+                itemName = "鍵";
+                break;
         }
     }
 
@@ -41,6 +46,10 @@ public class DropItem_Setting : MonoBehaviour
 
     void DeleteTimer() //アイテムの削除
     {
+        if (itemType == ItemType.Key)
+        {
+            return;
+        }
         if (!isItemSpawn)
         {
             Destroy(this.gameObject);
@@ -64,12 +73,19 @@ public class DropItem_Setting : MonoBehaviour
         switch (itemType)
         {
             case ItemType.Bullet:
+                AudioManager.Instance.SE.PlayOneShot(itemSoundEffect);
                 Player.GetComponent<Character_State>().RecovAmmo(20);
                 Destroy(this.gameObject);
                 break;
             case ItemType.Heal:
+                AudioManager.Instance.SE.PlayOneShot(itemSoundEffect);
                 IHeal character = Player.GetComponent<IHeal>();
                 character.TakeHeal(20);
+                Destroy(this.gameObject);
+                break;
+            case ItemType.Key:
+                AudioManager.Instance.SE.PlayOneShot(itemSoundEffect);
+                Player.GetComponent<Character_Info>().Character_GetKeys++;
                 Destroy(this.gameObject);
                 break;
         }
