@@ -52,6 +52,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 368104306605312261, guid: c9e3bc33bb3efec469f74845710311cc, type: 3}
+      propertyPath: searchAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 368104306605312261, guid: c9e3bc33bb3efec469f74845710311cc, type: 3}
       propertyPath: searchRadius
       value: 75
       objectReference: {fileID: 0}
