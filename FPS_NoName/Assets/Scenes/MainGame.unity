@@ -30182,6 +30182,7 @@ GameObject:
   - component: {fileID: 922154934}
   - component: {fileID: 922154936}
   - component: {fileID: 922154935}
+  - component: {fileID: 922154937}
   m_Layer: 0
   m_Name: ItemPick
   m_TagString: PickArea
@@ -30233,6 +30234,22 @@ MonoBehaviour:
   ManualPickDistance: 3
   AutoPickArea: {fileID: 922154935}
   IsHitItem: 0
+--- !u!54 &922154937
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922154933}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &923177827
 GameObject:
   m_ObjectHideFlags: 0
@@ -37506,12 +37523,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainGameUI: {fileID: 1715787160}
-  weapon_CurrentAmmo: 30
+  weapon_CurrentAmmo: 15
   Weapon_UsePerShot_Ammo: 1
-  weapon_CurrentMagazine: 120
-  weapon_Damage: 10
+  weapon_CurrentMagazine: 150
+  weapon_Damage: 25
   ShotRange: 500
-  FireRate: 0.13
+  FireRate: 0.3
   ReloadTime: 2.2
   NextFireTime: 0
   ShootPoint: {fileID: 1529326710}
