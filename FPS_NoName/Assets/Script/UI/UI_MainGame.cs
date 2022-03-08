@@ -271,7 +271,7 @@ using UnityEngine.SceneManagement;
         }
         else
         {
-            PickModeCoolTime.text = "["+"V" +"]キーで切替可能";
+            PickModeCoolTime.text = "["+ Custom_InputManager.Instance.inputData.Chara_PickModeSwitch.ToString() +"]キーで切替可能";
             PickModeCoolTime.color = new Color(0, 255, 0);
         }
 
@@ -279,7 +279,7 @@ using UnityEngine.SceneManagement;
         {
             PickItemInfo.SetActive(true);
             PickManualName.text = "アイテム[" + CharacterPick.ManualItem_Hit.collider.GetComponent<DropItem_Setting>().ItemName + "]を発見";
-            PickInteract.text = "[" + "E" + "]キーで獲得";
+            PickInteract.text = "[" + Custom_InputManager.Instance.inputData.Chara_Interact.ToString() + "]キーで獲得";
         }
         else
         {

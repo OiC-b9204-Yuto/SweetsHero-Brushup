@@ -22,11 +22,6 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
     [SerializeField] private float[] character_MovementSpeed; //キャラクターの移動速度
     [SerializeField] private AudioClip character_HitSE; //キャラクターの当たられた時の音
 
-    private void Awake()
-    {
-
-    }
-
     private void Update()
     {
         CheckCurrentCharaState();

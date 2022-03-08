@@ -16,5 +16,7 @@ public class InputData
     public KeyCode Chara_Fire = KeyCode.Mouse0;         //銃を射撃するキー
     public KeyCode Chara_Grenade = KeyCode.G;           //グレネードを投げるキー
     public KeyCode Chara_Reload = KeyCode.R;            //リロードするキー
+    public KeyCode Chara_Interact = KeyCode.E;          //オブジェクトにインタラクトするキー
+    public KeyCode Chara_PickModeSwitch = KeyCode.V;    //ピックモードをチェンジするキー
     public KeyCode Game_Map = KeyCode.M;                //全体マップを表示するキー
 }

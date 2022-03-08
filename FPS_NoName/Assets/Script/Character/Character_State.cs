@@ -89,7 +89,7 @@ public class Character_State : MonoBehaviour
                 rig.AddForce(transform.forward * ThrowPower);
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(Custom_InputManager.Instance.inputData.Chara_Reload))
             {
                 if(weapon_state.Reload())
                 {
@@ -99,7 +99,7 @@ public class Character_State : MonoBehaviour
 
             character_Info.Character_IsReload = weapon_state.IsReload;
 
-            if (Input.GetButton("Fire1") && !weapon_state.IsReload)
+            if (Input.GetKey(Custom_InputManager.Instance.inputData.Chara_Fire) && !weapon_state.IsReload)
             {
                 if(weapon_state.Weapon_CurrentAmmo >0)
                 {
