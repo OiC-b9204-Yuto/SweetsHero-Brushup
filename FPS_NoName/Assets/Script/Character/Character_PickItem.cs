@@ -17,34 +17,31 @@ public class Character_PickItem : MonoBehaviour
     public ItemPickMode itemPickMode; //アイテムピックモードの参照
     [SerializeField] private Camera PlayerCamera; //プレイヤーカメラ
     [SerializeField] private float ManualPickDistance; //マニュアルピックのアイテムを取得できる距離
+    [SerializeField] private SphereCollider AutoPickArea; //自動ピックエリア
     private float changeCoolDown; //アイテムモード切り替えのクールタイム
-    Ray ManualItem_Ray; 
-    RaycastHit ManualItem_Hit;
-
-    public float ChangeCoolDown { get { return changeCoolDown; } } //クールタイムを取得
-
+    private Ray ManualItem_Ray;  //アイテムにレイを飛ばす
+    private RaycastHit manualItem_Hit; //レイにアイテムが当たっている情報
+    public float ChangeCoolDown { get { return changeCoolDown; } } //クールタイム取得用
+    public RaycastHit ManualItem_Hit { get { return manualItem_Hit; } } //アイテム情報取得用
+    public bool IsHitItem;
     private void Awake()
     {
         ScreenCenterX = Screen.width / 2;
         ScreenCenterY = Screen.height / 2;
         CenterPos = new Vector3(ScreenCenterX, ScreenCenterY, 1.0f);
-        ManualItem_Ray = PlayerCamera.ScreenPointToRay(CenterPos);
     }
 
     void Update()
     {
-        if(changeCoolDown > 0.0f)
-        {
-            changeCoolDown -= Time.deltaTime;
-        }
         ModeChange();
-        ManualPickMode();
+        PickSystem();
     }
 
     void ModeChange()
     {
         if (changeCoolDown > 0.0f)
         {
+            changeCoolDown -= Time.deltaTime;
             return;
         }
         if (Input.GetKeyDown(KeyCode.V))
@@ -63,31 +60,26 @@ public class Character_PickItem : MonoBehaviour
         }
     }
 
-    void ManualPickMode() //手動ピック
+    void PickSystem()
     {
-        if (itemPickMode == ItemPickMode.ManualPick) 
+        switch (itemPickMode)
         {
-            if (Physics.Raycast(ManualItem_Ray, out ManualItem_Hit, ManualPickDistance))
-            {
-                if (ManualItem_Hit.collider.tag == "Item")
+            case ItemPickMode.AutoPick: //自動ピックの場合
+                AutoPickArea.enabled = true;
+                break;
+            case ItemPickMode.ManualPick: //手動ピックの場合
+                ManualItem_Ray = PlayerCamera.ScreenPointToRay(CenterPos);
+                Debug.DrawRay(ManualItem_Ray.origin, ManualItem_Ray.direction * ManualPickDistance, Color.red, 0.5f, false);
+                AutoPickArea.enabled = false;
+                if (Physics.Raycast(ManualItem_Ray, out manualItem_Hit, ManualPickDistance) && ManualItem_Hit.collider.tag == "Item")
                 {
-                    Debug.Log(ManualItem_Hit.collider.gameObject.name + "が見つかりました");
+                    IsHitItem = true;
                 }
-
-            }
+                else
+                {
+                    IsHitItem = false;
+                }
+                break;
         }
     }
-
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.tag == "Item")
-        {
-            if (itemPickMode == ItemPickMode.AutoPick) //自動ピックの場合
-            {
-                col.GetComponent<DropItem_Setting>().GetItem(); //ドロップアイテムのゲットitemを実行する
-            }
-        }
-    }
-
-
 }

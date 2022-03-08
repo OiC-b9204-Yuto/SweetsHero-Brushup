@@ -123,7 +123,9 @@ public class Character_State : MonoBehaviour
 
     public void RecovAmmo(int value)
     {
-        weapon_state.Weapon_CurrentMagazine = value;
+
+            weapon_state.Weapon_CurrentMagazine += value;
+
     }
 
 }

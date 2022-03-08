@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
     {
     OR_SceneManager or_scenemanager;
     [SerializeField] private GameObject Player;                     //プレイヤーオブジェクト
+    [SerializeField] private GameObject PickSystemObject;           //アイテムピックオブジェクト
     [SerializeField] private GameObject Weapon;                     //武器スクリプト設定オブジェクト
     [SerializeField] private GameObject PlayerIcon1;                //体力が50%以上の時のプレイヤーアイコン
     [SerializeField] private GameObject PlayerIcon2;                //体力が25%以上の時のプレイヤーアイコン
     [SerializeField] private GameObject PlayerIcon3;                //体力が24%以下の時のプレイヤーアイコン
+    [SerializeField] private GameObject PickItemInfo;               //アイテム取得情報
     [SerializeField] private Image Health_Bar;                      //体力が50%以上の時の体力バー
     [SerializeField] private Image Health_Bar_Low1;                 //体力が25%以上の時の体力バー
     [SerializeField] private Image Health_Bar_Low2;                 //体力が24%以下の時の体力バー
@@ -24,6 +26,8 @@ using UnityEngine.SceneManagement;
     [SerializeField] private Text BattleTimerText;　　　　　　　　　//戦闘状態の残り時間を表示するText
     [SerializeField] private Text PickModeShown;                    //ピックモードの表示
     [SerializeField] private Text PickModeCoolTime;                 //ピックモードのクールタイム表示
+    [SerializeField] private Text PickManualName;                   //ピックマニュアル時の現在あたっているアイテムを表示
+    [SerializeField] private Text PickInteract;                     //アイテムに当たっているとき[]キーで取得できるのかを表示
     [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
     [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
     [SerializeField] private AudioClip ChangeColumnSE;
@@ -34,29 +38,29 @@ using UnityEngine.SceneManagement;
     [SerializeField] private float StageProgressTime_Secounds;
     Character_Info CharacterInfo;
     Character_PickItem CharacterPick;
-     MainGameManager MainGame_Manager;
-     Weapon_State Weapon_Stats;
+    MainGameManager MainGame_Manager;
+    Weapon_State Weapon_Stats;
 
-     // ----------------------------------------------------------------------------------------------------
-     //
-     //  体力によって画面UIの変更用
-     //
-     //
-     [SerializeField] private RectTransform LowHealthUIObject;
-     //
-     //
-     // ----------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------
+    //
+    //  体力によって画面UIの変更用
+    //
+    //
+    [SerializeField] private RectTransform LowHealthUIObject;
+    //
+    //
+    // ----------------------------------------------------------------------------------------------------
 
-     // ----------------------------------------------------------------------------------------------------
-     //
-     //  ゲームスタート用
-     //
-     //
-     public bool isStartAnimation;
-     UI_FadeImage StartFade;
-     [SerializeField] private Image FadeStartImage;
-     [SerializeField] private GameObject StartUI;
-     [SerializeField] private float StartTimer;
+    // ----------------------------------------------------------------------------------------------------
+    //
+    //  ゲームスタート用
+    //
+    //
+    public bool isStartAnimation;
+    UI_FadeImage StartFade;
+    [SerializeField] private Image FadeStartImage;
+    [SerializeField] private GameObject StartUI;
+    [SerializeField] private float StartTimer;
     //
     //
     // ----------------------------------------------------------------------------------------------------
@@ -164,7 +168,7 @@ using UnityEngine.SceneManagement;
 
         CharacterInfo = Player.GetComponent<Character_Info>();
         Weapon_Stats = Weapon.GetComponent<Weapon_State>();
-        CharacterPick = Player.GetComponent<Character_PickItem>();
+        CharacterPick = PickSystemObject.GetComponent<Character_PickItem>();
     }
 
     private void Start()
@@ -250,7 +254,7 @@ using UnityEngine.SceneManagement;
         {
             BattleModeText.text = "";
             BattleTimerText.text = "";
-            
+
         }
 
         switch (CharacterPick.itemPickMode)
@@ -269,8 +273,21 @@ using UnityEngine.SceneManagement;
         }
         else
         {
-            PickModeCoolTime.text = "切替可能";
+            PickModeCoolTime.text = "["+"V" +"]キーで切替可能";
             PickModeCoolTime.color = new Color(0, 255, 0);
+        }
+
+        if (CharacterPick.IsHitItem)
+        {
+            PickItemInfo.SetActive(true);
+            PickManualName.text = "アイテム[" + CharacterPick.ManualItem_Hit.collider.GetComponent<DropItem_Setting>().ItemName + "]を発見";
+            PickInteract.text = "[" + "E" + "]キーで獲得";
+        }
+        else
+        {
+            PickItemInfo.SetActive(false);
+            PickManualName.text = "";
+            PickInteract.text = "";
         }
     }
 

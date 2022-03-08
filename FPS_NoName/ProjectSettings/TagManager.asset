@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Item
+  - PickArea
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Weapon
   - AttackCollider
   - FPSObject
-  - Item
+  - 
   - 
   - 
   - 

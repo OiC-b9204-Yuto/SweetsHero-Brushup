@@ -10,18 +10,28 @@ public enum ItemType //アイテムのタイプ
 
 public class DropItem_Setting : MonoBehaviour
 {
+    [SerializeField] private GameObject Player; //プレイヤーの参照
+    private string itemName; //アイテムの名称
     private bool isItemSpawn; //アイテムが出たかどうか
-    private GameObject Character; //プレイヤーの参照
     public ItemType itemType; //アイテムのタイプ
     [SerializeField] private float itemDeleteTime; //アイテムの削除時間
     [SerializeField] private float itemDropChance; //アイテムのドロップ確率
 
     public float ItemDropChance { get { return itemDropChance; } } //アイテムのドロップ確率をGet出来るように
-
+    public string ItemName { get { return itemName; } } //アイテムの名前を共有
     void Awake()
-    {   
-        Character = GameObject.FindGameObjectWithTag("Player");
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
         isItemSpawn = true; //スクリプトが読み込まれたときに、アイテムスポーンをTrueにする
+        switch (itemType) //アイテム名の指定
+        {
+            case ItemType.Bullet:
+                itemName = "お菓子の弾";
+                break;
+            case ItemType.Heal:
+                itemName = "体力回復剤";
+                break;
+        }
     }
 
     void Update()
@@ -49,17 +59,22 @@ public class DropItem_Setting : MonoBehaviour
         }
     }
 
-    public void GetItem()
+    private void OnTriggerEnter(Collider col)
     {
-        switch (itemType)
+        if (col.gameObject.tag == "PickArea")
         {
-            case ItemType.Bullet:
-                Character.GetComponent<Character_State>().RecovAmmo(20);
-                break;
-            case ItemType.Heal:
-                IHeal character = Character.GetComponent<IHeal>();
-                character.TakeHeal(20);
-                break;
+            switch (itemType)
+            {
+                case ItemType.Bullet:
+                    Player.GetComponent<Character_State>().RecovAmmo(20);
+                    Destroy(this.gameObject);
+                    break;
+                case ItemType.Heal:
+                    IHeal character = Player.GetComponent<IHeal>();
+                    character.TakeHeal(20);
+                    Destroy(this.gameObject);
+                    break;
+            }
         }
     }
 }
