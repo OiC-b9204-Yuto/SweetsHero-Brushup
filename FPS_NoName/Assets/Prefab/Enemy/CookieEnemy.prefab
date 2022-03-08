@@ -331,7 +331,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.47568178
+  m_Radius: 3.5
   m_Center: {x: 0, y: 1.5129323, z: 0.31627607}
 --- !u!1 &1524383936365151556
 GameObject:
