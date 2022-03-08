@@ -12,19 +12,28 @@ public class UI_Option : MonoBehaviour
     [SerializeField] private GameObject ApplyMessageObject;
     [SerializeField] private Image CurrentSelect;       //現在選んでる項目を表示する矢印
     [SerializeField] private int CurrentColumn;         //現在選んでる項目
-    private int OptionColumns = 5;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2: マウス感度 / 3:パフォーマンス表示設定 / 4: 解像度設定 / 5: OKボタン)
+    private int OptionColumns = 6;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2: マウス感度 / 3:パフォーマンス表示設定 / 4: 解像度設定 / 5: 画面モード / 6: OKボタン)
     public bool isEnterMode;                            //オンの時は、選んでいる項目の設定を変更できる
     public bool isApplyShown;
     private RectTransform CurrentSelectPos;             //CurrentSelectのポジション用
     private Vector2 SelectPos;                          //RectTransformに反映させる用
+    [SerializeField] private int CurrentSelectRes;      //現在選んでいるRes
     [SerializeField] private int performance_Enable;    //パフォーマンス表示のON/OFF (0:Disable / 1:Enable)
-    public int Performance_Enable { get { return performance_Enable; }}//パフォーマンス表示のON/OFF Getter/Setter
+    public int Performance_Enable { get { return performance_Enable; } }//パフォーマンス表示のON/OFF Getter/Setter
+    [SerializeField] private List<string> ResolutionList;       //解像度を保持するためのリスト
+    [SerializeField] private string CurrentResolutionString;    //現在の解像度をStringで保存する
+    [SerializeField] private string[] ResSplitStr;              //解像度を反映させるために数字だけを保持する配列
+    FullScreenMode fullScreenMode;                              //フルスクリーンモードを変更させる
+    [SerializeField] private int ScreenModeType;                //スクリーンタイプを保存する (0: フルスクリーン / 1:フルスクリーン ウィンドウ / 2:ウィンドウ画面)
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SESlider;
     [SerializeField] private Slider Mouse_Sensi;
     [SerializeField] private Text BGMValue;
     [SerializeField] private Text SEValue;
     [SerializeField] private Text MouseSensiValue;
+
+    [SerializeField] private Text ResolutionText;
+    [SerializeField] private Text ScreenModeShowText;
 
     [SerializeField] private Image StartNoSelect_Button;
     [SerializeField] private Image StartSelect_Button;
@@ -35,8 +44,9 @@ public class UI_Option : MonoBehaviour
     [SerializeField] private Image FPS_SelectImage;
     [SerializeField] private Image Resolution_SelectImage;
 
+    [SerializeField] private GameObject ScreenModeText;
+    [SerializeField] private GameObject ScreenModeSelectText;
 
-    [SerializeField] private Dropdown ResolutionList;
     [SerializeField] private GameObject Performance_ON_Object;
     [SerializeField] private GameObject Performance_OFF_Object;
 
@@ -46,19 +56,36 @@ public class UI_Option : MonoBehaviour
     {
         AudioManager.Instance.Load();
         GameData_Manager.Instance.Load();
+        ScreenModeType = GameData_Manager.Instance.gameData.ScreenMode;
         performance_Enable = GameData_Manager.Instance.gameData.FpsShown;
         Mouse_Sensi.value = GameData_Manager.Instance.gameData.MouseSensitivity;
         CurrentSelectPos = CurrentSelect.GetComponent<RectTransform>();
         MainMenuSystem = MainMenuObject.GetComponent<UI_MainMenu>();
+        switch (ScreenModeType)
+        {
+            case 0:
+                ScreenModeShowText.text = "フルスクリーン";
+                break;
+            case 1:
+                ScreenModeShowText.text = "フルスクリーン ウィンドウ";
+                break;
+            case 2:
+                ScreenModeShowText.text = "ウィンドウ";
+                break;
+        }
+
     }
     private void Start()
     {
         CurrentColumn = 0;
 
         //解像度の自動取得
-        ResolutionList.ClearOptions();
+
+        ResolutionText.text = Screen.width + "*" + Screen.height + "@" + Screen.currentResolution.refreshRate + "hz";
+
         var resolutions = Screen.resolutions;
         List<Resolution> checkList = new List<Resolution>();
+
         foreach (var res in resolutions)
         {
             bool check = true;
@@ -75,9 +102,17 @@ public class UI_Option : MonoBehaviour
             }
             if (check)
             {
-                ResolutionList.options.Add(new OptionData(res.width.ToString() + "*" + res.height.ToString()));
+                ResolutionList.Add(res.width.ToString() + "*" + res.height.ToString() + "@" + res.refreshRate +"hz");
             }
             checkList.Add(res);
+        }
+
+        for (int i =0;i < ResolutionList.Count; i++)
+        {
+            if(ResolutionText.text == ResolutionList[i])
+            {
+                CurrentSelectRes = i;
+            }
         }
     }
     void Update()
@@ -266,14 +301,41 @@ public class UI_Option : MonoBehaviour
                 StartSelect_Button.enabled = false;
                 StartNoSelect_Button.enabled = true;
                 SelectPos = new Vector2(-243, -138);
-                /*if (isEnterMode)
+                if (isEnterMode)
                 {
                     MasterVolume_SelectImage.enabled = false;
                     SEVolume_SelectImage.enabled = false;
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = true;
-                    ResolutionList.Show();
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        if (CurrentSelectRes <= 0)
+                        {
+                            CurrentSelectRes = ResolutionList.Count-1;
+                        }
+                        else
+                        {
+                            CurrentSelectRes--;
+                        }
+                        ResolutionText.text = ResolutionList[CurrentSelectRes];
+                        CurrentResolutionString = ResolutionText.text.Replace(@"\s", "");
+                        ResSplitStr = CurrentResolutionString.Split('*','@');
+                    }
+                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        if (CurrentSelectRes >= ResolutionList.Count-1)
+                        {
+                            CurrentSelectRes = 0;
+                        }
+                        else
+                        {
+                            CurrentSelectRes++;
+                        }
+                        ResolutionText.text = ResolutionList[CurrentSelectRes];
+                        CurrentResolutionString = ResolutionText.text.Replace(@"\s", "");
+                        ResSplitStr = CurrentResolutionString.Split('*', '@');
+                    }
                 }
                 else
                 {
@@ -282,9 +344,63 @@ public class UI_Option : MonoBehaviour
                     MouseSensi_SelectImage.enabled = false;
                     FPS_SelectImage.enabled = false;
                     Resolution_SelectImage.enabled = false;
-                }*/
+                }
                 break;
-            case 5:         //OKボタン
+            case 5:
+                CurrentSelect.enabled = true;
+                SelectPos = new Vector2(-243, -225);
+                StartSelect_Button.enabled = false;
+                if (isEnterMode)
+                {
+                    ScreenModeText.SetActive(false);
+                    ScreenModeSelectText.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        if (ScreenModeType <= 0)
+                        {
+                            ScreenModeType = 2;
+                        }
+                        else
+                        {
+                            ScreenModeType--;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        if (ScreenModeType >= 2)
+                        {
+                            ScreenModeType = 0;
+                        }
+                        else
+                        {
+                            ScreenModeType++;
+                        }
+                    }
+
+                    switch (ScreenModeType)
+                    {
+                        case 0:
+                            ScreenModeShowText.text = "フルスクリーン";
+                            fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                            break;
+                        case 1:
+                            ScreenModeShowText.text = "フルスクリーン ウィンドウ";
+                            fullScreenMode = FullScreenMode.FullScreenWindow;
+                            break;
+                        case 2:
+                            ScreenModeShowText.text = "ウィンドウ";
+                            fullScreenMode = FullScreenMode.Windowed;
+                            break;
+                    }
+
+                }
+                else
+                {
+                    ScreenModeText.SetActive(true);
+                    ScreenModeSelectText.SetActive(false);
+                }
+                break;
+            case 6:         //OKボタン
                 CurrentSelect.enabled = false;
                 StartNoSelect_Button.enabled = false;
                 StartSelect_Button.enabled = true;
@@ -294,8 +410,10 @@ public class UI_Option : MonoBehaviour
                     isApplyShown = true;
                     GameData_Manager.Instance.gameData.MouseSensitivity = Mouse_Sensi.value;
                     GameData_Manager.Instance.gameData.FpsShown = performance_Enable;
+                    GameData_Manager.Instance.gameData.ScreenMode = ScreenModeType;
                     AudioManager.Instance.Save();
                     GameData_Manager.Instance.Save();
+                    Screen.SetResolution(int.Parse(ResSplitStr[0]), int.Parse(ResSplitStr[1]), fullScreenMode);
                     isEnterMode = false;
                 }
                 break;

@@ -9,4 +9,5 @@ public class GameData
     //保存するゲームデータ
     public float MouseSensitivity = 3.0f;
     public int FpsShown = 0;
+    public int ScreenMode = 0;
 }

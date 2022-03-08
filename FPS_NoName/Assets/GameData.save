@@ -1,4 +1,5 @@
 ﻿{
     "MouseSensitivity": 1.5,
-    "FpsShown": 1
+    "FpsShown": 0,
+    "ScreenMode": 2
 }
