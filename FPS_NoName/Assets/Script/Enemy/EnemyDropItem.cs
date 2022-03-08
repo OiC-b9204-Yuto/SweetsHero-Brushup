@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyDropItem : MonoBehaviour
 {
     [SerializeField] private GameObject[] DropItemList;
-    EnemyInfo Enemy;
-    int RandomItemValue;
-    int DropPersentValue;
-    bool IsItemDrop;
+    BaseEnemy Enemy;
+    [SerializeField] private int RandomItemValue;
+    [SerializeField] private int DropPersentValue;
+    [SerializeField] private bool IsItemDrop;
     private void Awake()
     {
-        Enemy = this.GetComponent<EnemyInfo>();
+        Enemy = this.GetComponent<BaseEnemy>();
         //アイテムがドロップするのか、何のアイテムがドロップするのかの確定
         RandomItemValue = Random.Range(0, DropItemList.Length);
         DropPersentValue = Random.Range(0, 100);
@@ -36,9 +36,10 @@ public class EnemyDropItem : MonoBehaviour
             return;
         }
 
-        if (Enemy.Enemy_Health <= 0.0f && IsItemDrop)
+        if (Enemy.CurrentHealth <= 0.0f && IsItemDrop)
         {
-            GameObject DropInstanceObject = (GameObject)Instantiate(DropItemList[RandomItemValue], new Vector3(this.transform.position.x,this.transform.position.y+16,this.transform.position.z),Quaternion.identity);
+            GameObject DropInstanceObject = (GameObject)Instantiate(DropItemList[RandomItemValue], this.gameObject.transform.position,Quaternion.identity);
+            this.enabled = false;
         }
     }
 

@@ -26,6 +26,7 @@ public class Character_PickItem : MonoBehaviour
     public bool IsHitItem;
     private void Awake()
     {
+        itemPickMode = ItemPickMode.ManualPick;
         ScreenCenterX = Screen.width / 2;
         ScreenCenterY = Screen.height / 2;
         CenterPos = new Vector3(ScreenCenterX, ScreenCenterY, 1.0f);
@@ -74,12 +75,24 @@ public class Character_PickItem : MonoBehaviour
                 if (Physics.Raycast(ManualItem_Ray, out manualItem_Hit, ManualPickDistance) && ManualItem_Hit.collider.tag == "Item")
                 {
                     IsHitItem = true;
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        manualItem_Hit.collider.GetComponent<DropItem_Setting>().GetItem();
+                    }
                 }
                 else
                 {
                     IsHitItem = false;
                 }
                 break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Item")
+        {
+            col.GetComponent<DropItem_Setting>().GetItem();
         }
     }
 }

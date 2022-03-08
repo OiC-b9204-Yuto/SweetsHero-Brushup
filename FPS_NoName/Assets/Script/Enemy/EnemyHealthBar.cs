@@ -22,9 +22,14 @@ public class EnemyHealthBar : MonoBehaviour
         Health_Bar_Image.fillAmount = (float)baseEnemy.CurrentHealth / baseEnemy.MaxHealth;
         Health_Bar_Image.rectTransform.LookAt(Camera.main.transform);
         Health_Bar_BG_Image.rectTransform.LookAt(Camera.main.transform);
-        if (Health_Bar_Image.fillAmount < 1)
+        if (Health_Bar_Image.fillAmount <= 0.0f)
+        {
+            HealthBar.gameObject.SetActive(false);
+        }
+        else if (Health_Bar_Image.fillAmount < 1)
         {
             HealthBar.gameObject.SetActive(true);
         }
+        
     }
 }

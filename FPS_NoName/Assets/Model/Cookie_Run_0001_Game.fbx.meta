@@ -11,6 +11,31 @@ ModelImporter:
     second: Take 001
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cookie_Rig_aiStandardSurface1
+    second: {fileID: 2100000, guid: 54a8f9b7f638df94791541878aae9dbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cookie_Rig_aiStandardSurface2
+    second: {fileID: 2100000, guid: 686a5534efc20c648bc243acd98e5e7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cookie_Rig_aiStandardSurface3
+    second: {fileID: 2100000, guid: 362159fddf7df5445bd6612b275947cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cookie_Rig_aiStandardSurface4
+    second: {fileID: 2100000, guid: 84270bb7a0263764d967fc4262b4c317, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cookie_Rig_aiStandardSurface5
+    second: {fileID: 2100000, guid: fc5156e1d648d25439840422bee24eff, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Kukki-_aiStandardSurface1SG_BaseColor

@@ -218,8 +218,6 @@ using UnityEngine.SceneManagement;
                 MainGame_Manager.MainGame_IsStartGame = false;
             }
         }
-
-
         if (MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsStartAnimation && !MainGame_Manager.MainGame_IsStartGame && !MainGame_Manager.MainGame_IsGameClear)
         {
             StageProgressTime += Time.deltaTime;

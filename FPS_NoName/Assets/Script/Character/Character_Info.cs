@@ -69,7 +69,6 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
         }
     }
 
-
     public int Character_CurrentWeapon
     {
         get { return character_CurrentWeapon; }
@@ -123,18 +122,12 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
 
     public void TakeHeal(float healamount)
     {
-        float TotalHealPower;
-        TotalHealPower = Character_CurrentHP + healamount;
         if (Character_CurrentHP >= Character_MaxHP)
         {
             Character_CurrentHP = Character_MaxHP;
             return;
         }
-        if (Character_CurrentHP <= TotalHealPower) //™X‚É‰ñ•œ‚µ‚Ä‚¢‚­
-        {
-            Character_CurrentHP += 2.5f;
-        }
-
+        Character_CurrentHP += healamount;
     }
 
     public void TakeDamage(int damage)

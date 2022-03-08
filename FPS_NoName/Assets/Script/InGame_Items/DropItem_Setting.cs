@@ -59,22 +59,19 @@ public class DropItem_Setting : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider col)
+    public void GetItem()
     {
-        if (col.gameObject.tag == "PickArea")
+        switch (itemType)
         {
-            switch (itemType)
-            {
-                case ItemType.Bullet:
-                    Player.GetComponent<Character_State>().RecovAmmo(20);
-                    Destroy(this.gameObject);
-                    break;
-                case ItemType.Heal:
-                    IHeal character = Player.GetComponent<IHeal>();
-                    character.TakeHeal(20);
-                    Destroy(this.gameObject);
-                    break;
-            }
+            case ItemType.Bullet:
+                Player.GetComponent<Character_State>().RecovAmmo(20);
+                Destroy(this.gameObject);
+                break;
+            case ItemType.Heal:
+                IHeal character = Player.GetComponent<IHeal>();
+                character.TakeHeal(20);
+                Destroy(this.gameObject);
+                break;
         }
     }
 }

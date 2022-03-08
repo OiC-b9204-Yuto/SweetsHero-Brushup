@@ -33,11 +33,6 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
         }
 
         currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            //Ž€–Sˆ—
-            Destroy(this.gameObject);
-        }
     }
 
     void Awake()
@@ -55,6 +50,11 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
 
     void Update()
     {
+        if (currentHealth <= 0.0f)
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.velocity = Vector3.zero;
+        }
         if (target)
         {
             targetTimer -= Time.deltaTime;
