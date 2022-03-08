@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Character_Info : MonoBehaviour , IDamageable
+public class Character_Info : MonoBehaviour , IDamageable , IHeal
 {
     public bool IsGetDamage; //ダメージを受けたかどうか
     private bool IsBattle; //現在戦闘状態かどうか
@@ -120,6 +120,23 @@ public class Character_Info : MonoBehaviour , IDamageable
 
     public bool Character_IsMove { get { return character_IsMove; } set { character_IsMove = value; } }
     public bool Character_IsReload { get { return character_IsReload; } set { character_IsReload = value; } }
+
+    public void TakeHeal(float healamount)
+    {
+        float TotalHealPower;
+        TotalHealPower = Character_CurrentHP + healamount;
+        if (Character_CurrentHP >= Character_MaxHP)
+        {
+            Character_CurrentHP = Character_MaxHP;
+            return;
+        }
+        if (Character_CurrentHP <= TotalHealPower) //徐々に回復していく
+        {
+            Character_CurrentHP += 2.5f;
+        }
+
+    }
+
     public void TakeDamage(int damage)
     {
         AudioManager.Instance.SE.PlayOneShot(character_HitSE);

@@ -15,8 +15,8 @@ TagManager:
   - MiniMap
   - Weapon
   - AttackCollider
-  - 
-  - 
+  - FPSObject
+  - Item
   - 
   - 
   - 

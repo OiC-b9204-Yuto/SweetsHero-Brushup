@@ -22,6 +22,8 @@ using UnityEngine.SceneManagement;
     [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
     [SerializeField] private Text BattleModeText;                   //戦闘状態を表示するText
     [SerializeField] private Text BattleTimerText;　　　　　　　　　//戦闘状態の残り時間を表示するText
+    [SerializeField] private Text PickModeShown;                    //ピックモードの表示
+    [SerializeField] private Text PickModeCoolTime;                 //ピックモードのクールタイム表示
     [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
     [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
     [SerializeField] private AudioClip ChangeColumnSE;
@@ -30,7 +32,8 @@ using UnityEngine.SceneManagement;
     [SerializeField] private float StageProgressTime;
     [SerializeField] private float StageProgressTime_Minutes;
     [SerializeField] private float StageProgressTime_Secounds;
-     Character_Info CharacterInfo;
+    Character_Info CharacterInfo;
+    Character_PickItem CharacterPick;
      MainGameManager MainGame_Manager;
      Weapon_State Weapon_Stats;
 
@@ -158,8 +161,10 @@ using UnityEngine.SceneManagement;
         GameOver_Retry.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         GameOver_ExitSelect.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         GameOver_Exit.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+
         CharacterInfo = Player.GetComponent<Character_Info>();
         Weapon_Stats = Weapon.GetComponent<Weapon_State>();
+        CharacterPick = Player.GetComponent<Character_PickItem>();
     }
 
     private void Start()
@@ -226,7 +231,7 @@ using UnityEngine.SceneManagement;
         }
     }
 
-    void RefreshUIText()
+    void RefreshUIText() //UIのテキスト更新 関数
     {
         Health_Bar.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
         Health_Bar_Low1.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
@@ -236,16 +241,37 @@ using UnityEngine.SceneManagement;
         Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
         Health_Text.text = CharacterInfo.Character_CurrentHP.ToString("0");
         Armor_Text.text = CharacterInfo.Character_CurrentArmor.ToString("0");
-       if (CharacterInfo.Character_BattleTimer > 0.0f)
-       {
-           BattleModeText.text = "戦闘状態";
-           BattleTimerText.text = "残り:" + CharacterInfo.Character_BattleTimer.ToString("0.0") + "秒";
-       }
-       else if(CharacterInfo.Character_BattleTimer <= 0.0f)
-       {
-           BattleModeText.text = "";
-           BattleTimerText.text = "";
-       }
+        if (CharacterInfo.Character_BattleTimer > 0.0f)
+        {
+            BattleModeText.text = "戦闘状態";
+            BattleTimerText.text = "残り:" + CharacterInfo.Character_BattleTimer.ToString("0.0") + "秒";
+        }
+        else if (CharacterInfo.Character_BattleTimer <= 0.0f)
+        {
+            BattleModeText.text = "";
+            BattleTimerText.text = "";
+            
+        }
+
+        switch (CharacterPick.itemPickMode)
+        {
+            case Character_PickItem.ItemPickMode.AutoPick: //自動ピックの場合
+                PickModeShown.text = "アイテム取得モード: 自動";
+                break;
+            case Character_PickItem.ItemPickMode.ManualPick: //手動ピックの場合
+                PickModeShown.text = "アイテム取得モード: 手動";
+                break;
+        }
+        if (CharacterPick.ChangeCoolDown > 0.0f)
+        {
+            PickModeCoolTime.text = "切替クールタイム: " + CharacterPick.ChangeCoolDown.ToString("0.0") + "秒";
+            PickModeCoolTime.color = new Color(255, 0, 0);
+        }
+        else
+        {
+            PickModeCoolTime.text = "切替可能";
+            PickModeCoolTime.color = new Color(0, 255, 0);
+        }
     }
 
     void LowHealthUI() //体力に応じてUIを変更する

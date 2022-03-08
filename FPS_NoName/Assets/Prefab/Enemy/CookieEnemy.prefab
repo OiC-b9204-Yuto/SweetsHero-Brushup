@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameter: {fileID: 11400000, guid: c556a3a560c93e74a806d3d4319e5e85, type: 2}
+  currentHealth: 0
   searchRadius: 15
   target: {fileID: 0}
   AttackCol: {fileID: 56649318368968888}
