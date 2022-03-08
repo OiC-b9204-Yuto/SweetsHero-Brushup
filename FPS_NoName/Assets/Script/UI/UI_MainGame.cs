@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-    public class UI_MainGame : MonoBehaviour
-    {
+public class UI_MainGame : MonoBehaviour
+{
     OR_SceneManager or_scenemanager;
     [SerializeField] private GameObject Player;                     //プレイヤーオブジェクト
     [SerializeField] private GameObject PickSystemObject;           //アイテムピックオブジェクト
@@ -103,7 +103,7 @@ using UnityEngine.SceneManagement;
     [SerializeField] private Image GameOver_RetrySelect;
     [SerializeField] private Image GameOver_Retry;
     [SerializeField] private Image GameOver_ExitSelect;
-    [SerializeField] private Image GameOver_Exit;                   
+    [SerializeField] private Image GameOver_Exit;
     [SerializeField] private float FadeSpeed;                       //ゲームオーバー時の表示速度
     [SerializeField] private float MoveSpeed;                       //ゲームオーバーロゴが動く速度
     [SerializeField] private RectTransform GameOverLogo_POS;        //ゲームオーバーロゴのレクトトランスフォーム
@@ -128,12 +128,16 @@ using UnityEngine.SceneManagement;
     // 
     //
     // ----------------------------------------------------------------------------------------------------
+
+    // 全体マップ用
+    [SerializeField] private GameObject ALLMapUI;
+
     void Awake()
     {
         BattleModeText.text = "";
         BattleTimerText.text = "";
         isGameClear = false;
-        isGameOver = false; 
+        isGameOver = false;
         BackToMainMenu = false;
         isStartAnimation = true;
         StartTimer = 5.0f;
@@ -179,20 +183,21 @@ using UnityEngine.SceneManagement;
 
     void Update()
     {
-       if (BackToMainMenu)
-       {
-           or_scenemanager.SceneName = "MainTitle";
-           or_scenemanager.NextSceneLoad();
-       }
-       GameStartHUD();
-       RefreshUIText();
-       LowHealthUI();
-       HealthValueChangeIcon();
-       GameClear_System();
-       GameOver_System();
-       ChangeMusicSystem();
-       PauseMenuSystem();
-       DamageEffect_ScreenSystem();
+        if (BackToMainMenu)
+        {
+            or_scenemanager.SceneName = "MainTitle";
+            or_scenemanager.NextSceneLoad();
+        }
+        GameStartHUD();
+        RefreshUIText();
+        LowHealthUI();
+        HealthValueChangeIcon();
+        GameClear_System();
+        GameOver_System();
+        ChangeMusicSystem();
+        PauseMenuSystem();
+        DamageEffect_ScreenSystem();
+        AllMapUpdate();
     }
 
     void GameStartHUD()
@@ -210,7 +215,7 @@ using UnityEngine.SceneManagement;
             {
                 StartTimer -= Time.deltaTime;
             }
-            else if(StartTimer <= 0.0f)
+            else if (StartTimer <= 0.0f)
             {
                 StartUI.SetActive(false);
                 isStartAnimation = false;
@@ -223,13 +228,13 @@ using UnityEngine.SceneManagement;
             StageProgressTime += Time.deltaTime;
             if (StageProgressTime_Secounds <= 59.9f)
             {
-                 StageProgressTime_Secounds += Time.deltaTime;
+                StageProgressTime_Secounds += Time.deltaTime;
             }
             else
             {
                 StageProgressTime_Minutes++;
                 StageProgressTime_Secounds = 0;
-            }   
+            }
         }
     }
 
@@ -271,7 +276,7 @@ using UnityEngine.SceneManagement;
         }
         else
         {
-            PickModeCoolTime.text = "["+ Custom_InputManager.Instance.inputData.Chara_PickModeSwitch.ToString() +"]キーで切替可能";
+            PickModeCoolTime.text = "[" + Custom_InputManager.Instance.inputData.Chara_PickModeSwitch.ToString() + "]キーで切替可能";
             PickModeCoolTime.color = new Color(0, 255, 0);
         }
 
@@ -291,7 +296,7 @@ using UnityEngine.SceneManagement;
 
     void LowHealthUI() //体力に応じてUIを変更する
     {
-        if(Health_Bar.fillAmount >= 0.6f)
+        if (Health_Bar.fillAmount >= 0.6f)
         {
             LowHealthUIObject.localScale = new Vector3(2, 2, 1);
         }
@@ -362,7 +367,7 @@ using UnityEngine.SceneManagement;
             if (ClearScoreShownTimer >= 0.0f)
             {
                 ClearScoreShownTimer -= Time.deltaTime;
-                ClearTime.text = Random.Range(00,99).ToString("00") + ":" + Random.Range(00, 99).ToString("00");
+                ClearTime.text = Random.Range(00, 99).ToString("00") + ":" + Random.Range(00, 99).ToString("00");
                 ClearScore.text = Random.Range(000000, 999999).ToString("000000");
                 TotalResult.text = Random.Range(000000, 999999).ToString("000,000");
             }
@@ -408,15 +413,15 @@ using UnityEngine.SceneManagement;
                         break;
                 }
             }
-            
+
         }
     }
     void GameOver_System()
     {
         if (CharacterInfo.Character_CurrentHP <= 0)
         {
-           isGameOver = true;
-           MainGame_Manager.MainGame_IsGameOver = true;
+            isGameOver = true;
+            MainGame_Manager.MainGame_IsGameOver = true;
             GameOverUI.SetActive(true);
             BG.enabled = true;
             GameOverBG.enabled = true;
@@ -468,26 +473,26 @@ using UnityEngine.SceneManagement;
                     }
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                    AudioManager.Instance.SE.PlayOneShot(EnterSE);
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     }
-                break;
+                    break;
                 case 1:
                     GameOver_ExitSelect.enabled = true;
                     GameOver_Retry.enabled = true;
                     GameOver_RetrySelect.enabled = false;
                     GameOver_Exit.enabled = false;
-                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
-                    GameOver_CurrentSelect--;
-                }
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    or_scenemanager.SceneName = "MainTitle";
-                    or_scenemanager.NextSceneLoad();
-                    AudioManager.Instance.SE.PlayOneShot(EnterSE);
-                }
+                    if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        AudioManager.Instance.SE.PlayOneShot(ChangeColumnSE);
+                        GameOver_CurrentSelect--;
+                    }
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        or_scenemanager.SceneName = "MainTitle";
+                        or_scenemanager.NextSceneLoad();
+                        AudioManager.Instance.SE.PlayOneShot(EnterSE);
+                    }
                     break;
             }
 
@@ -496,11 +501,11 @@ using UnityEngine.SceneManagement;
 
     void ChangeMusicSystem()
     {
-            if (!AudioManager.Instance.BGM.isPlaying) 
-            {
-                AudioManager.Instance.BGM.clip = FieldBGM;
-                AudioManager.Instance.BGM.Play();
-            }
+        if (!AudioManager.Instance.BGM.isPlaying)
+        {
+            AudioManager.Instance.BGM.clip = FieldBGM;
+            AudioManager.Instance.BGM.Play();
+        }
     }
     void PauseMenuSystem()
     {
@@ -563,6 +568,23 @@ using UnityEngine.SceneManagement;
         else
         {
             DamageEffect.enabled = false;
+        }
+    }
+
+    void AllMapUpdate()
+    {
+        //処理を行わない状態の場合リターン
+        if (MainGame_Manager.MainGame_IsStartAnimation ||
+            MainGame_Manager.MainGame_IsPause ||
+            MainGame_Manager.MainGame_IsGameOver ||
+            MainGame_Manager.MainGame_IsGameClear)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(Custom_InputManager.Instance.inputData.Game_Map))
+        {
+            ALLMapUI.SetActive(!ALLMapUI.activeSelf);
         }
     }
 }
