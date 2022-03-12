@@ -33,7 +33,7 @@ public class EnemyDropItem : MonoBehaviour
     {
         if (!IsItemDrop)
         {
-            return;
+            this.enabled = false;
         }
 
         if (Enemy.CurrentHealth <= 0.0f && IsItemDrop)
