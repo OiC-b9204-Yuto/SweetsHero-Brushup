@@ -349,6 +349,7 @@ public class UI_Option : MonoBehaviour
             case 5:
                 CurrentSelect.enabled = true;
                 SelectPos = new Vector2(-243, -225);
+                StartNoSelect_Button.enabled = true;
                 StartSelect_Button.enabled = false;
                 if (isEnterMode)
                 {

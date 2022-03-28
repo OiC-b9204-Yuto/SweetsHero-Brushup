@@ -38,7 +38,8 @@ public class EnemyDropItem : MonoBehaviour
 
         if (Enemy.CurrentHealth <= 0.0f && IsItemDrop)
         {
-            GameObject DropInstanceObject = (GameObject)Instantiate(DropItemList[RandomItemValue], this.gameObject.transform.position,Quaternion.identity);
+            GameObject DropInstanceObject = (GameObject)Instantiate(DropItemList[RandomItemValue], new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 1, this.gameObject.transform.position.z), Quaternion.identity);
+            DropItemList[RandomItemValue].GetComponent<DropItem_Setting>().ItemSpawnEffect.Play();
             this.enabled = false;
         }
     }

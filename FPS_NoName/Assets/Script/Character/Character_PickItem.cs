@@ -10,7 +10,7 @@ public class Character_PickItem : MonoBehaviour
         AutoPick,
         ManualPick,
     }
-
+    
     private int ScreenCenterX; //画面の中央 X 座標を取得
     private int ScreenCenterY; //画面の中央 Y 座標を取得
     private Vector3 CenterPos; //画面の中央のベクトルを取得

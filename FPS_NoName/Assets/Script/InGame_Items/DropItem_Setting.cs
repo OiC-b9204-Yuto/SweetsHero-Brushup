@@ -15,6 +15,7 @@ public class DropItem_Setting : MonoBehaviour
     private string itemName; //アイテムの名称
     private bool isItemSpawn; //アイテムが出たかどうか
     public ItemType itemType; //アイテムのタイプ
+    public ParticleSystem ItemSpawnEffect; //アイテム出現時のエフェクト
     [SerializeField] private float itemDeleteTime; //アイテムの削除時間
     [SerializeField] private float itemDropChance; //アイテムのドロップ確率
     [SerializeField] private AudioClip itemSoundEffect; //アイテムの獲得時の音源配列
