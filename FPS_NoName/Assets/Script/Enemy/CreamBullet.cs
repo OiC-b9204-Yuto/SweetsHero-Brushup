@@ -7,6 +7,7 @@ public class CreamBullet : MonoBehaviour
     [SerializeField] int damage;
     float destroyTimer = 0;
     Rigidbody rigidbody;
+    float knockbackPower = 3;
 
     private void Start()
     {
@@ -36,7 +37,7 @@ public class CreamBullet : MonoBehaviour
             IDamageable character = other.GetComponent<IDamageable>();
             if (character != null)
             {
-                character.TakeDamage(damage);
+                character.TakeDamage(damage, transform.forward * knockbackPower);
                 Destroy(this.gameObject);
             }
         }

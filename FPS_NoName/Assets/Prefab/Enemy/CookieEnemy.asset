@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: "\u30AF\u30C3\u30AD\u30FC"
   maxHealth: 60
+  attackPower: 10
+  knocbackPower: 3

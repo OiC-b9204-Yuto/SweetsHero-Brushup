@@ -9,7 +9,7 @@ public class CookieKing : BaseEnemy, IDamageable
 
     public bool IsDead { get; private set; }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 pow)
     {
         currentHealth -= damage;
         if (currentHealth < 0) {

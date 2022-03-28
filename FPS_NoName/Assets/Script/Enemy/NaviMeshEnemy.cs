@@ -18,7 +18,7 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
     float targetTimer = initTargetTimer;
     
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 pow)
     {
         if (!target)
         {
@@ -31,7 +31,7 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
                 }
             }
         }
-
+        transform.position += pow;
         currentHealth -= damage;
     }
 

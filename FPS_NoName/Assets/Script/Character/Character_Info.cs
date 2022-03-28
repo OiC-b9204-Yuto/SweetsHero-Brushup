@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Character_Info : MonoBehaviour , IDamageable , IHeal
+public class Character_Info : MonoBehaviour, IDamageable, IHeal
 {
     public bool IsGetDamage; //ダメージを受けたかどうか
     private bool IsBattle; //現在戦闘状態かどうか
@@ -21,6 +21,8 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
     [SerializeField] private bool character_IsReload; //キャラクターが現在リロードしているかどうか
     [SerializeField] private float[] character_MovementSpeed; //キャラクターの移動速度
     [SerializeField] private AudioClip character_HitSE; //キャラクターの当たられた時の音
+
+    public bool IsKnockback { get; private set; }
 
     private void Update()
     {
@@ -125,7 +127,7 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
         Character_CurrentHP += healamount;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 pow)
     {
         AudioManager.Instance.SE.PlayOneShot(character_HitSE);
         DamageEffectShownTimer = 0.5f;
@@ -141,5 +143,7 @@ public class Character_Info : MonoBehaviour , IDamageable , IHeal
             Character_CurrentArmor = 0;
         }
     }
+
+
     public float Character_MovementSpeed { get { return character_MovementSpeed[character_CurrentWeapon] * (character_IsReload ? 0.5f : 1.0f); }}
 }

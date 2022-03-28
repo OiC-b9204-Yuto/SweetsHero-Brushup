@@ -14,7 +14,7 @@ public abstract class CakeRobot : BaseEnemy, IDamageable
 
     [SerializeField] protected ParticleSystem smoke;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 pow)
     { 
         if (currentHealth > 0)
         {

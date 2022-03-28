@@ -13,4 +13,10 @@ public class EnemyParameter : ScriptableObject
 
     [SerializeField] private int maxHealth;
     public int MaxHealth { get { return maxHealth; } }
+
+    [SerializeField] private int attackPower;
+    public int AttackPower { get { return attackPower; } }
+
+    [SerializeField] private int knocbackPower;
+    public float KnocbackPower { get { return knocbackPower; } }
 }

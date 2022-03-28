@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: "\u30B1\u30FC\u30AD\u30ED\u30DC\u30C3\u30C8"
   maxHealth: 550
+  attackPower: 10
+  knocbackPower: 0

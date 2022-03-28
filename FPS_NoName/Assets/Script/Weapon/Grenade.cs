@@ -31,7 +31,7 @@ public class Grenade : MonoBehaviour
             }
             if (hit.collider == collider)
             {
-                hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(ExplosivDamage);
+                hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(ExplosivDamage, collider.transform.position);
                 Debug.Log("Grenade Hit!");
             }
         }

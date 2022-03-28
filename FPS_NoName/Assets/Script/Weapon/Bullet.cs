@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
         else
         {
             Debug.Log("“G‚É–½’†");
-            Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage);
+            Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage, transform.forward * 2);
             GameObject obj = Instantiate(HitParticle, Hit.point, Quaternion.identity);
             obj.transform.LookAt(Camera.main.transform.position);
         }
