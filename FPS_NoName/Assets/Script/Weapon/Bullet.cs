@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private GameObject HitParticle;
     [SerializeField] private LayerMask Layer;
+    //è¡Ç¶ÇÈÇ‹Ç≈ÇÃéûä‘ <- new! (ãÛÇ»Ç«ÇÃè·äQï®ÇÃÇ»Ç¢ï˚å¸Ç÷îÚÇŒÇµÇΩéûÇÃëŒçÙ)
+    [SerializeField] private float DeleteTime;
 
     private void Start()
     {
@@ -25,6 +27,8 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         HitCheck();
+        DeleteTime -= Time.deltaTime;
+        if(DeleteTime <= 0) Destroy(this.gameObject);
         BeforePosition = transform.position;
     }
 
