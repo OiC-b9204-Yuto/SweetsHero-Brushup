@@ -31589,8 +31589,6 @@ GameObject:
   m_Component:
   - component: {fileID: 922154934}
   - component: {fileID: 922154936}
-  - component: {fileID: 922154935}
-  - component: {fileID: 922154937}
   m_Layer: 0
   m_Name: ItemPick
   m_TagString: PickArea
@@ -31612,19 +31610,6 @@ Transform:
   m_Father: {fileID: 1000397699}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &922154935
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922154933}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &922154936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31641,22 +31626,6 @@ MonoBehaviour:
   PlayerCamera: {fileID: 562069919}
   ManualPickDistance: 4
   IsHitItem: 0
---- !u!54 &922154937
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922154933}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &923177827
 GameObject:
   m_ObjectHideFlags: 0
@@ -61045,18 +61014,12 @@ MonoBehaviour:
   Weapon_CurrentMagazineText: {fileID: 1970830993}
   BattleModeText: {fileID: 2034047597}
   BattleTimerText: {fileID: 1194736373}
-  PickModeShown: {fileID: 0}
-  PickModeCoolTime: {fileID: 0}
   PickManualName: {fileID: 1704511858}
   PickInteract: {fileID: 846454268}
   FieldBGM: {fileID: 8300000, guid: eea9873ad63b1d249a0fe00b10409742, type: 3}
   BossBGM: {fileID: 0}
   ChangeColumnSE: {fileID: 8300000, guid: f177cb8219c02164eb3008a7a33484c6, type: 3}
   EnterSE: {fileID: 8300000, guid: 44951b7d8baadc24d90d3df1436043c2, type: 3}
-  BackToMainMenu: 0
-  StageProgressTime: 0
-  StageProgressTime_Minutes: 0
-  StageProgressTime_Secounds: 0
   LowHealthUIObject: {fileID: 1503955434}
   isStartAnimation: 0
   GameStartFadeImage: {fileID: 1923352084}
