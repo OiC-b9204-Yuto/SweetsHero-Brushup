@@ -24,18 +24,16 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
     [SerializeField] private Text BattleModeText;                   //戦闘状態を表示するText
     [SerializeField] private Text BattleTimerText;　　　　　　　　　//戦闘状態の残り時間を表示するText
-    [SerializeField] private Text PickModeShown;                    //ピックモードの表示
-    [SerializeField] private Text PickModeCoolTime;                 //ピックモードのクールタイム表示
-    [SerializeField] private Text PickManualName;                   //ピックマニュアル時の現在あたっているアイテムを表示
+    [SerializeField] private Text PickManualName;                   //現在あたっているアイテムを表示
     [SerializeField] private Text PickInteract;                     //アイテムに当たっているとき[]キーで取得できるのかを表示
     [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
     [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
     [SerializeField] private AudioClip ChangeColumnSE;
     [SerializeField] private AudioClip EnterSE;
-    [SerializeField] private bool BackToMainMenu;
-    [SerializeField] private float StageProgressTime;
-    [SerializeField] private float StageProgressTime_Minutes;
-    [SerializeField] private float StageProgressTime_Secounds;
+    private bool BackToMainMenu;
+    private float StageProgressTime;
+    private float StageProgressTime_Minutes;
+    private float StageProgressTime_Secounds;
     Character_Info CharacterInfo;
     Character_PickItem CharacterPick;
     MainGameManager MainGame_Manager;
@@ -257,26 +255,6 @@ public class UI_MainGame : MonoBehaviour
             BattleModeText.text = "";
             BattleTimerText.text = "";
 
-        }
-
-        switch (CharacterPick.itemPickMode)
-        {
-            case Character_PickItem.ItemPickMode.AutoPick: //自動ピックの場合
-                PickModeShown.text = "アイテム取得モード: 自動";
-                break;
-            case Character_PickItem.ItemPickMode.ManualPick: //手動ピックの場合
-                PickModeShown.text = "アイテム取得モード: 手動";
-                break;
-        }
-        if (CharacterPick.ChangeCoolDown > 0.0f)
-        {
-            PickModeCoolTime.text = "切替クールタイム: " + CharacterPick.ChangeCoolDown.ToString("0.0") + "秒";
-            PickModeCoolTime.color = new Color(255, 0, 0);
-        }
-        else
-        {
-            PickModeCoolTime.text = "[" + Custom_InputManager.Instance.inputData.Chara_PickModeSwitch.ToString() + "]キーで切替可能";
-            PickModeCoolTime.color = new Color(0, 255, 0);
         }
 
         if (CharacterPick.IsHitItem)
