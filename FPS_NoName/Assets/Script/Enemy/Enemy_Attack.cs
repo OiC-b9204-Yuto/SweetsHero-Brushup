@@ -8,7 +8,6 @@ public class Enemy_Attack : MonoBehaviour
 
     public void SetParameter(EnemyParameter param) => this.parameter = param;
 
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")

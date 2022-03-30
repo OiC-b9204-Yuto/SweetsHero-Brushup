@@ -38,6 +38,7 @@ public class NaviMeshEnemy : BaseEnemy , IDamageable
     void Awake()
     {
         currentHealth = MaxHealth;
+        AttackCol.GetComponent<Enemy_Attack>().SetParameter(this.parameter);
     }
 
     void Start()
