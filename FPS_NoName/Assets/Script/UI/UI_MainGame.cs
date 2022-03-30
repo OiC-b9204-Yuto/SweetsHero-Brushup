@@ -24,22 +24,20 @@ public class UI_MainGame : MonoBehaviour
     [SerializeField] private Text Weapon_CurrentMagazineText;       //武器の現在のマガジンを表示するText
     [SerializeField] private Text BattleModeText;                   //戦闘状態を表示するText
     [SerializeField] private Text BattleTimerText;　　　　　　　　　//戦闘状態の残り時間を表示するText
-    [SerializeField] private Text PickModeShown;                    //ピックモードの表示
-    [SerializeField] private Text PickModeCoolTime;                 //ピックモードのクールタイム表示
-    [SerializeField] private Text PickManualName;                   //ピックマニュアル時の現在あたっているアイテムを表示
+    [SerializeField] private Text PickManualName;                   //現在あたっているアイテムを表示
     [SerializeField] private Text PickInteract;                     //アイテムに当たっているとき[]キーで取得できるのかを表示
     [SerializeField] private AudioClip FieldBGM;                    //フィールドの曲
     [SerializeField] private AudioClip BossBGM;                     //ボス戦の曲
     [SerializeField] private AudioClip ChangeColumnSE;
     [SerializeField] private AudioClip EnterSE;
-    [SerializeField] private bool BackToMainMenu;
-    [SerializeField] private float StageProgressTime;
-    [SerializeField] private float StageProgressTime_Minutes;
-    [SerializeField] private float StageProgressTime_Secounds;
+    private bool BackToMainMenu;
+    private float StageProgressTime;
+    private float StageProgressTime_Minutes;
+    private float StageProgressTime_Secounds;
     Character_Info CharacterInfo;
     Character_PickItem CharacterPick;
     MainGameManager MainGame_Manager;
-    Weapon_State Weapon_Stats;
+    WeaponAct WeaponAct;
 
     // ----------------------------------------------------------------------------------------------------
     //
@@ -57,8 +55,8 @@ public class UI_MainGame : MonoBehaviour
     //
     //
     public bool isStartAnimation;
-    UI_FadeImage StartFade;
-    [SerializeField] private Image FadeStartImage;
+    UI_FadeImage FadeSystem;
+    [SerializeField] private Image GameStartFadeImage;
     [SerializeField] private GameObject StartUI;
     [SerializeField] private float StartTimer;
     //
@@ -144,7 +142,8 @@ public class UI_MainGame : MonoBehaviour
         ClearScoreShownTimer = 3.0f;
         or_scenemanager = this.GetComponent<OR_SceneManager>();
         MainGame_Manager = GameObject.Find("MainGameManager").GetComponent<MainGameManager>();
-        StartFade = FadeStartImage.GetComponent<UI_FadeImage>();
+
+        FadeSystem = GameStartFadeImage.GetComponent<UI_FadeImage>();
 
         Health_Bar_Low1.enabled = false;
         Health_Bar_Low2.enabled = false;
@@ -171,13 +170,13 @@ public class UI_MainGame : MonoBehaviour
         GameOver_Exit.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         CharacterInfo = Player.GetComponent<Character_Info>();
-        Weapon_Stats = Weapon.GetComponent<Weapon_State>();
+        WeaponAct = Weapon.GetComponent<WeaponAct>();
         CharacterPick = PickSystemObject.GetComponent<Character_PickItem>();
     }
 
     private void Start()
     {
-        StartFade.StartFadeImage = true;
+        GameStartFadeImage.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeStart;
         StartUI.SetActive(true);
     }
 
@@ -202,14 +201,12 @@ public class UI_MainGame : MonoBehaviour
 
     void GameStartHUD()
     {
-        if (StartFade.FinishFadeIN && MainGame_Manager.MainGame_IsStartAnimation)
+        if (FadeSystem.animationState == AnimationState.FadeFinish && MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartAnimation)
         {
-            MainGame_Manager.MainGame_IsStartGame = true;
-            MainGame_Manager.MainGame_IsStartAnimation = false;
-            StartFade.FinishFadeIN = false;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsStartGame;
         }
 
-        if (MainGame_Manager.MainGame_IsStartGame)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartGame)
         {
             if (StartTimer >= 0.0f)
             {
@@ -219,11 +216,11 @@ public class UI_MainGame : MonoBehaviour
             {
                 StartUI.SetActive(false);
                 isStartAnimation = false;
-                MainGame_Manager.MainGame_GameProgress = true;
-                MainGame_Manager.MainGame_IsStartGame = false;
+                MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
             }
         }
-        if (MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsStartAnimation && !MainGame_Manager.MainGame_IsStartGame && !MainGame_Manager.MainGame_IsGameClear)
+
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameProgress)
         {
             StageProgressTime += Time.deltaTime;
             if (StageProgressTime_Secounds <= 59.9f)
@@ -244,8 +241,8 @@ public class UI_MainGame : MonoBehaviour
         Health_Bar_Low1.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
         Health_Bar_Low2.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
         Armor_Bar.fillAmount = CharacterInfo.Character_CurrentArmor / CharacterInfo.Character_MaxArmor;
-        Weapon_CurrentAmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString("00");
-        Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
+        Weapon_CurrentAmmoText.text = WeaponAct.CurrentAmmo.ToString("00");
+        Weapon_CurrentMagazineText.text = WeaponAct.CurrentRemainingAmmo.ToString("000");
         Health_Text.text = CharacterInfo.Character_CurrentHP.ToString("0");
         Armor_Text.text = CharacterInfo.Character_CurrentArmor.ToString("0");
         if (CharacterInfo.Character_BattleTimer > 0.0f)
@@ -258,26 +255,6 @@ public class UI_MainGame : MonoBehaviour
             BattleModeText.text = "";
             BattleTimerText.text = "";
 
-        }
-
-        switch (CharacterPick.itemPickMode)
-        {
-            case Character_PickItem.ItemPickMode.AutoPick: //自動ピックの場合
-                PickModeShown.text = "アイテム取得モード: 自動";
-                break;
-            case Character_PickItem.ItemPickMode.ManualPick: //手動ピックの場合
-                PickModeShown.text = "アイテム取得モード: 手動";
-                break;
-        }
-        if (CharacterPick.ChangeCoolDown > 0.0f)
-        {
-            PickModeCoolTime.text = "切替クールタイム: " + CharacterPick.ChangeCoolDown.ToString("0.0") + "秒";
-            PickModeCoolTime.color = new Color(255, 0, 0);
-        }
-        else
-        {
-            PickModeCoolTime.text = "[" + Custom_InputManager.Instance.inputData.Chara_PickModeSwitch.ToString() + "]キーで切替可能";
-            PickModeCoolTime.color = new Color(0, 255, 0);
         }
 
         if (CharacterPick.IsHitItem)
@@ -358,7 +335,7 @@ public class UI_MainGame : MonoBehaviour
 
     void GameClear_System()
     {
-        if (MainGame_Manager.MainGame_IsGameClear)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameClear)
         {
             ClearUI.SetActive(true);
             isGameClear = true;
@@ -420,8 +397,7 @@ public class UI_MainGame : MonoBehaviour
     {
         if (CharacterInfo.Character_CurrentHP <= 0)
         {
-            isGameOver = true;
-            MainGame_Manager.MainGame_IsGameOver = true;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameOver;
             GameOverUI.SetActive(true);
             BG.enabled = true;
             GameOverBG.enabled = true;
@@ -451,10 +427,6 @@ public class UI_MainGame : MonoBehaviour
                     GameOverLogo_POS.anchoredPosition = GameOverLogo_Vec;
                 }
             }
-        }
-        else
-        {
-            MainGame_Manager.MainGame_IsGameOver = false;
         }
 
         if (GameOver_FinishAnim)            //ゲームオーバーのアニメーションが終わったら
@@ -509,12 +481,19 @@ public class UI_MainGame : MonoBehaviour
     }
     void PauseMenuSystem()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsGameClear && !MainGame_Manager.MainGame_IsGameOver && !isStartAnimation)
+        if (Input.GetKeyDown(KeyCode.Escape) && (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameProgress))
         {
-            MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsPause;
+        }
+        else if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
+            }
         }
 
-        if (MainGame_Manager.MainGame_IsPause)  //ポーズメニュー中
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)  //ポーズメニュー中
         {
             Pause_Menu.SetActive(true);
             switch (Pause_CurrentSelect)
@@ -549,7 +528,7 @@ public class UI_MainGame : MonoBehaviour
                     {
                         AudioManager.Instance.SE.PlayOneShot(EnterSE);
                         BackToMainMenu = true;
-                        MainGame_Manager.MainGame_IsPause = false;
+                        MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
                     }
                     break;
             }
@@ -574,10 +553,10 @@ public class UI_MainGame : MonoBehaviour
     void AllMapUpdate()
     {
         //処理を行わない状態の場合リターン
-        if (MainGame_Manager.MainGame_IsStartAnimation ||
-            MainGame_Manager.MainGame_IsPause ||
-            MainGame_Manager.MainGame_IsGameOver ||
-            MainGame_Manager.MainGame_IsGameClear)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartGame ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameClear ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameOver ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)
         {
             return;
         }

@@ -66,7 +66,7 @@ public class CakeBossEnemy : BaseEnemy
     IEnumerator GameClear()
     {
         yield return new WaitForSeconds(2.0f);
-        mainGameManager.MainGame_IsGameClear = true;
+        mainGameManager.gameProgressState = GameProgressState.Game_IsGameClear;
     }
 
     void TakeDamage()

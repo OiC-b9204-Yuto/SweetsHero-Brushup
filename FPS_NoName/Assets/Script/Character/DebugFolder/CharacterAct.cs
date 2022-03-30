@@ -8,13 +8,11 @@ public class CharacterAct : MonoBehaviour
 
     //武器を増やすならリストに
     [SerializeField] GameObject weapon_object;
-    [SerializeField] Weapon_State weapon_state;
+    [SerializeField] WeaponInput weaponInput;
 
     [SerializeField] Character_Info character_Info;
 
     //武器等
-    [SerializeField] private GameObject GrenadeObject;
-    [SerializeField] private float ThrowPower;
     [SerializeField] private Animator weapon_animator;
 
     //移動関連(キーボード操作)
@@ -53,8 +51,6 @@ public class CharacterAct : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //リロード状態受け取り
-        character_Info.Character_IsReload = weapon_state.IsReload;
 
         //移動更新 <- 要関数化?
         if(!controller.isGrounded)
@@ -104,20 +100,14 @@ public class CharacterAct : MonoBehaviour
     }
 
 
-    public bool weaponShoot()
+    public bool weaponShot()
     {
         if (character_Info.Character_IsReload) return false;
 
-        if (weapon_state.Weapon_CurrentAmmo > 0)
-        {
-            weapon_state.Shot();
+        if (weaponInput.Shot())
+        {     
             weapon_animator.SetBool("IsShot", true);
             return true;
-        }
-        else
-        {
-            weaponReload();
-            return false;
         }
 
         weapon_animator.SetBool("IsShot", false);
@@ -126,26 +116,13 @@ public class CharacterAct : MonoBehaviour
 
     public bool weaponReload()
     {
-        if(character_Info.Character_IsReload) return false;
+        if(!weaponInput.Reload()) return false;
         weapon_animator.SetTrigger("TriggerReload");
         return true;
     }   
 
-    public bool throwGrenade()
-    {
-        if (character_Info.Character_CurrentGrenades <= 0) return false;
-
-        //前まっすぐ+重力なので要調整
-        GameObject obj = Instantiate(GrenadeObject, transform.position + transform.forward * 2 + transform.up * 1, transform.rotation);
-        Rigidbody rig = obj.GetComponent<Rigidbody>();
-        rig.AddForce(transform.forward * ThrowPower);
-        return true;
-    }
-
     public void RecovAmmo(int value)
     {
-
-        weapon_state.Weapon_CurrentMagazine += value;
-
+        weaponInput.RecovAmmo(value);
     }
 }

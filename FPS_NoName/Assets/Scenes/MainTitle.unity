@@ -1341,14 +1341,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 0
   FadeTime: 0.01
   FadeOut: 1
   FadeIn: 0
   IsTimingFadeImage: 1
   SpeedUpFadeSpeedx2: 1
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &407199788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,7 +2796,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 995437540}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2817,14 +2815,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 0
   FadeTime: 0.01
   FadeOut: 0
   FadeIn: 1
   IsTimingFadeImage: 1
   SpeedUpFadeSpeedx2: 1
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &811855717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3133,6 +3129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a938f6598fe2f814ea772d922ac91b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentScreen: 0
   CurrentSelect: 0
   CurrentSelectExit: 0
   Exit_SelectYes: {fileID: 1586245160}
@@ -3142,15 +3139,15 @@ MonoBehaviour:
   PushEsc: 0
   FadeAnimtionEnd: 0
   CantSelectMenu: 0
-  FadeImage: {fileID: 1635820045}
   GameStartSelect_Button: {fileID: 1910560714}
   OptionSelect_Button: {fileID: 692705794}
   GameStart_Button: {fileID: 751258296}
   Option_Button: {fileID: 920886490}
-  TimingFadeOutToOption: {fileID: 894359815}
-  TimingFadeOutOption: {fileID: 811855717}
-  TimingFadeInOption: {fileID: 407199788}
-  TimingFadeInMainMenu: {fileID: 1964048453}
+  Fade_FirstInMenu: {fileID: 1635820045}
+  Fade_MenuToOption: {fileID: 894359815}
+  Fade_InMenu: {fileID: 1964048453}
+  Fade_OutOpion: {fileID: 407199788}
+  Fade_InOption: {fileID: 811855717}
   MainMenuHUD: {fileID: 1462482390}
   ExitHUD: {fileID: 799722869}
   OptionHUD: {fileID: 159936161}
@@ -3299,7 +3296,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 995437540}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3318,14 +3315,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 0
   FadeTime: 0.01
   FadeOut: 1
   FadeIn: 0
   IsTimingFadeImage: 1
   SpeedUpFadeSpeedx2: 1
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &894359815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3660,10 +3655,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1635820043}
-  - {fileID: 894359813}
-  - {fileID: 811855715}
-  - {fileID: 407199786}
   - {fileID: 1964048451}
+  - {fileID: 894359813}
+  - {fileID: 407199786}
+  - {fileID: 811855715}
   m_Father: {fileID: 848928677}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5753,14 +5748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 1
   FadeTime: 0.01
   FadeOut: 0
   FadeIn: 1
   IsTimingFadeImage: 0
   SpeedUpFadeSpeedx2: 0
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &1635820045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7261,7 +7254,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 995437540}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -7280,14 +7273,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 0
   FadeTime: 0.01
   FadeOut: 0
   FadeIn: 1
   IsTimingFadeImage: 1
   SpeedUpFadeSpeedx2: 1
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &1964048453
 MonoBehaviour:
   m_ObjectHideFlags: 0

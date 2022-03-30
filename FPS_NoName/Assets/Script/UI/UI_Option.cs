@@ -7,14 +7,14 @@ using static UnityEngine.UI.Dropdown;
 public class UI_Option : MonoBehaviour
 {
 
-    UI_MainMenu MainMenuSystem;
+    UI_Menu MainMenuSystem;
     [SerializeField] private GameObject MainMenuObject; //メインメニュのスクリプト参照用のオブジェクト
     [SerializeField] private GameObject ApplyMessageObject;
     [SerializeField] private Image CurrentSelect;       //現在選んでる項目を表示する矢印
     [SerializeField] private int CurrentColumn;         //現在選んでる項目
     private int OptionColumns = 6;                      //オプションの項目数 (0: BGM設定 / 1:SE設定 / 2: マウス感度 / 3:パフォーマンス表示設定 / 4: 解像度設定 / 5: 画面モード / 6: OKボタン)
     public bool isEnterMode;                            //オンの時は、選んでいる項目の設定を変更できる
-    public bool isApplyShown;
+    public bool isApplyShown;                           //適用メッセージ表示中
     private RectTransform CurrentSelectPos;             //CurrentSelectのポジション用
     private Vector2 SelectPos;                          //RectTransformに反映させる用
     [SerializeField] private int CurrentSelectRes;      //現在選んでいるRes
@@ -60,7 +60,7 @@ public class UI_Option : MonoBehaviour
         performance_Enable = GameData_Manager.Instance.gameData.FpsShown;
         Mouse_Sensi.value = GameData_Manager.Instance.gameData.MouseSensitivity;
         CurrentSelectPos = CurrentSelect.GetComponent<RectTransform>();
-        MainMenuSystem = MainMenuObject.GetComponent<UI_MainMenu>();
+        MainMenuSystem = MainMenuObject.GetComponent<UI_Menu>();
         switch (ScreenModeType)
         {
             case 0:

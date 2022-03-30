@@ -10,7 +10,7 @@ Shader "Custom/disolve" {
 		_Threshold("Threshold", Range(0,1)) = 0.0
 	}
 		SubShader{
-			Tags { "RenderType" = "Opaque" }
+			Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
 			LOD 200
 
 			CGPROGRAM
