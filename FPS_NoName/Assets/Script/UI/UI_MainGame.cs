@@ -39,7 +39,7 @@ public class UI_MainGame : MonoBehaviour
     Character_Info CharacterInfo;
     Character_PickItem CharacterPick;
     MainGameManager MainGame_Manager;
-    Weapon_State Weapon_Stats;
+    WeaponAct WeaponAct;
 
     // ----------------------------------------------------------------------------------------------------
     //
@@ -172,7 +172,7 @@ public class UI_MainGame : MonoBehaviour
         GameOver_Exit.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         CharacterInfo = Player.GetComponent<Character_Info>();
-        Weapon_Stats = Weapon.GetComponent<Weapon_State>();
+        WeaponAct = Weapon.GetComponent<WeaponAct>();
         CharacterPick = PickSystemObject.GetComponent<Character_PickItem>();
     }
 
@@ -243,8 +243,8 @@ public class UI_MainGame : MonoBehaviour
         Health_Bar_Low1.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
         Health_Bar_Low2.fillAmount = CharacterInfo.Character_CurrentHP / CharacterInfo.Character_MaxHP;
         Armor_Bar.fillAmount = CharacterInfo.Character_CurrentArmor / CharacterInfo.Character_MaxArmor;
-        Weapon_CurrentAmmoText.text = Weapon_Stats.Weapon_CurrentAmmo.ToString("00");
-        Weapon_CurrentMagazineText.text = Weapon_Stats.Weapon_CurrentMagazine.ToString("000");
+        Weapon_CurrentAmmoText.text = WeaponAct.CurrentAmmo.ToString("00");
+        Weapon_CurrentMagazineText.text = WeaponAct.CurrentRemainingAmmo.ToString("000");
         Health_Text.text = CharacterInfo.Character_CurrentHP.ToString("0");
         Armor_Text.text = CharacterInfo.Character_CurrentArmor.ToString("0");
         if (CharacterInfo.Character_BattleTimer > 0.0f)

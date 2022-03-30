@@ -18,7 +18,7 @@ public enum GameProgressState
         {
         gameProgressState = GameProgressState.Game_IsStartGame;
         }
-
+    
         private void Update()
         {
             CheckGameState();
