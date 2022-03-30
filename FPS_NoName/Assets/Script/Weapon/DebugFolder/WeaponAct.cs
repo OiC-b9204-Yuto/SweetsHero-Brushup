@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class WeaponAct : MonoBehaviour
 {
-    UI_MainGame MainGameUISystem;
-    [SerializeField] private GameObject MainGameUI;
-
     //WeaponInfo‚É‚Ü‚Æ‚ß‚é‚×‚«?<-Character‚ÆŒ`‚ð‡‚í‚¹‚é‘_‚¢
     //•Ší‚Ìî•ñ
     [SerializeField] private int    currentAmmo;

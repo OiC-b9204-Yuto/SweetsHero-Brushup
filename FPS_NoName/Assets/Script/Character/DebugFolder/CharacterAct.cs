@@ -13,8 +13,6 @@ public class CharacterAct : MonoBehaviour
     [SerializeField] Character_Info character_Info;
 
     //武器等
-    [SerializeField] private GameObject GrenadeObject;
-    [SerializeField] private float ThrowPower;
     [SerializeField] private Animator weapon_animator;
 
     //移動関連(キーボード操作)
@@ -122,17 +120,6 @@ public class CharacterAct : MonoBehaviour
         weapon_animator.SetTrigger("TriggerReload");
         return true;
     }   
-
-    public bool throwGrenade()
-    {
-        if (character_Info.Character_CurrentGrenades <= 0) return false;
-
-        //前まっすぐ+重力なので要調整
-        GameObject obj = Instantiate(GrenadeObject, transform.position + transform.forward * 2 + transform.up * 1, transform.rotation);
-        Rigidbody rig = obj.GetComponent<Rigidbody>();
-        rig.AddForce(transform.forward * ThrowPower);
-        return true;
-    }
 
     public void RecovAmmo(int value)
     {

@@ -39,16 +39,15 @@ public class Bullet : MonoBehaviour
         RaycastHit Hit;
 
         bool rayCheck = Physics.Raycast(BeforePosition, transform.forward, out Hit ,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime, Layer);
-        Debug.DrawRay(BeforePosition, transform.forward * (Vector3.Distance(BeforePosition, transform.position) + rigidbody.velocity.magnitude * Time.deltaTime), Color.green,1);
+        //Debug.DrawRay(BeforePosition, transform.forward * (Vector3.Distance(BeforePosition, transform.position) + rigidbody.velocity.magnitude * Time.deltaTime), Color.green,1);
 
         if (!rayCheck) return;
         if (Hit.collider.gameObject.tag != "Enemy")
         {
-            Debug.Log(Hit.collider.gameObject.name);
+            //Debug.Log(Hit.collider.gameObject.name);
         }
         else
         {
-            Debug.Log("“G‚É–½’†");
             Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage, transform.forward * 2);
             GameObject obj = Instantiate(HitParticle, Hit.point, Quaternion.identity);
             obj.transform.LookAt(Camera.main.transform.position);

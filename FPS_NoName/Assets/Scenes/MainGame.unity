@@ -31622,7 +31622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee1071cfa5ac194b80a99110598d0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPickMode: 0
   PlayerCamera: {fileID: 562069919}
   ManualPickDistance: 4
   IsHitItem: 0
@@ -34720,7 +34719,9 @@ GameObject:
   - component: {fileID: 1000397705}
   - component: {fileID: 1000397704}
   - component: {fileID: 1000397703}
+  - component: {fileID: 1000397708}
   - component: {fileID: 1000397702}
+  - component: {fileID: 1000397707}
   - component: {fileID: 1000397701}
   - component: {fileID: 1000397700}
   m_Layer: 10
@@ -34776,7 +34777,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000397698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bace9877abd8d1d469176de2cc38448f, type: 3}
   m_Name: 
@@ -34796,7 +34797,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000397698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21a664d69f32b084eacdb4a9add8f8bd, type: 3}
   m_Name: 
@@ -34902,6 +34903,46 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000397698}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1000397707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000397698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 189260026af033146b9143a48b468b9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon_object: {fileID: 663527664}
+  weaponInput: {fileID: 1112597945}
+  character_Info: {fileID: 1000397703}
+  weapon_animator: {fileID: 1112597940}
+  moveSmoothTime: 0.3
+  jumpSpeed: 7.5
+  Gravity: -20
+  camera: {fileID: 562069917}
+  mouseSensitivity: 2
+  mouseSmoothTime: 0.04
+  CameraMaxPitch: 90
+  CameraMinPitch: -90
+--- !u!114 &1000397708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000397698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d8da5f74f3e62468d63c788ad9e125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterAct: {fileID: 1000397707}
+  mainGameManager: {fileID: 810023172}
+  Player_Camera: {fileID: 562069917}
+  LockCursor: 1
 --- !u!1 &1001289491
 GameObject:
   m_ObjectHideFlags: 0
@@ -39156,6 +39197,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1112597943}
   - component: {fileID: 1112597942}
+  - component: {fileID: 1112597945}
+  - component: {fileID: 1112597944}
   - component: {fileID: 1112597941}
   - component: {fileID: 1112597940}
   m_Layer: 7
@@ -39196,7 +39239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f13068cdbdef22498876828db863b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwayTime: 15
+  SwayTime: 2.5
 --- !u!114 &1112597942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39204,7 +39247,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1112597939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad4e620025bea64c9e47eb5f9ced931, type: 3}
   m_Name: 
@@ -39241,6 +39284,46 @@ Transform:
   m_Father: {fileID: 663527665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112597944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112597939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80939589e4ab0534281831670e9dc01d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentAmmo: 20
+  maxAmmo: 20
+  useAmmoPerShot: 1
+  currentRemainingAmmo: 180
+  damage: 30
+  shotRange: 500
+  fireRate: 0.55
+  reloadTime: 2.2
+  muzzleFlash: {fileID: 2062947787}
+  shotPoint: {fileID: 1529326710}
+  bulletObject: {fileID: 3398653069952007332, guid: 3e2342d2442f9d741997d37c80bba23b, type: 3}
+  bulletSpeed: 2500
+  sound_Shot: {fileID: 8300000, guid: bc464cc2ec7d8bd4ca4382fbb880f8f6, type: 3}
+  sound_Reload: {fileID: 8300000, guid: 8893c4aef83540d478c3bbb31605c910, type: 3}
+  sound_Walk: {fileID: 8300000, guid: 91dbfc431844a56478648874e2ee2742, type: 3}
+--- !u!114 &1112597945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112597939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca29ab6e33f28548990222c2cd3f111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponAct: {fileID: 1112597944}
 --- !u!1 &1113018061
 GameObject:
   m_ObjectHideFlags: 0

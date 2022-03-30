@@ -33,11 +33,6 @@ public class CharacterInput : MonoBehaviour
         {
             characterAct.weaponShot();
         }
-
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            characterAct.throwGrenade();
-        }
         
     }
 
