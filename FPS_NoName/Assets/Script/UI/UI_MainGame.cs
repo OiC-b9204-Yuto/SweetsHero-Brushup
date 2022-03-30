@@ -57,8 +57,8 @@ public class UI_MainGame : MonoBehaviour
     //
     //
     public bool isStartAnimation;
-    UI_FadeImage StartFade;
-    [SerializeField] private Image FadeStartImage;
+    UI_FadeImage FadeSystem;
+    [SerializeField] private Image GameStartFadeImage;
     [SerializeField] private GameObject StartUI;
     [SerializeField] private float StartTimer;
     //
@@ -144,7 +144,8 @@ public class UI_MainGame : MonoBehaviour
         ClearScoreShownTimer = 3.0f;
         or_scenemanager = this.GetComponent<OR_SceneManager>();
         MainGame_Manager = GameObject.Find("MainGameManager").GetComponent<MainGameManager>();
-        StartFade = FadeStartImage.GetComponent<UI_FadeImage>();
+
+        FadeSystem = GameStartFadeImage.GetComponent<UI_FadeImage>();
 
         Health_Bar_Low1.enabled = false;
         Health_Bar_Low2.enabled = false;
@@ -177,7 +178,7 @@ public class UI_MainGame : MonoBehaviour
 
     private void Start()
     {
-        StartFade.StartFadeImage = true;
+        GameStartFadeImage.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeStart;
         StartUI.SetActive(true);
     }
 
@@ -202,14 +203,12 @@ public class UI_MainGame : MonoBehaviour
 
     void GameStartHUD()
     {
-        if (StartFade.FinishFadeIN && MainGame_Manager.MainGame_IsStartAnimation)
+        if (FadeSystem.animationState == AnimationState.FadeFinish && MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartAnimation)
         {
-            MainGame_Manager.MainGame_IsStartGame = true;
-            MainGame_Manager.MainGame_IsStartAnimation = false;
-            StartFade.FinishFadeIN = false;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsStartGame;
         }
 
-        if (MainGame_Manager.MainGame_IsStartGame)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartGame)
         {
             if (StartTimer >= 0.0f)
             {
@@ -219,11 +218,11 @@ public class UI_MainGame : MonoBehaviour
             {
                 StartUI.SetActive(false);
                 isStartAnimation = false;
-                MainGame_Manager.MainGame_GameProgress = true;
-                MainGame_Manager.MainGame_IsStartGame = false;
+                MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
             }
         }
-        if (MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsStartAnimation && !MainGame_Manager.MainGame_IsStartGame && !MainGame_Manager.MainGame_IsGameClear)
+
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameProgress)
         {
             StageProgressTime += Time.deltaTime;
             if (StageProgressTime_Secounds <= 59.9f)
@@ -358,7 +357,7 @@ public class UI_MainGame : MonoBehaviour
 
     void GameClear_System()
     {
-        if (MainGame_Manager.MainGame_IsGameClear)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameClear)
         {
             ClearUI.SetActive(true);
             isGameClear = true;
@@ -420,8 +419,7 @@ public class UI_MainGame : MonoBehaviour
     {
         if (CharacterInfo.Character_CurrentHP <= 0)
         {
-            isGameOver = true;
-            MainGame_Manager.MainGame_IsGameOver = true;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameOver;
             GameOverUI.SetActive(true);
             BG.enabled = true;
             GameOverBG.enabled = true;
@@ -451,10 +449,6 @@ public class UI_MainGame : MonoBehaviour
                     GameOverLogo_POS.anchoredPosition = GameOverLogo_Vec;
                 }
             }
-        }
-        else
-        {
-            MainGame_Manager.MainGame_IsGameOver = false;
         }
 
         if (GameOver_FinishAnim)            //ゲームオーバーのアニメーションが終わったら
@@ -509,12 +503,19 @@ public class UI_MainGame : MonoBehaviour
     }
     void PauseMenuSystem()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && MainGame_Manager.MainGame_GameProgress && !MainGame_Manager.MainGame_IsGameClear && !MainGame_Manager.MainGame_IsGameOver && !isStartAnimation)
+        if (Input.GetKeyDown(KeyCode.Escape) && (MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameProgress))
         {
-            MainGame_Manager.MainGame_IsPause = !MainGame_Manager.MainGame_IsPause;
+            MainGame_Manager.gameProgressState = GameProgressState.Game_IsPause;
+        }
+        else if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
+            }
         }
 
-        if (MainGame_Manager.MainGame_IsPause)  //ポーズメニュー中
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)  //ポーズメニュー中
         {
             Pause_Menu.SetActive(true);
             switch (Pause_CurrentSelect)
@@ -549,7 +550,7 @@ public class UI_MainGame : MonoBehaviour
                     {
                         AudioManager.Instance.SE.PlayOneShot(EnterSE);
                         BackToMainMenu = true;
-                        MainGame_Manager.MainGame_IsPause = false;
+                        MainGame_Manager.gameProgressState = GameProgressState.Game_IsGameProgress;
                     }
                     break;
             }
@@ -574,10 +575,10 @@ public class UI_MainGame : MonoBehaviour
     void AllMapUpdate()
     {
         //処理を行わない状態の場合リターン
-        if (MainGame_Manager.MainGame_IsStartAnimation ||
-            MainGame_Manager.MainGame_IsPause ||
-            MainGame_Manager.MainGame_IsGameOver ||
-            MainGame_Manager.MainGame_IsGameClear)
+        if (MainGame_Manager.gameProgressState == GameProgressState.Game_IsStartGame ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameClear ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsGameOver ||
+            MainGame_Manager.gameProgressState == GameProgressState.Game_IsPause)
         {
             return;
         }

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_MainMenu : MonoBehaviour
+
+public enum CurrentScreen{
+    Menu,
+    StageSelect,
+    Option,
+    Exit,
+}
+public class UI_Menu : MonoBehaviour
 {
+    public CurrentScreen currentScreen;
     UI_Option OptionSystem;                                 //オプションのシステムを参照
     OR_SceneManager or_Scene_Manager;                       //シーン遷移用
-    UI_FadeImage FadeSystemToOption;                        //オプション画面へ画面遷移用の画像
-    UI_FadeImage FadeSystemOptionScreen;                    //オプション画面のフェード用の画像
-    UI_FadeImage FadeSystemFadeInOption;                    //メインメニューへ画面遷移用の画像
-    UI_FadeImage FadeSystemFadeOutMainMenu;                 //メインメニューのフェードアウト用の画像
 
     [SerializeField] private int CurrentSelect;             //メインメニューの現在選んでいる項目用のint
     [SerializeField] private int CurrentSelectExit;         //終了メニューの現在選んでる項目用のint
@@ -22,16 +26,16 @@ public class UI_MainMenu : MonoBehaviour
     [SerializeField] private bool FadeAnimtionEnd;          //開幕のフェードアニメーションの終了確認用 bool
     public bool CantSelectMenu;                             //フェード中や、何かを実行しているときにメインメニューを触らせないようにするbool
 
-    [SerializeField] private Image FadeImage;               //開幕のメインメニューフェードイメージ
     [SerializeField] private Image GameStartSelect_Button;  //ゲームスタートを選んでいるときのボタンの画像
     [SerializeField] private Image OptionSelect_Button;     //オプションを選んでいるときのボタンの画像
     [SerializeField] private Image GameStart_Button;        //ゲームスタートを選んでいないときのボタンの画像
     [SerializeField] private Image Option_Button;           //オプションを選んでいない時のボタンの画像
 
-    [SerializeField] private Image TimingFadeOutToOption;   //オプション画面へ画面遷移するときのタイミングフェードアウト
-    [SerializeField] private Image TimingFadeOutOption;     //オプション画面のタイミングフェードアウト
-    [SerializeField] private Image TimingFadeInOption;      //オプション画面のタイミングフェードイン
-    [SerializeField] private Image TimingFadeInMainMenu;    //メインメニューのタイミングフェードイン
+    [SerializeField] private Image Fade_FirstInMenu;               //開幕のメインメニューフェードイメージ
+    [SerializeField] private Image Fade_MenuToOption;   //オプション画面へ画面遷移するときのタイミングフェードアウト
+    [SerializeField] private Image Fade_InMenu;    //メインメニューのタイミングフェードイン
+    [SerializeField] private Image Fade_OutOpion;     //オプション画面のタイミングフェードアウト
+    [SerializeField] private Image Fade_InOption;      //オプション画面のタイミングフェードイン
 
     [SerializeField] private GameObject MainMenuHUD;        //メインメニューHUD 用のゲームオブジェクト
     [SerializeField] private GameObject ExitHUD;            //終了画面HUD 用のゲームオブジェクト
@@ -49,10 +53,6 @@ public class UI_MainMenu : MonoBehaviour
         AudioManager.Instance.BGM.Play();
         or_Scene_Manager = this.GetComponent<OR_SceneManager>();
         OptionSystem = OptionHUD.GetComponent<UI_Option>();
-        FadeSystemToOption = TimingFadeOutToOption.GetComponent<UI_FadeImage>();
-        FadeSystemOptionScreen = TimingFadeOutOption.GetComponent<UI_FadeImage>();
-        FadeSystemFadeInOption = TimingFadeInOption.GetComponent<UI_FadeImage>();
-        FadeSystemFadeOutMainMenu = TimingFadeInMainMenu.GetComponent<UI_FadeImage>();
         GameStartSelect_Button.enabled = true;
         OptionSelect_Button.enabled = false;
         GameStart_Button.enabled = false;
@@ -61,71 +61,65 @@ public class UI_MainMenu : MonoBehaviour
     }
     private void Update()
     {
+        UpdateScreenInfo();
         CursorSystem();
         ExitCheckScreen();
         CheckStateAnimation();
         InputDir();
     }
 
-    void CheckStateAnimation()  //メインメニューアニメーション管理関数
+    void UpdateScreenInfo()
     {
-
-        if (FadeSystemToOption.FinishFadeOUT)
+        if (MainMenuHUD.activeSelf)
         {
-            OptionHUD.SetActive(true);
-            MainMenuHUD.SetActive(false);
-            FadeSystemToOption.FinishFadeOUT = false;
+            currentScreen = CurrentScreen.Menu;
+            Fade_InOption.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeWait;
+            Fade_OutOpion.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeWait;
+        }
+        /*else if (StageSelectHUD.activeSelf)
+        {
+            currentScreen = CurrentScreen.StageSelect;
+        }*/
+        else if (OptionHUD.activeSelf)
+        {
+            currentScreen = CurrentScreen.Option;
+            Fade_InMenu.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeWait;
+            Fade_MenuToOption.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeWait;
+        }
+        else if (ExitHUD.activeSelf)
+        {
+            currentScreen = CurrentScreen.Exit;
         }
 
-        if (FadeImage.fillAmount <= 0.0f)
+    }
+
+    void CheckStateAnimation()  //メインメニューアニメーション管理関数
+    {
+        if (Fade_FirstInMenu.GetComponent<UI_FadeImage>().animationState == AnimationState.FadeFinish) //最初のフェードアニメーションが終了したとき
         {
             FadeAnimtionEnd = true;
         }
 
-        if (TimingFadeInOption.fillAmount >= 0.98f && PushEsc && OptionHUD.activeSelf == true)
+        if (Fade_MenuToOption.GetComponent<UI_FadeImage>().animationState == AnimationState.FadeFinish && 
+            Fade_InOption.GetComponent<UI_FadeImage>().animationState != AnimationState.FadeFinish) //メインメニューからオプション画面へのフェードが終了した時
+        {
+            Fade_InOption.enabled = true;
+            Fade_InOption.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeStart;
+            OptionHUD.SetActive(true);
+            MainMenuHUD.SetActive(false);
+        }
+
+        if (Fade_InOption.GetComponent<UI_FadeImage>().animationState == AnimationState.FadeFinish)
+        {
+            CantSelectMenu = false;
+        }
+
+        if (Fade_InOption.GetComponent<UI_FadeImage>().animationState == AnimationState.FadeFinish 
+            && PushEsc && currentScreen == CurrentScreen.Option) //オプション画面からメインメニューへ遷移するフェード処理が終わったとき
         {
             MainMenuHUD.SetActive(true);
             OptionHUD.SetActive(false);
             PushEsc = false;
-        }
-
-        if (OptionHUD.activeSelf == true && !FadeSystemOptionScreen.FinishFadeIN)
-        {
-            FadeSystemOptionScreen.StartFadeImage = true;
-            FadeSystemFadeOutMainMenu.FinishFadeIN = false;
-        }
-        else if (MainMenuHUD.activeSelf == true)
-        {
-            if (TimingFadeInMainMenu.enabled|| TimingFadeOutToOption.enabled) 
-            {
-                    CantSelectMenu = true;
-                    
-            }
-            else if (!TimingFadeInMainMenu.enabled || !TimingFadeOutToOption.enabled)
-            {
-                CantSelectMenu = false;
-            }
-            if (FadeSystemFadeInOption.FinishFadeOUT)
-            {
-                FadeSystemFadeOutMainMenu.StartFadeImage = true;
-                FadeSystemFadeInOption.FinishFadeOUT = false;
-            }
-            FadeSystemOptionScreen.StartFadeImage = false;
-            FadeSystemOptionScreen.FinishFadeIN = false;
-            FadeSystemFadeInOption.FinishFadeOUT = false;
-            FadeSystemFadeInOption.StartFadeImage = false;
-        }
-        else if (OptionHUD.activeSelf == true)
-        {
-            if (TimingFadeInOption.enabled)
-            {
-                CantSelectMenu = true;
-
-            }
-            else if (!TimingFadeInOption.enabled || !TimingFadeOutToOption.enabled)
-            {
-                CantSelectMenu = false;
-            }
         }
     }
     void CursorSystem()
@@ -136,23 +130,33 @@ public class UI_MainMenu : MonoBehaviour
 
     void InputDir()
     {
-        //フェードアニメーション実行中は、ESCキーを実行させない
-        if (FadeImage.fillAmount <= 0.1f && !FadeSystemFadeInOption.StartFadeImage && !FadeSystemFadeOutMainMenu.StartFadeImage
-            && !FadeSystemOptionScreen.StartFadeImage && !FadeSystemToOption.StartFadeImage && !OptionSystem.isApplyShown)
+        switch (currentScreen)
         {
+            case CurrentScreen.Menu:
+                if (Fade_FirstInMenu.GetComponent<UI_FadeImage>().animationState != AnimationState.FadeWait)
+                {
+                    if (Fade_FirstInMenu.GetComponent<UI_FadeImage>().animationState != AnimationState.FadeFinish)
+                    {
+                        return;
+                    }
+                }
+                break;
+            case CurrentScreen.Option:
+                break;
+        }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
                 PushEsc = !PushEsc;
             }
-        }
+
 
         //開幕のフェードアニメーションが終わっていて、CantSelectMenuがFalseならメインメニューを操作できる
-        if (FadeAnimtionEnd && MainMenuHUD.activeSelf == true && (!CantSelectMenu))
+        if (FadeAnimtionEnd && currentScreen == CurrentScreen.Menu && (!CantSelectMenu))
         {
             switch (CurrentSelect)
             {
-                case 0:
+                case 0: //ゲームスタート選択時
                     GameStartSelect_Button.enabled = true;
                     OptionSelect_Button.enabled = false;
                     GameStart_Button.enabled = false;
@@ -174,16 +178,16 @@ public class UI_MainMenu : MonoBehaviour
                         CurrentSelect = 1;
                     }
                     break;
-                case 1:
+                case 1: //設定選択時
                     GameStartSelect_Button.enabled = false;
                     OptionSelect_Button.enabled = true;
                     GameStart_Button.enabled = true;
                     Option_Button.enabled = false;
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
-                        CantSelectMenu = true;
-                        FadeSystemToOption.StartFadeImage = true;
+                       AudioManager.Instance.SE.PlayOneShot(MainMenuEnterSE);
+                       CantSelectMenu = true;
+                       Fade_MenuToOption.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeStart;
                     }
                     if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
@@ -200,7 +204,7 @@ public class UI_MainMenu : MonoBehaviour
             }
         }
 
-        if (ExitHUD.activeSelf)
+        if (currentScreen == CurrentScreen.Exit)
         {
             switch (CurrentSelectExit)
             {
@@ -250,19 +254,19 @@ public class UI_MainMenu : MonoBehaviour
         //ESCの入力があり尚且つメニューが現在触れる状況だった場合
         if (PushEsc && !CantSelectMenu)
         {
-            if (MainMenuHUD.activeSelf == true) //メインメニューでESCを押した場合
+            if (currentScreen == CurrentScreen.Menu) //メインメニューでESCを押した場合
             {
                 ExitHUD.SetActive(true);
                 MainMenuHUD.SetActive(false);
             }
-            if (OptionHUD.activeSelf == true && !OptionSystem.isEnterMode) //オプション画面でESCを押した場合
+            if (currentScreen == CurrentScreen.Option && !OptionSystem.isEnterMode) //オプション画面でESCを押した場合
             {
-                FadeSystemFadeInOption.StartFadeImage = true;
+                Fade_OutOpion.GetComponent<UI_FadeImage>().animationState = AnimationState.FadeStart;
             }
         }
         else
         {
-            if (ExitHUD.activeSelf == true) //ゲーム終了画面でESCを押した場合
+            if (currentScreen == CurrentScreen.Exit) //ゲーム終了画面でESCを押した場合
             {
                 ExitHUD.SetActive(false);
                 MainMenuHUD.SetActive(true);

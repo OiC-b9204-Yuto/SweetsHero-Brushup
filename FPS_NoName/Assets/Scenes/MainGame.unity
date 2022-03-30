@@ -27273,14 +27273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e4a9681ca9386439fe058d1a3d0795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maingame_IsStartAnimation: 0
-  maingame_IsStartGame: 0
-  maingame_GameProgress: 0
-  maingame_IsBossBattle: 0
-  maingame_IsPause: 0
-  maingame_IsGameOver: 0
-  maingame_IsGameClear: 0
-  maingame_IsImmortal: 0
+  gameProgressState: 0
 --- !u!4 &810023173
 Transform:
   m_ObjectHideFlags: 0
@@ -61295,7 +61288,7 @@ MonoBehaviour:
   StageProgressTime_Secounds: 0
   LowHealthUIObject: {fileID: 1503955434}
   isStartAnimation: 0
-  FadeStartImage: {fileID: 1923352084}
+  GameStartFadeImage: {fileID: 1923352084}
   StartUI: {fileID: 385937952}
   StartTimer: 0
   isGameClear: 0
@@ -70108,14 +70101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af1a1f3b8676a9e47ac79d51441c7c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationState: 0
   FadeTime: 0.007
   FadeOut: 0
   FadeIn: 1
   IsTimingFadeImage: 1
   SpeedUpFadeSpeedx2: 0
-  StartFadeImage: 0
-  FinishFadeOUT: 0
-  FinishFadeIN: 0
 --- !u!114 &1923352084
 MonoBehaviour:
   m_ObjectHideFlags: 0
