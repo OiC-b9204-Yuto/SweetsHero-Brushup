@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] private BaseEnemy baseEnemy;
+    [SerializeField] private EnemyBase enemy;
     [SerializeField] private Canvas HealthBar;
     [SerializeField] private Image Health_Bar_Image;
     [SerializeField] private Image Health_Bar_BG_Image;
@@ -15,9 +16,10 @@ public class EnemyHealthBar : MonoBehaviour
         //Health_Bar_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
         //Health_Bar_BG_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
         HealthBar.gameObject.SetActive(false);
+        enemy.OnCurrentHealthChanged += () => HealthBarUpdate();
     }
 
-    void Update()
+    void HealthBarUpdate()
     {
         Health_Bar_Image.fillAmount = (float)baseEnemy.CurrentHealth / baseEnemy.MaxHealth;
         Health_Bar_Image.rectTransform.LookAt(Camera.main.transform);
@@ -30,6 +32,5 @@ public class EnemyHealthBar : MonoBehaviour
         {
             HealthBar.gameObject.SetActive(true);
         }
-        
     }
 }
