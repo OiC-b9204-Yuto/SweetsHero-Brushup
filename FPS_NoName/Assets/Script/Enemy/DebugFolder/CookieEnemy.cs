@@ -21,7 +21,6 @@ public class CookieEnemy : EnemyBase
     const float initTargetTimer = 10.0f;
     float targetTimer = initTargetTimer;
 
-
     public override void TakeDamage(int damage, Vector3 pow)
     {
         if (!target)
@@ -43,14 +42,10 @@ public class CookieEnemy : EnemyBase
     {
         CurrentHealth = parameter.MaxHealth;
         AttackCol.GetComponent<Enemy_Attack>().SetParameter(this.parameter);
-    }
-
-    void Start()
-    {
-        startPos = transform.position;
-        AttackCol.SetActive(false);
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        startPos = transform.position;
+        AttackCol.SetActive(false);
     }
 
     void Update()
@@ -78,7 +73,8 @@ public class CookieEnemy : EnemyBase
         }
         else
         {
-            target = PlayerSearch().transform;
+            GameObject retObj;
+            if (PlayerSearch(out retObj)) target = retObj.transform;
         }
 
         if (targetTimer <= 0)
@@ -89,7 +85,7 @@ public class CookieEnemy : EnemyBase
         }
     }
 
-    private GameObject PlayerSearch()
+    private bool PlayerSearch(out GameObject player)
     {
         //索敵範囲内の検知
         Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius);
@@ -99,10 +95,12 @@ public class CookieEnemy : EnemyBase
             //視野内に入っているか
             if (Vector3.Angle(this.transform.forward, collider.transform.position - this.transform.position) < searchAngle * 0.5f)
             {
-                return collider.gameObject;
+                player = collider.gameObject;
+                return true;
             }
         }
-        return null;
+        player = null;
+        return false;
     }
     
     protected void DeadAction()
@@ -134,16 +132,15 @@ public class CookieEnemy : EnemyBase
         Handles.DrawSolidArc(this.transform.position, Vector3.up, Quaternion.Euler(0.0f, -searchAngle * 0.5f, 0.0f) * transform.forward, searchAngle, searchRadius);
     }
 #endif
-
-    public void OnAttack() //攻撃中
+    // 攻撃開始時にアニメーションから呼び出される
+    public void OnAttack()
     {
         navMeshAgent.isStopped = true;
-        navMeshAgent.velocity = navMeshAgent.velocity * 0.5f;
+        navMeshAgent.velocity = navMeshAgent.velocity * 0.1f;
         AttackCol.SetActive(true);
-
     }
-
-    public void AttackFinish() //攻撃終
+    // 攻撃終了時にアニメーションから呼び出される
+    public void AttackFinish()
     {
         navMeshAgent.isStopped = false;
         AttackCol.SetActive(false);

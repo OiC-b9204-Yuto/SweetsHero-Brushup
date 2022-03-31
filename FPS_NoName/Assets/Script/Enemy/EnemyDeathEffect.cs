@@ -19,7 +19,6 @@ public class EnemyDeathEffect : MonoBehaviour
     }
     void Update()
     {
-
         if (Enemy.CurrentHealth <= 0)
         {
             float GetValue = MeshMaterial[0].GetFloat("_Threshold");
@@ -33,5 +32,6 @@ public class EnemyDeathEffect : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
     }
 }
