@@ -18,7 +18,7 @@ public class WeaponInput : MonoBehaviour
 
     public bool RecovAmmo(int value)
     {
-        weaponAct.RecovAmmo(value);
+        weaponAct.CurrentRemainingAmmo += value;
         return true;
     }
 }

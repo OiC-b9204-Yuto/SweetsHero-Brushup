@@ -3773,11 +3773,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189260026af033146b9143a48b468b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon_object: {fileID: 2049070600}
   weaponInput: {fileID: 1141084721}
   character_Info: {fileID: 504354648}
-  GrenadeObject: {fileID: 5009692752747546818, guid: c39820310285f50419ae6b76b1ef3ea5, type: 3}
-  ThrowPower: 75
   weapon_animator: {fileID: 1141084717}
   moveSmoothTime: 0.3
   jumpSpeed: 7.5
@@ -3787,6 +3784,9 @@ MonoBehaviour:
   mouseSmoothTime: 0.04
   CameraMaxPitch: 90
   CameraMinPitch: -90
+  sound_Walk: {fileID: 8300000, guid: 91dbfc431844a56478648874e2ee2742, type: 3}
+  soundWalkInterval: 0.43
+  isJump: 0
 --- !u!114 &504354653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7166,7 +7166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80939589e4ab0534281831670e9dc01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGameUI: {fileID: 0}
   currentAmmo: 20
   maxAmmo: 20
   useAmmoPerShot: 1
@@ -7181,7 +7180,6 @@ MonoBehaviour:
   bulletSpeed: 2500
   sound_Shot: {fileID: 8300000, guid: bc464cc2ec7d8bd4ca4382fbb880f8f6, type: 3}
   sound_Reload: {fileID: 8300000, guid: 8893c4aef83540d478c3bbb31605c910, type: 3}
-  sound_Walk: {fileID: 8300000, guid: 91dbfc431844a56478648874e2ee2742, type: 3}
 --- !u!1 &1148322488
 GameObject:
   m_ObjectHideFlags: 0
@@ -8181,10 +8179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee1071cfa5ac194b80a99110598d0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPickMode: 0
   PlayerCamera: {fileID: 376924143}
   ManualPickDistance: 4
-  AutoPickArea: {fileID: 1380752408}
   IsHitItem: 0
 --- !u!1 &1388058539
 GameObject:
@@ -8965,18 +8961,12 @@ MonoBehaviour:
   Weapon_CurrentMagazineText: {fileID: 2001622775}
   BattleModeText: {fileID: 843475971}
   BattleTimerText: {fileID: 1259120329}
-  PickModeShown: {fileID: 807119528}
-  PickModeCoolTime: {fileID: 1728723655}
   PickManualName: {fileID: 2080201819}
   PickInteract: {fileID: 929469074}
   FieldBGM: {fileID: 8300000, guid: eea9873ad63b1d249a0fe00b10409742, type: 3}
   BossBGM: {fileID: 0}
   ChangeColumnSE: {fileID: 8300000, guid: f177cb8219c02164eb3008a7a33484c6, type: 3}
   EnterSE: {fileID: 8300000, guid: 44951b7d8baadc24d90d3df1436043c2, type: 3}
-  BackToMainMenu: 0
-  StageProgressTime: 0
-  StageProgressTime_Minutes: 0
-  StageProgressTime_Secounds: 0
   LowHealthUIObject: {fileID: 523018676}
   isStartAnimation: 0
   GameStartFadeImage: {fileID: 367471462}

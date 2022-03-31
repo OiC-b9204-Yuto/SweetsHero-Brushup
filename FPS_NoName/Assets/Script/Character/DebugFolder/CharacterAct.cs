@@ -7,7 +7,7 @@ public class CharacterAct : MonoBehaviour
 
 
     //武器を増やすならリストに
-    [SerializeField] GameObject weapon_object;
+    //[SerializeField] GameObject weapon_object;
     [SerializeField] WeaponInput weaponInput;
 
     [SerializeField] Character_Info character_Info;
@@ -41,17 +41,25 @@ public class CharacterAct : MonoBehaviour
     [SerializeField] [Range(0.0f, 180.0f)] private float CameraMaxPitch = 90;   
     [SerializeField] [Range(-180.0f, 0.0f)] private float CameraMinPitch = -90;
 
+    //足音
+    [SerializeField] private AudioClip sound_Walk;
+    [SerializeField] [Range(0.0f,1.0f)]private float soundWalkInterval;
+    private float soundWalkIntervalTimer;
+
+    //足音条件用ジャンプ中フラグ
+    private bool isJump = false;
+
 
     private void Awake()
     {
         GameData_Manager.Instance.Load();
         mouseSensitivity = GameData_Manager.Instance.gameData.MouseSensitivity;
         controller = GetComponent<CharacterController>();
+        soundWalkIntervalTimer = soundWalkInterval;
     }
     // Update is called once per frame
     void Update()
     {
-
         //移動更新 <- 要関数化?
         if(!controller.isGrounded)
         {
@@ -64,6 +72,31 @@ public class CharacterAct : MonoBehaviour
         Vector3 velocity = (transform.forward * CurrentDirection.y + transform.right * CurrentDirection.x) * character_Info.Character_MovementSpeed + Vector3.up * VelocityY;
         controller.Move(velocity * Time.deltaTime);
 
+        if(isJump)
+        {
+            if(VelocityY <= 0 && controller.isGrounded)
+            {
+                isJump = false;
+            }
+        }
+
+        if(character_Info.Character_IsMove && !isJump)
+        {
+            soundWalkIntervalTimer -= Time.deltaTime;
+            if(soundWalkIntervalTimer <= 0)
+            {
+                playWalkSound();
+                soundWalkIntervalTimer = soundWalkInterval;
+            }
+        }
+        else
+        {
+            soundWalkIntervalTimer = soundWalkInterval;
+
+        }
+        weapon_animator.SetBool("IsWalk", character_Info.Character_IsMove);
+        weapon_animator.SetBool("IsJump", isJump);
+
     }
 
     //Normalizeをどっちでやるか？ <- 中身が移動量の受け取りになったから命名から考え直しかも
@@ -75,6 +108,7 @@ public class CharacterAct : MonoBehaviour
         character_Info.Character_IsMove = (direction != new Vector2(0, 0));
 
         CurrentDirection = Vector2.SmoothDamp(CurrentDirection, direction, ref CurrentDirectionVelocity, moveSmoothTime);
+
         return true;
     }
     //こちらも上記と同様
@@ -82,6 +116,7 @@ public class CharacterAct : MonoBehaviour
     {
         if (!controller.isGrounded) return false;
         VelocityY = jumpSpeed;
+        isJump = true;
         return true;
     }
 
@@ -121,8 +156,13 @@ public class CharacterAct : MonoBehaviour
         return true;
     }   
 
-    public void RecovAmmo(int value)
+    public void pickupAmmo(int value)
     {
         weaponInput.RecovAmmo(value);
+    }
+
+    private void playWalkSound()
+    {
+        AudioManager.Instance.SE.PlayOneShot(sound_Walk, 0.5f);
     }
 }

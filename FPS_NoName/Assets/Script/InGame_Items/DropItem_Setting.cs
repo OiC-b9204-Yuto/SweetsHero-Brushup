@@ -75,7 +75,7 @@ public class DropItem_Setting : MonoBehaviour
         {
             case ItemType.Bullet:
                 AudioManager.Instance.SE.PlayOneShot(itemSoundEffect);
-                Player.GetComponent<CharacterAct>().RecovAmmo(20);
+                Player.GetComponent<CharacterAct>().pickupAmmo(20);
                 Destroy(this.gameObject);
                 break;
             case ItemType.Heal:

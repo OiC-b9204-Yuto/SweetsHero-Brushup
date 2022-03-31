@@ -32,7 +32,6 @@ public class WeaponAct : MonoBehaviour
     //âπëfçﬁ
     [SerializeField] private AudioClip sound_Shot;
     [SerializeField] private AudioClip sound_Reload;
-    [SerializeField] private AudioClip sound_Walk;
 
     //get.set
     public int CurrentAmmo { get { return currentAmmo; } }
@@ -139,18 +138,8 @@ public class WeaponAct : MonoBehaviour
         }
     }
 
-    public bool RecovAmmo(int value)
-    {
-        currentRemainingAmmo += value;
-        return true;
-    }
-
     public void PlayReloadSound()
     {
         AudioManager.Instance.SE.PlayOneShot(sound_Reload);
-    }
-    public void PlaySoundWalk()
-    {
-        AudioManager.Instance.SE.PlayOneShot(sound_Walk, 0.5f);
     }
 }
