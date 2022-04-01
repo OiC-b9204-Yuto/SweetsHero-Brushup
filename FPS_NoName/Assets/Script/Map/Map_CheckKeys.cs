@@ -6,7 +6,6 @@ public class Map_CheckKeys : MonoBehaviour
 {
     [SerializeField] private Character_Info info;
     [SerializeField] private GameObject FlontGate;
-    [SerializeField] private GameObject BackGate;
     [SerializeField] private AudioClip SoundGate;
 
     private bool end;
@@ -24,7 +23,6 @@ public class Map_CheckKeys : MonoBehaviour
         {
             AudioManager.Instance.SE.PlayOneShot(SoundGate);
             FlontGate.SetActive(false);
-            BackGate.SetActive(true);
             end = true;
         }
     }
