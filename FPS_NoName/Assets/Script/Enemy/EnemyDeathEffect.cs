@@ -1,37 +1,43 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDeathEffect : MonoBehaviour
 {
-    BaseEnemy Enemy;
-    [SerializeField] private GameObject[] MeshObjects;
-    [SerializeField] private Material[] MeshMaterial;
-    [SerializeField] private float DisolveSpeed;
+    private EnemyBase enemy;
+    [SerializeField] private GameObject[] meshObjects;
+    private Material[] meshMaterial;
+    [SerializeField] private float disolveSpeed;
+
+    public event Action OnDeathEffectStart;
+    public event Action OnDeathEffectEnd;
     void Awake()
     {
-        MeshMaterial = new Material[MeshObjects.Length];
-        Enemy = this.GetComponent<BaseEnemy>();
-        for (int i = 0; i < MeshObjects.Length; i++)
+        meshMaterial = new Material[meshObjects.Length];
+        enemy = this.GetComponent<EnemyBase>();
+        enemy.OnEnemyDead += () => StartCoroutine(DeathEffectPlay());
+        for (int i = 0; i < meshObjects.Length; i++)
         {
-            MeshMaterial[i] = MeshObjects[i].GetComponent<Renderer>().material;
+            meshMaterial[i] = meshObjects[i].GetComponent<Renderer>().material;
         }
     }
-    void Update()
-    {
-        if (Enemy.CurrentHealth <= 0)
-        {
-            float GetValue = MeshMaterial[0].GetFloat("_Threshold");
-            GetValue += DisolveSpeed * Time.deltaTime;
-            for (int i = 0; i < MeshObjects.Length; i++)
-            {
-                MeshMaterial[i].SetFloat("_Threshold", GetValue);
-            }
-            if (GetValue >= 1.0f)
-            {
-                Destroy(this.gameObject);
-            }
-        }
 
+    IEnumerator DeathEffectPlay()
+    {
+        OnDeathEffectStart?.Invoke();
+        float getValue = meshMaterial[0].GetFloat("_Threshold");
+        while (getValue < 1.0f)
+        {
+            getValue += disolveSpeed * Time.deltaTime;
+            for (int i = 0; i < meshObjects.Length; i++)
+            {
+                meshMaterial[i].SetFloat("_Threshold", getValue);
+            }
+            yield return null;
+            getValue = meshMaterial[0].GetFloat("_Threshold");
+        }
+        OnDeathEffectEnd?.Invoke();
+        Destroy(this.gameObject);
     }
 }

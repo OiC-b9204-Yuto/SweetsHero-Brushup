@@ -5,32 +5,36 @@ using UnityEngine.UI;
 
 public class EnemyHealthBar : MonoBehaviour
 {
-    [SerializeField] private BaseEnemy baseEnemy;
     [SerializeField] private EnemyBase enemy;
-    [SerializeField] private Canvas HealthBar;
-    [SerializeField] private Image Health_Bar_Image;
-    [SerializeField] private Image Health_Bar_BG_Image;
+    [SerializeField] private Canvas healthBar;
+    [SerializeField] private Image healthBarImage;
 
     void Awake()
     {
         //Health_Bar_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
         //Health_Bar_BG_Image = HealthBar.transform.GetChild(0).GetComponent<Image>();
-        HealthBar.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(false);
         enemy.OnCurrentHealthChanged += () => HealthBarUpdate();
+    }
+
+    void Update()
+    {
+        if (healthBar.enabled)
+        {
+            healthBar.transform.LookAt(Camera.main.transform);
+        }
     }
 
     void HealthBarUpdate()
     {
-        Health_Bar_Image.fillAmount = (float)baseEnemy.CurrentHealth / baseEnemy.MaxHealth;
-        Health_Bar_Image.rectTransform.LookAt(Camera.main.transform);
-        Health_Bar_BG_Image.rectTransform.LookAt(Camera.main.transform);
-        if (Health_Bar_Image.fillAmount <= 0.0f)
+        healthBarImage.fillAmount = (float)enemy.CurrentHealth / enemy.MaxHealth;
+        if (healthBarImage.fillAmount <= 0.0f)
         {
-            HealthBar.gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false);
         }
-        else if (Health_Bar_Image.fillAmount < 1)
+        else if (healthBarImage.fillAmount < 1)
         {
-            HealthBar.gameObject.SetActive(true);
+            healthBar.gameObject.SetActive(true);
         }
     }
 }

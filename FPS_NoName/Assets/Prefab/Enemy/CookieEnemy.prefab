@@ -777,17 +777,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5557704288796108558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6644454565224411295}
-  m_RootOrder: 1
+  m_Father: {fileID: 1553455076825026905}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -0.50005, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &763418775023273195
 CanvasRenderer:
@@ -955,11 +955,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feaff91a79161b741aee7ef85f0d1951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseEnemy: {fileID: 0}
   enemy: {fileID: 5899135781203827219}
-  HealthBar: {fileID: 7780241354686165963}
-  Health_Bar_Image: {fileID: 1520071089503843091}
-  Health_Bar_BG_Image: {fileID: 5786976801817185025}
+  healthBar: {fileID: 7780241354686165963}
+  healthBarImage: {fileID: 1520071089503843091}
 --- !u!114 &6807048452193914255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,15 +1001,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10df2c9afa601614e8f55edaa171c9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshObjects:
+  meshObjects:
   - {fileID: 179296965122612364}
   - {fileID: 4581218909221262307}
   - {fileID: 9170630314345966362}
   - {fileID: 8952297978699772105}
   - {fileID: 1896276098644842664}
   - {fileID: 7203732941787603822}
-  MeshMaterial: []
-  DisolveSpeed: 0.75
+  disolveSpeed: 0.75
 --- !u!1 &6359515611366525952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1130,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1553455076825026905}
-  - {fileID: 8888165615387849118}
   m_Father: {fileID: 6527439964802842806}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1231,7 +1227,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 8888165615387849118}
   m_Father: {fileID: 6644454565224411295}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
