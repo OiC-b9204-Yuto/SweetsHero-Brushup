@@ -13,7 +13,7 @@ public class EnemyBase : MonoBehaviour, IDamageable
         get { return currentHealth; }
         protected set
         {
-            if (currentHealth == value) return;
+            if (IsDead || currentHealth == value) return;
             currentHealth = value;
             OnCurrentHealthChanged?.Invoke();
             if (currentHealth <= 0)

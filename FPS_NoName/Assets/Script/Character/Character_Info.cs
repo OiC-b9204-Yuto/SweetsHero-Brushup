@@ -142,6 +142,7 @@ public class Character_Info : MonoBehaviour, IDamageable, IHeal
             Character_CurrentHP -= damage - Character_CurrentArmor;
             Character_CurrentArmor = 0;
         }
+        this.GetComponent<CharacterController>().Move(pow);
     }
 
 

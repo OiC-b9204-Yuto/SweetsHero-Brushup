@@ -12,7 +12,9 @@ public class Enemy_Attack : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.GetComponent<IDamageable>().TakeDamage(parameter.AttackPower,(other.transform.position - this.transform.position).normalized * parameter.KnocbackPower);
+            Vector3 dir = other.transform.position - this.transform.position;
+            dir.y = 0;
+            other.GetComponent<IDamageable>().TakeDamage(parameter.AttackPower,(dir.normalized * parameter.KnocbackPower));
         }
     }
 }

@@ -36,23 +36,21 @@ public class Bullet : MonoBehaviour
     //HitParticleÇÃÇΩÇﬂÇ…RayÇ…ïœçX <- ColliderÇ™óvÇÁÇ»Ç¢Ç©Ç‡
     private void HitCheck()
     {
-        RaycastHit Hit;
-
-        bool rayCheck = Physics.Raycast(BeforePosition, transform.forward, out Hit ,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime, Layer);
+        RaycastHit[] hits = Physics.RaycastAll(BeforePosition, transform.forward,Vector3.Distance(BeforePosition,transform.position) + rigidbody.velocity.magnitude * Time.deltaTime, Layer);
         //Debug.DrawRay(BeforePosition, transform.forward * (Vector3.Distance(BeforePosition, transform.position) + rigidbody.velocity.magnitude * Time.deltaTime), Color.green,1);
 
-        if (!rayCheck) return;
-        if (Hit.collider.gameObject.tag != "Enemy")
+        if (hits == null) return;
+        foreach (var hit in hits)
         {
-            //Debug.Log(Hit.collider.gameObject.name);
-        }
-        else
-        {
-            Hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage, transform.forward * 2);
-            GameObject obj = Instantiate(HitParticle, Hit.point, Quaternion.identity);
+            if (hit.collider.gameObject.tag != "Enemy" || hit.collider.isTrigger == true)
+            {
+                continue;
+            }
+            hit.collider.gameObject.GetComponent<IDamageable>().TakeDamage(BulletDamage, transform.forward * 2);
+            GameObject obj = Instantiate(HitParticle, hit.point, Quaternion.identity);
             obj.transform.LookAt(Camera.main.transform.position);
+            Destroy(this.gameObject);
+            break;
         }
-        
-        Destroy(this.gameObject);
     }
 }

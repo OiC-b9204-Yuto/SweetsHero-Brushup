@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WeaponAct : MonoBehaviour
 {
@@ -62,19 +63,22 @@ public class WeaponAct : MonoBehaviour
         {
             currentAmmo -= useAmmoPerShot;
             muzzleFlash.Play();
-            RaycastHit hit;
-            bool rayCheck = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shotRange);
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, Camera.main.transform.forward, shotRange).
+                Where(hit => hit.collider.isTrigger == false).
+                OrderBy(hit => hit.distance).ToArray();
             //’eŠÛ¶¬ˆ—
             GameObject obj = (GameObject)Instantiate(bulletObject, shotPoint.transform.position, Quaternion.identity);
-            if(rayCheck)
+
+            if (hits != null)
             {
-                obj.transform.LookAt(hit.point);
+                obj.transform.LookAt(hits[0].point);
             }
             else
             {
                 //“–‚½‚Á‚Ä‚È‚¢ê‡‚Í³–Ê‰“‚­‚ğ‘_‚Á‚Ä
                 obj.transform.LookAt(transform.position + transform.parent.forward * 1000);
             }
+
             obj.GetComponent<Bullet>().Bullet_Damage = damage;
             obj.GetComponent<Bullet>().Owner = transform.parent.parent.parent.gameObject;
             Rigidbody rig = obj.GetComponent<Rigidbody>();

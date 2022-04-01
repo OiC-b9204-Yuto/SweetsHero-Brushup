@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -46,14 +47,18 @@ public class CookieEnemy : EnemyBase
         navMeshAgent = GetComponent<NavMeshAgent>();
         startPos = transform.position;
         AttackCol.SetActive(false);
+
+        var col = GetComponents<Collider>().Where(x => x.isTrigger == false).ToList();
+        OnEnemyDead += () => { col.ForEach(x => x.enabled = false); };
     }
 
     void Update()
     {
-        if (CurrentHealth <= 0.0f)
+        if (IsDead)
         {
             navMeshAgent.isStopped = true;
             navMeshAgent.velocity = Vector3.zero;
+            return;
         }
         if (target)
         {
@@ -91,7 +96,7 @@ public class CookieEnemy : EnemyBase
         Collider[] colliders = Physics.OverlapSphere(transform.position, searchRadius);
         foreach (var collider in colliders)
         {
-            if (collider.tag == "Player") continue;
+            if (collider.tag != "Player") continue;
             //視野内に入っているか
             if (Vector3.Angle(this.transform.forward, collider.transform.position - this.transform.position) < searchAngle * 0.5f)
             {
@@ -132,18 +137,33 @@ public class CookieEnemy : EnemyBase
         Handles.DrawSolidArc(this.transform.position, Vector3.up, Quaternion.Euler(0.0f, -searchAngle * 0.5f, 0.0f) * transform.forward, searchAngle, searchRadius);
     }
 #endif
-    // 攻撃開始時にアニメーションから呼び出される
-    public void OnAttack()
+
+    /// <summary>
+    /// アニメーションから攻撃モーションの開始時に呼ばれる関数
+    /// <br>※アニメーションに設定するのを忘れないこと</br>
+    /// </summary>
+    public void OnAttackMotionStart()
     {
         navMeshAgent.isStopped = true;
-        navMeshAgent.velocity = navMeshAgent.velocity * 0.1f;
-        AttackCol.SetActive(true);
-    }
-    // 攻撃終了時にアニメーションから呼び出される
-    public void AttackFinish()
-    {
-        navMeshAgent.isStopped = false;
-        AttackCol.SetActive(false);
+        navMeshAgent.velocity = navMeshAgent.velocity * 0.5f;
     }
 
+    /// <summary>
+    /// 攻撃判定有効・無効化用関数
+    /// <br>※アニメーションから呼び出すためにパブリックに</br>
+    /// </summary>
+    /// <param name="value"></param>
+    public void AttackColiderEnable(int value)
+    {
+        AttackCol.SetActive(value != 0);
+    }
+
+    /// <summary>
+    /// アニメーションから攻撃モーションの終了時に呼ばれる関数
+    /// <br>※アニメーションに設定するのを忘れないこと</br>
+    /// </summary>
+    public void OnAttackMotionEnd()
+    {
+        navMeshAgent.isStopped = false;
+    }
 }
