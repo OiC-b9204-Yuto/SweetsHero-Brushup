@@ -3074,7 +3074,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1000397699}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!64 &80882650
 MeshCollider:
@@ -8498,7 +8498,7 @@ Transform:
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_Children: []
   m_Father: {fileID: 1000397699}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &224958096
 SpriteRenderer:
@@ -16802,7 +16802,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info: {fileID: 1000397703}
   FlontGate: {fileID: 1583023915}
-  BackGate: {fileID: 1199719468}
   SoundGate: {fileID: 8300000, guid: 6358ec4db54344148be543359c1c4217, type: 3}
 --- !u!4 &456723131
 Transform:
@@ -32163,7 +32162,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1000397699}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &922154936
 MonoBehaviour:
@@ -35246,7 +35245,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 562069917}
-  - {fileID: 2044689697}
   - {fileID: 224958095}
   - {fileID: 1889423990}
   - {fileID: 80882649}
@@ -68478,7 +68476,7 @@ Transform:
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 1000397699}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1889423991
 SpriteRenderer:
@@ -70939,7 +70937,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1000397699}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1952673851
 MeshRenderer:
@@ -71457,6 +71455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1136703284}
+  - {fileID: 2044689697}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73914,6 +73913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2044689697}
   - component: {fileID: 2044689698}
+  - component: {fileID: 2044689699}
   m_Layer: 0
   m_Name: MiniMap Camera
   m_TagString: Untagged
@@ -73928,11 +73928,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044689696}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 24.29187, y: 51.33, z: -36.73793}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1000397699}
+  m_Father: {fileID: 1978233784}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &2044689698
@@ -73978,6 +73978,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2044689699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044689696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81cb0a11f3c6db4cb3f8831eec2cc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1000397699}
 --- !u!1001 &2045231948
 PrefabInstance:
   m_ObjectHideFlags: 0
